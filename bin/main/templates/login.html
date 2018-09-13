@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>LOGIN</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+	
+
+	<link rel="stylesheet" href="../static/bower_components/bootstrap/dist/css/bootstrap.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.css}"></link>
+	
+	<link rel="stylesheet" href="../static/bower_components/Waves/dist/waves.css" th:href="@{/bower_components/Waves/dist/waves.css}"></link>
+    <link rel="stylesheet" href="../static/bower_components/form.validation/dist/css/formValidation.css" th:href="@{/bower_components/form.validation/dist/css/formValidation.css}"></link>
+	<link rel="stylesheet" href="../static/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css" th:href="@{/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css}"></link>  
+  
+	<link rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}"></link>
+	<link rel="stylesheet" href="../static/css/tema/app.min.1.css" th:href="@{/css/tema/app.min.1.css}"></link>
+    <link rel="stylesheet" href="../static/css/tema/mitema.css" th:href="@{/css/tema/mitema.css}"></link>
+	<meta charset="utf-8">	
+</head>
+<body>
+	<div class="contenedor">
+		<header>
+			<div class="logo">
+				<img src="../static/img/escudo-tarija.png" th:src="@{/img/escudo-tarija.png}" width="150" alt="">
+				<a href="#">PROGRAMA GNV</a>
+			</div>
+ 
+			<nav>
+				<a href="#">Inicio</a>
+				<a href="#">Blog</a>
+				<a href="#">Proyectos</a>
+				<a href="#">Contacto</a>
+			</nav>
+		</header>
+ 
+		<div class="banner">
+			<img src="../static/img/gnv/bann1.jpg" th:src="@{/img/gnv/bann1.jpg}" alt="">
+		</div>
+		<section class="main">
+			<div class="login-box">
+				<div class="login-more">
+					<img class="avatar" src="../static/img/user.png" th:src="@{/img/user.png}" alt="logo">
+					<h1>LOGIN</h1>
+				</div>
+				<form action="#" method="post" id="form-logueo" class="form-logueo" novalidate="novalidate">
+					
+					<button type="button" class="waves-effect" id="resetear" name="resetear"> <i class="zmdi zmdi-refresh zmdi-hc-2x"></i></button>            
+					<div class="form-group">
+						<div class="input-group m-b-20">
+							<span class="input-group-addon"><i class="zmdi zmdi-face"></i></span>
+							<div class="fg-line">
+								<input type="text" class="form-control" id="xlogin" placeholder="Usuario.." name="login"></input>
+							</div>
+						</div>
+					</div>
+					
+		
+					<div class="form-group">    
+						<div class="input-group m-b-20">
+							<span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
+							<div class="fg-line">
+								<input type="password" class="form-control" id="xpassword"  placeholder="Contrasenia" name="password"></input>
+							</div>
+						</div>
+					</div>
+	    			<div id="mensaje" class="mensaje"></div>
+					<div class="form-group">
+						<div class="col-sm-12 text-center">
+							<button type="submit" class="waves-effect" id="btn-log"><span class="fa fa-external-link" ></span> INGRESAR</button>
+							<br>
+						</div>
+					</div>
+
+				</form>
+				<div class="login-social">
+					<a href="" class="login-social-item">
+						<i class="zmdi zmdi-facebook"></i>
+					</a>
+					<a href="" class="login-social-item">
+						<i class="zmdi zmdi-twitter"></i>
+					</a>
+					<a href="" class="login-social-item">
+						<i class="zmdi zmdi-google-old"></i>
+					</a>
+				</div>
+				<div class="cuentas">
+					<a href="#">Recuperar Contrasenia</a>
+					<br>
+					<a href="#">Resgistrarse</a>
+				</div>
+			</div>
+		</section>
+ 
+		<aside>
+			<div class="widget">
+				<h4><b>Entidad Ejecutora del Programa GNV</b></h4>
+				<p>La entidad es encarga del registro y control de las conversiones a gas natural  de todo parque automotor dentro de la provincia cercado, de la Ciudad de Tarija.</p>
+				<div class=""></div>
+			</div>
+ 
+			<div class="widget">
+				<h4><b>Ubicación</b></h4>
+				<p>Nos Ubicamos en la AV. DOMINGO PAZ Nº 832 </p>
+				<div class=" ubicacion">
+					<img src="../static/img/ubicacion3.PNG" th:src="@{/img/ubicacion3.PNG}" alt="">
+				</div>
+			</div>
+		</aside>
+ 
+		<footer>
+			<section class="links">
+				<a href="#">Inicio</a>
+				<a href="#">Blog</a>
+				<a href="#">Proyectos</a>
+				<a href="#">Contacto</a>
+			</section>
+ 
+			<div class="social">
+				<a href="#"><i class="zmdi zmdi-facebook"></i> Facebook</a>
+				<a href="#"><i class="zmdi zmdi-twitter"></i> Twitter</a>
+			</div>
+		</footer>
+	</div>
+
+
+<script type="" src="../static/bower_components/jquery/dist/jquery.js"  th:src="@{/bower_components/jquery/dist/jquery.js}"></script>
+<script type="" src="../static/bower_components/bootstrap/dist/js/bootstrap.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.js}"></script>
+<script type="" src="../static/bower_components/jquery.nicescroll/dist/jquery.nicescroll.js" th:src="@{/bower_components/jquery.nicescroll/dist/jquery.nicescroll.js}"></script>
+
+<script type="" src="../static/bower_components/Waves/dist/waves.js" th:src="@{/bower_components/Waves/dist/waves.js}"></script>
+<script type="" src="../static/bower_components/jquery-form/dist/jquery.form.min.js" th:src="@{/bower_components/jquery-form/dist/jquery.form.min.js}"></script>
+<script type="" src="../static/bower_components/form.validation/dist/js/formValidation.js" th:src="@{/bower_components/form.validation/dist/js/formValidation.js}"></script>
+<script type="" src="../static/bower_components/form.validation/dist/js/framework/bootstrap.js" th:src="@{/bower_components/form.validation/dist/js/framework/bootstrap.js}"></script>
+<script type="" src="../static/bower_components/form.validation/dist/js/language/es_ES.js" th:src="@{/bower_components/form.validation/dist/js/language/es_ES.js}"></script>
+<!-- para el tema de materialize -->
+<script type="" src="../static/js/tema/js/functions.js" th:src="@{/js/tema/js/functions.js}"></script>
+	<script type="text/javascript">
+		var urlServer='http://localhost:8080';
+		var urlClient='http://localhost:3000';
+		$(document).ready(function() {
+			var form=$('#form-logueo')
+			.formValidation({
+				framework: 'bootstrap',
+				// icon: {
+				//  valid: 'glyphicon glyphicon-ok',
+				//  invalid: 'glyphicon glyphicon-remove',
+				//  validating: 'glyphicon glyphicon-refresh'
+				// },
+				fields: {
+					login: {
+						message: 'The username is not valid',
+						validators: {
+							notEmpty: {
+								message: 'ingrese un usuario'
+							},
+							stringLength: {
+								min: 4,
+								max: 20,
+								message: 'El login deve ser 4 caracteres y menor que 20 caracteres'
+							},
+							regexp: {
+								regexp: /^[a-zA-Z0-9_\.]+$/,
+								message: 'El login no acepta caracteres especiales'
+							}
+						}
+					},
+					password: {
+						validators: {
+							notEmpty: {
+								message: 'Requiere una clave'
+							}
+						}
+					}
+				}
+			}).on('success.form.fv', function(e){
+				e.preventDefault();
+						// alert('estoy dentro')
+				IngresoLogin(e);
+			})
+			function IngresoLogin(e){
+	//             var formData=new FormData($('#form-logueo'))
+				console.log(e);
+
+				
+				$('#form-logueo').ajaxSubmit({
+					url:'/RestUsuario/validar',
+					// data: function() {
+				//      return $(this).serialize();
+				//    },
+					// contentType: "application/json;charset=UTF-8",
+					dataType:"json",
+					// async:false,
+					success:function(respuesta){
+							console.log(respuesta);
+							// $('#mensaje').html(respuesta.msg);
+							if(respuesta.status==true){
+								window.location.href='/inicio';
+
+								// $.getJSON(urlServer+'/RestUsuario/salir',function(){
+								//     console.log('autorize: ',resp)
+								//     if(resp.autorize==true){
+								//         window.location.href=urlClient+'/inicio';
+								//         window.location.href=urlServer+'/RestUsuario/salir';
+								//     }else{
+								//      alert('no se ha podido iniciar session')
+								//     }
+								// })
+								// alert('si')
+							}else{
+								$('#mensaje').html(respuesta.msg);
+								
+							}   
+					},
+					error:function(e){
+						alert('Sin respuesta del servidor server');
+					}
+				});
+				
+			}
+			$('#resetear').on('click',function(){
+				$('#form-logueo').data('formValidation').resetForm(true);
+				$('#mensaje').html('');
+			})
+			
+			
+			// $(function(){
+				Waves.attach('.btn',['waves-button']);
+				Waves.init();
+			// })
+			$("html").niceScroll();
+
+		});
+		
+	</script>
+</body>
+</html>

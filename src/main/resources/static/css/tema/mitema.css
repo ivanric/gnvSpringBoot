@@ -1,0 +1,8 @@
+
+.has-error .input-group-addon {
+    border-color: transparent;
+}
+
+.has-success .input-group-addon {
+    border-color: transparent;
+}

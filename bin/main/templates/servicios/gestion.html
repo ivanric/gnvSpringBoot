@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>gestion</title>
+</head>
+<body> 
+	<!-- <h2 style="text-align: center;">GESTION ServicioS</h2> -->
+	<div class="card z-depth-2">
+		<div class="card-header">
+			<h2 class="panel-title">
+				GESTION SERVICIOS <small>Administre Servicios
+					registrados en el Sistema</small>
+			</h2>
+		</div>
+		<div class="panel-body" style="margin-top: -30px"> 
+			<div class="row">
+				<div class="col-md-12" style="text-align: right;margin-bottom: 15px">			
+					<button id="btn-add" class="btn btn-default waves-effect" disabled="disabled">NUEVO SERVICIO</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-3 col-xs-12" style="margin-bottom: 10px;">
+							<input type="text" id="js-filtro" name=""
+								class="form-control_filtro unput-sm"
+								placeholder=" Buscar por generacion de reductor o cilindro..">
+						</div>
+						<div class="col-md-3 col-xs-12"></div>
+						<div class="col-md-6 col-xs-12 navbar-right" style="text-align: right; margin-top: 10px">
+							<label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="activos" value="1"> <i
+								class="input-helper"></i>activos
+							</label> <label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="bajas" value="0"> <i
+								class="input-helper"></i>bajas
+							</label> <label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="todos" value="-1"
+								checked="checked"> <i class="input-helper"></i>todos
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 t">
+					<table id="table-Servicios" class="table table-vmiddle  table-striped nowrap"
+						width="100%">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+                                <th class="text-center">Fecha y Hora</th>
+                                <th class="text-center">Vehículo</th>
+                                <th class="text-center">Reductor</th>
+								<th class="text-center">Cilindro</th>
+                                <th class="text-center">Sist. Motor</th>
+								<th class="text-center">#Pistones</th>
+                                <th class="text-center">Precio Bs</th>
+                                <th class="text-center">Precio $us</th>
+                                <th class="text-center">Factor Cobro</th>
+                                <th class="text-center">Precio Total</th>
+								<th class="text-center">Usuario</th>
+								<th class="text-center">Estado</th>
+								<th class="text-center">Opciones</th>
+
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+        var result=Get_Opciones(null);
+        // console.log('GESTION_LIST: ',result)
+        // console.log('tam: ',result.AccionesUser.length)
+        if(ExisteOpcion('adicionar')){
+            $('#btn-add').attr({
+                onclick:"(Servicio.add())",
+                // accesskey:""
+                })
+            $('#btn-add').removeAttr("disabled ").focus().val("Ahora si lo puedes utilizar")
+        }
+
+        function ExisteOpcion(opc){
+            // alert('entro comparar')
+            var resultado=false;
+            for (var i = 0; i < result.AccionesUser.length; i++) {
+                console.log('for_: ',result.AccionesUser[i]);
+                if(result.AccionesUser[i].codigo==opc){
+                    resultado=true;         
+                }
+            }
+            // console.log('result_dentro:',resultado)              
+            return resultado;
+        }
+
+        var filtro=$('#js-filtro').val();
+        var estado=$('input[name="iestado"]:checked').val();
+        listar();
+
+        $('#js-filtro').on('keyup',function(){
+            filtro=$(this).val();
+            listar();
+        })
+
+        $('input[name="iestado"]').on('change',function(){
+            estado=$(this).val();
+            listar();
+        })
+        var DTServicio='';
+        function listar(){
+            $.ajax({
+                url:'../RestServicios/listar',
+                type:'post',
+                dataType:'json',
+                data:{
+                    filtro:filtro,
+                    estado:estado,
+                },
+                success:function(resp){
+                    console.log('icont_')
+                    if ($.fn.DataTable.isDataTable('#table-Servicios')) {
+                        DTServicio.destroy();
+                        iniciarDatable(resp);       
+                    } else {
+                        iniciarDatable(resp);
+                    }   
+                },
+                error:function(err){
+                    alert('sin respuesta del servidor')
+                }
+            })
+        }
+      
+        function iniciarDatable(lista){
+            // alert('iniciar dataTables')
+            console.log('respuestaAjax: ',lista);
+            DTServicio=$('#table-Servicios').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                // "scrollCollapse":true,
+                // "paging":false,
+                // "ordering":false,
+                 responsive:true,
+                "dom":'rt<button>ip',
+                "pageLength":5,
+                data:lista,
+                columns:[
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'},
+                    {data:'estado'}
+                ]
+                ,
+                "createdRow":function(row,data,index){
+                    $('td',row).eq(0).html(index+1).addClass('text-center');
+                    $('td',row).eq(1).html(data.fecha)
+                    $('td',row).eq(2).html(data.combustible.nombre)
+                    $('td',row).eq(3).html(data.reductor.tipoTecnologia)
+                    $('td',row).eq(4).html(data.cilindro.capacidad)
+                    $('td',row).eq(5).html(data.tipoMotorVehiculo.nombre)
+                    $('td',row).eq(6).html(data.numPistones)
+                    $('td',row).eq(7).html(data.precioBolivianos+" Bs.")
+                    $('td',row).eq(8).html(data.precioDolares+" $us.")
+                    $('td',row).eq(9).html(data.factorCobro)
+                    $('td',row).eq(10).html(data.precioTotal)
+                    $('td',row).eq(11).html(data.persona.ap+" "+data.persona.am+" "+data.persona.nombres)
+                    if(data.estado==1){
+                        $('td',row).eq(12).html('<button type="button" class="btn btn-success waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-up"></i></button>').addClass('text-center').addClass('text-center');
+                    }else{
+                        $('td',row).eq(12).html('<button type="button" class="btn btn-danger waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-down"></i></button>').addClass('text-center').addClass('text-center');
+                    }
+                    if(ExisteOpcion('modificar')){
+                        $('td',row).eq(13).html('<button id="btn-mod" class="btn btn-info btn-sm waves-effect btn-espacio" accesskey="'+data.idserv+'" data-href="'+data.idserv+'" onclick="(Servicio.mod(this))"><span class="zmdi zmdi-edit"></span> Modificar</button>')
+                        // $('td',row).eq(5).append('<button>hola</button>')
+                    }else{
+                        $('td',row).eq(13).html('<button id="btn-mod" class="btn btn-info btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-edit"></span> Modificar</button>') 
+                    }
+                    if(data.estado==1){
+                        if(ExisteOpcion('eliminar')  ){
+                            // if()
+                            $('td',row).eq(13).append('<button id="btn-elim" class="btn btn-danger btn-sm waves-effect btn-espacio" accesskey="'+data.idserv+'" data-href="'+data.idserv+'" onclick="(Servicio.elim(this))"><span class="zmdi zmdi-delete"></span> Eliminar</button>');
+                        }else{
+                            $('td',row).eq(13).append('<button id="btn-elim" class="btn btn-danger btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-delete"></span> Eliminar</button>');  
+                        }
+                    }else{
+                        if(ExisteOpcion('habilitar')){
+                            $('td',row).eq(13).append('<button id="btn-hab" class="btn btn-success btn-sm waves-effect btn-espacio" accesskey="'+data.idserv+'" data-href="'+data.idserv+'" onclick="(Servicio.hab(this))"><span class="zmdi zmdi-time-restore-setting"></span> Habilitar</button>');
+                        }else{
+                            $('td',row).eq(13).append('<button id="btn-hab" class="btn btn-success btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-time-restore-setting"></span> Habilitar</button>');   
+                        }                       
+                    }
+
+                } 
+                ,
+                "fnDrawCallback":function(oSetttings){
+                    //terminando la dataTable
+                    destruir(DTServicio);
+                }
+            });
+        }
+
+        function destruir(dt){
+            // alert('destroy')
+            dt.destroy();
+            DTServicio=$('#table-Servicios').DataTable({
+                "oLanguage": { 
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                "dom":'rt<button>ip',
+                "pageLength":5,
+                 responsive:true
+                // "scrollCollapse":true,
+                // "paging":false
+            })
+        }
+            // $(function () {
+      	var MAX_TELEFONOS = 2;
+        var m_cont_doc;
+        var Servicio={
+            add:function(){
+ 
+                $.ajax({
+                    url:'../Servicios/modal-add',
+                    type:'post',
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+
+                        $('#modal-add').modal('show')
+                        var respCi="";
+                        $('#formulario-add').formValidation()
+                        .on('success.form.fv', function(e){
+                           e.preventDefault();
+                           
+                           Registrar();
+                        })
+                        function Registrar(){
+                            // $('#modal-add').modal('hide')
+                            swal({   
+                                title: "Seguro de registrar Servicio?",   
+                                text: "Usted registrara nuevo Servicio",   
+                                type: "warning",   
+                                showCancelButton: true,   
+                                confirmButtonColor: "#DD6B55",   
+                                confirmButtonText: "Si, Continuar!",   
+                                cancelButtonText: "No, Cancelar!",   
+                                closeOnConfirm: false,   
+                                closeOnCancel: false 
+                                }, function(isConfirm){   
+                                    if (isConfirm) {     
+                                        $('#formulario-add').ajaxSubmit({
+                                            success:function(res){
+                                                console.log('registrado',res)
+                                                if(res.estado){
+                                                    $.ajax({
+                                                        url:"../Servicios/Gestion",
+                                                        success:function(gestion){
+                                                            $('#contenedor-gestion').html(gestion); 
+                                                            swal({
+                                                                title:"Registrado",
+                                                                text:"Se ha registrado Servicio exitosamente",
+                                                                type:"success",
+                                                                timer: 2000,   
+                                                                showConfirmButton: false 
+                                                            });
+                                                            $('#modal-add').modal('hide')
+                                                        }
+                                                    })      
+                                                }
+                                            }
+                                        })
+
+                                    } else {     
+                                        // swal("Cancelled", "Your imaginary file is safe :)", "error");   
+                                        swal({
+                                            title:"Cancelado",
+                                            text:"Se ha cancelado operacion",
+                                            type:"error",
+                                            timer:2000,
+                                            showCancelButton:false,
+                                            showConfirmButton:false
+
+                                        })
+                                        $('#modal-add').modal('hide')
+                                    } 
+                                });
+
+                        }
+                        // function CargarDatosAdd(){
+                        // }
+                        // CargarDatosAdd(function(){
+                        // })
+                    },  
+                    error:function(err){
+                        alert('sin respuesta del servidor')
+                        location.href="../principal/index"
+                    }
+                })
+            },
+            mod:function(a){
+                var idserv=$(a).attr('accesskey');
+                $.ajax({
+                    url:'../Servicios/modal-mod',
+                    type:'post',
+                    data:{
+                        idserv:idserv
+                    },
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+                        // $('#modal-mod').modal('show')
+                        $.post('../RestServicios/datos-mod',{idserv:idserv},function(resp){
+                            console.log('respuesta: ',resp)
+                            // $('#formulario-mod').find('.fg-line').addClass('fg-toggled'); 
+                            $('#formulario-mod').loadJSON(resp)
+                            $('input[name="precioModTotal"]').val(resp.precioTotal)
+                            $('#js-reductor').val(resp.reductor.idreduc).trigger('chosen:updated')
+                            $('#js-cilindro').val(resp.cilindro.idcil).trigger('chosen:updated')
+                            $('#js-sistemaMotor').val(resp.tipoMotorVehiculo.idtipoMotorVeh).trigger('chosen:updated')
+                            $('#js-combustible').val(resp.combustible.idcomb).trigger('chosen:updated')
+                            $('#js-factorCobro').val(resp.factorCobro.idfactCobro).trigger('chosen:updated')
+                            $('#modal-mod').modal('show')
+                        },'json')
+
+                        $('#formulario-mod').formValidation()
+                        .on('success.form.fv', function(e){
+                           e.preventDefault();
+                           Modificar();
+                        })
+                        function Modificar(){
+                            swal({   
+                                title: "Seguro de modificar Servicio?",   
+                                text: "Usted modificara los datos del Servicio",   
+                                type: "warning",   
+                                showCancelButton: true,   
+                                confirmButtonColor: "#DD6B55",   
+                                confirmButtonText: "Si, Continuar!",   
+                                cancelButtonText: "No, Cancelar!",   
+                                closeOnConfirm: false,   
+                                closeOnCancel: false 
+                                }, function(isConfirm){  
+                                    $('.doc-mod').removeAttr('disabled') 
+                                    if (isConfirm) {
+                                        $('#formulario-mod').ajaxSubmit({
+                                            data:{
+                                            	idserv:idserv
+                                            },
+                                        	success:function(res){
+                                                console.log('modificado',res)
+                                                if(res.estado){
+                                                    $.ajax({
+                                                        url:"../Servicios/Gestion",
+                                                        success:function(gestion){
+                                                            $('#contenedor-gestion').html(gestion); 
+                                                            swal({
+                                                                title:"Modificado",
+                                                                text:"Se ha modificado Servicio exitosamente",
+                                                                type:"success",
+                                                                timer: 2000,   
+                                                                showConfirmButton: false 
+                                                            });
+                                                            $('#modal-mod').modal('hide')
+                                                        }
+                                                    })      
+                                                }
+                                            }
+                                        })
+
+                                    } else {     
+                                        // swal("Cancelled", "Your imaginary file is safe :)", "error");   
+                                        swal({
+                                            title:"Cancelado",
+                                            text:"Se ha cancelado operacion",
+                                            type:"error",
+                                            timer:2000,
+                                            showCancelButton:false,
+                                            showConfirmButton:false
+
+                                        })
+                                        $('#modal-mod').modal('hide')
+                                    } 
+                            });
+                        }
+
+                        // $.ajax({
+                        //     url:'../RestServicios/datos-mod',
+                        //     data:{
+                        //         idserv:idserv
+                        //     },
+                        //     dataType:'json',
+                        //     success:function(resp){
+                        //         console.log('respuestaDatosModificar: ',resp)
+                        //         // resetearFormulario('#formulario-mod');
+                        //         var Documentos=resp.Servicio.documentos;
+                        //         $(Documentos).each(function(index,data){
+                        //             $('#select-doc-mod').append('<option value="'+data.iddocb+'">'+data.nombre+'</option>');
+                        //         })
+                        //         // $('#select-doc-mod').selectpicker({
+                        //         //   style: 'btn-default',
+                        //         //   size: 4//de cuanto en cuanto se mostrar
+                        //         // });
+                        //         $('#select-genero').chosen()
+                        //         $('#modal-mod').modal('show')
+                        //         $('#formulario-mod').formValidation({
+                        //         }).on('success.form.fv', function(e){
+                        //            e.preventDefault();
+                        //            Modificar();
+                        //         })
+                        //         function Modificar(){
+
+                        //         }
+                        //     },
+                        //     error:function(err){
+
+                        //     }
+
+                        // })
+
+                    },
+                    error:function(err){
+                        alert('sin respuesta del servidor')
+                    }
+                })    
+            },
+            elim:function(a){
+                var idserv=$(a).attr('accesskey')
+                // alert('id: '+idserv)
+                swal({   
+                    title: "Seguro de Eliminar Servicio?",   
+                    text: "Usted eliminará al Servicio",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Si, Continuar!",   
+                    cancelButtonText: "No, Cancelar!",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                    }, function(isConfirm){
+                    if (isConfirm) {
+                        $.post('/RestServicios/eliminar',{idserv:idserv},function(resp){
+                        	console.log(resp)
+                            if (resp.estado) {
+                                     $.ajax({
+                                        url:"/Servicios/Gestion",
+                                        success:function(gestion){
+                                            $('#contenedor-gestion').html(gestion); 
+                                                swal({
+                                                    title:"Eliminado",
+                                                    text:"Se ha Eliminado al Servicio exitosamente",
+                                                    type:"success",
+                                                    timer: 2000,   
+                                                    showConfirmButton: false 
+                                                });
+                                        }
+                                    })  
+                                    // $('#table-Servicios').dataTable().fnDraw('page');
+                           
+                            } else {
+                                aler('Sin respuesta del Servidor')
+                            }	
+                        })
+                    } else {
+                        swal({
+                            title:"Cancelado",
+                            text:"Se ha cancelado operacion",
+                            type:"error",
+                            timer:2000,
+                            showCancelButton:false,
+                            showConfirmButton:false
+
+                        })
+                    } 
+                }); 
+
+            },
+            hab:function(a){
+                var idserv=$(a).attr('accesskey')
+                                swal({   
+                    title: "Seguro de Habilitar Servicio?",   
+                    text: "Usted habilitará al Servicio",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Si, Continuar!",   
+                    cancelButtonText: "No, Cancelar!",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                    }, function(isConfirm){
+                        if (isConfirm) {
+                            $.post('/RestServicios/habilitar',{idserv:idserv},function(resp){
+                                console.log(resp)
+                                if (resp.estado) {
+                                    $.ajax({
+                                        url:"/Servicios/Gestion",
+                                        success:function(gestion){
+                                            $('#contenedor-gestion').html(gestion); 
+                                                swal({
+                                                    title:"Habilitado",
+                                                    text:"Se ha Habilitado al Servicio exitosamente",
+                                                    type:"success",
+                                                    timer: 2000,   
+                                                    showConfirmButton: false 
+                                                });
+                                        }
+                                    }) 
+                                    // $('#table-Servicios').dataTable().fnDraw('page');
+                               
+                                } else {
+                                    aler('Sin respuesta del Servidor')
+                                }   
+                            })  
+                        } else {
+                            swal({
+                                title:"Cancelado",
+                                text:"Se ha cancelado operacion",
+                                type:"error",
+                                timer:2000,
+                                showCancelButton:false,
+                                showConfirmButton:false
+
+                            })
+                        } 
+                }); 
+            }
+
+        }
+
+        function resetearFormulario(form){
+            $(form).data('formValidation').resetForm(true)
+        }
+        
+        $('#generarR').click(function(){ 
+//   			$("#frameReportes").attr("src",'../compra/reporte?fini='+$('#fini').val()+'&ffin='+$('#ffin').val()+'&codproveedor='+$('#codproveedor').val());
+  			$("#frameReportes").attr("src",'../Servicios/listaReporte');
+//   			location.href='../texto/ver?codt='+$(this).data('id');
+//   			location.href='../Servicios/listaReporte';
+//   			alert('empezo')
+//   			$.ajax({
+//   				type:"post",
+//   				url:"../Reportes/reporte",
+//   				success:function(resp){
+//   					alert(resp)
+//   				}
+//   			})
+			$("#reportes").modal('show');
+  		});
+        
+        
+    // })
+        
+    </script>
+</body>
+</html>

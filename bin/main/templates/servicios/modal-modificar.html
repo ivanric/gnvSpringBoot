@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title></title>  
+</head>	
+<body>
+	<form id="formulario-mod" action="../RestServicios/modificar"
+		method="post" data-fv-excluded="disabled"
+		>
+		<div class="modal fade modal-extra" id="modal-mod" tabindex="-1" role="dialog"
+			data-backdrop="static" data-keyboard="false" aria-hidden="true"
+			style="display: none; padding-left: 0 !important;">
+			<div class="modal-dialog modal-md " role="document">
+					<div class="modal-content">
+						<div class="card">
+							<div class="card-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h2>
+									Modificar Servicio<small>Modifique los campos por favor</small>
+								</h2>
+							</div>
+							<div class="modal-body">
+								<!-- .row>.col-md-6*2>.form-group>(label.col-md-6.control-label.espacio-form>b{campo})+.col-md-6>.fg-line>select.form-control>option{opcion $}*2 -->
+								<fieldset>
+									<legend><strong>SERVICIO</strong></legend>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<div class="fg-line">
+														<label for="" class=""><b>Tipo de Tecnología</b></label>
+														<select  id="js-reductor" class="form-control" data-fv-notempty="true" data-fv-message="Requiere Tipo de Tecnología" name="tipoTecnologia">
+															<option value="">Seleccione Tipo de Tecnología</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<div class="fg-line">
+														<label for="idcil" class=""><b>Capacidad Cilindro</b></label>
+														<select  id="js-cilindro" class="form-control" data-fv-notempty="true" data-fv-message="Requiere Capacidad de cilindro" name="capacidad">
+															<option value="">Seleccione Capacidad Cilindro</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+										<br>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<div class="fg-line">
+														<label for="" class=""><b>Sistema Motor</b></label>
+														<select name="sistemaMotor" id="js-sistemaMotor" class="form-control" data-fv-notempty="true" data-fv-message="Requiere Sistema Motor">
+															<option value="">Seleccione Sistema Motor</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<div class="fg-line">
+														<label for="" class=""><b>Combustible</b></label>
+														<select name="combustible" id="js-combustible" class="form-control" data-fv-notempty="true" data-fv-message="Requiere Combustible">
+															<option value="">Seleccione Combustible</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											
+										</div> 
+										<br>
+										<!-- .row*2>.col-md-6*2>.form-group>(label.col-md-6.control-label.espacio-form>b{campo})+.col-md-6>.fg-line>input[placeholder="ingrese"].form-control.input-sm -->
+										<div class="row">
+											<div class="col-md-6">
+												<label for="" class="col-md-12 control-label espacio-form"><b>Número de Pistones</b></label>
+												<div class="col-md-12">
+													<div class="form-group">
+														<div class="fg-line">
+															<input type="number" placeholder="ingrese número de pistones" maxlength="10" data-fv-stringlength-message="Maximo 7 caracteres" class="form-control input-sm"  data-fv-notempty="true" data-fv-message="Campo Requerido" name="numPistones">
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-6">
+													<label for="" class="col-md-12 control-label espacio-form"><b>Precio en Dolares ($us)</b></label>
+													<div class="col-md-12">
+														<div class="form-group">
+															<div class="fg-line">
+																<input type="number" placeholder="ingrese precio Dolares (0.00)" maxlength="7" data-fv-stringlength-message="Maximo 7 caracteres" class="form-control input-sm" data-fv-notempty="true" data-fv-message="Requiere campo,"  name="precioDolares" step=".01">
+															</div>
+														</div>
+													</div>
+											</div>
+									
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<label for="" class="col-md-12 control-label espacio-form"><b>Precio en Bolicianos (Bs)</b></label>
+												<div class="col-md-12">
+													<div class="form-group">
+														<div class="fg-line">
+															<input type="number" placeholder="ingrese precio Bolivianos (0.00)" maxlength="7" data-fv-stringlength-message="Maximo 7 caracteres" class="form-control input-sm" data-fv-notempty="true" data-fv-message="Campo Requerido" name="precioBolivianos" step="0.01">
+														</div>
+													</div>
+												</div>
+											</div> 
+											<div class="col-md-6">
+												<label for="" class="col-md-12 control-label espacio-form"><b>factor Cobro</b></label>
+												<div class="col-md-12">
+													<div class="form-group">
+														<div class="fg-line">
+															<input type="number" placeholder="ingrese factorCobro (0.00)" maxlength="4" data-fv-stringlength-message="Maximo 4 caracteres" class="form-control input-sm" data-fv-notempty="true" data-fv-message="Requiere campo,"  name="factorCobro" step=".01">
+														</div>
+													</div>
+												</div>
+											
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+													<label for="" class="col-md-12 control-label espacio-form"><b>Precio Total (Bs)</b></label>
+													<div class="col-md-12">
+														<div class="form-group">
+															<div class="fg-line">
+																<input type="number" placeholder="ingrese precio Bolivianos (0.00)" maxlength="7" data-fv-stringlength-message="Maximo 7 caracteres" class="form-control input-sm"  name="precioModTotal" step="0.01" readonly="readonly">
+															</div>
+														</div>
+													</div>
+											</div> 
+										</div>
+								</fieldset>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" id="btn-guardar-aprob"
+									class="btn btn-primary waves-effect">Guardar</button>
+								<button type="button" class="btn btn-danger waves-effect"
+									data-dismiss="modal">Cancelar</button>
+							</div>
+
+						</div>
+					</div>
+					<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</form>	
+	<!-- <script type="" src="../resources/bower_components/jquery/dist/jquery.js"></script> -->
+	<script type="" src="../bower_components/jquery.nicescroll/dist/jquery.nicescroll.js"></script>
+	<script type="" src="../bower_components/autosize/dist/autosize.js"></script>
+	<script type="text/javascript">
+        var dataNewServices;
+		var total;
+        $('input[name="precioBolivianos"]').on('keyup',function(i,t){
+        	var factor=$('input[name="factorCobro"]').val()
+        	total=(parseFloat(factor)+parseFloat($(this).val())).toFixed(2)
+        	$('input[name="precioModTotal"]').val(total)
+        })
+
+        $('input[name="factorCobro"]').on('keyup',function(i,t){
+        	var factor=$('input[name="precioBolivianos"]').val()
+        	total=(parseFloat(factor)+parseFloat($(this).val())).toFixed(2)
+        	$('input[name="precioModTotal"]').val(total)
+        })
+
+        $.post('/RestServicios/datosNuevoServicio',function(respDoc){
+             // alert('tamanio: '+respDoc.length)
+             dataNewServices=respDoc
+             console.log('datosNuevoServicio: ',dataNewServices)
+// 	        $(respDoc[0]).each(function(ind,obje){
+// 	            $('#js-reductor').append(`<option value="${obje.idreduc}">${obje.tipoTecnologia} - ${obje.nombre}</option>`)
+// 	        })
+	        $(respDoc[0]).each(function(ind,obje){
+            	if(obje.idmarcred==null){
+            		$('#js-reductor').append(`<option value="${obje.idreduc}">${obje.tipoTecnologia}</option>`);
+            	}else{
+		            $(respDoc[3]).each(function(i,t){
+		            	if(t.idmarcred==obje.idmarcred){
+		            		// alert(i)
+		            		$('#js-reductor').append(`<option value="${obje.idreduc}">${obje.tipoTecnologia} - ${t.nombre}</option>`);	
+		            	}
+		            })
+            		
+            	}
+	 
+	        })
+	       	$(respDoc[1]).each(function(ind,obje){
+	            // console.log('objetoInit ',ind,': ',obje)
+	            $('#js-cilindro').append(`<option value="${obje.idcil}">${obje.capacidad} - ${obje.nombre}</option>`)
+	        })
+	        $(respDoc[2]).each(function(ind,obje){
+	            // console.log('objetoInit ',ind,': ',obje)
+	            $('#js-sistemaMotor').append(`<option value="${obje.idtipoMotorVeh}">${obje.nombre}</option>`)
+	        })
+	        $(respDoc[3]).each(function(ind,obje){
+	            // console.log('objetoInit ',ind,': ',obje)
+	            $('#js-factorCobro').append(`<option value="${obje.idfactCobro}">${obje.precio}</option>`)
+	        })
+	       	$(respDoc[4]).each(function(ind,obje){
+	            // console.log('objetoInit ',ind,': ',obje)
+	            $('#js-combustible').append(`<option value="${obje.idcomb}">${obje.nombre}</option>`)
+	        })
+			$('select').chosen();
+        }) 
+
+	</script>
+</body>
+</html>

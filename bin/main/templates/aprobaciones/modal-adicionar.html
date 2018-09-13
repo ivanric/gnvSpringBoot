@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title></title>
+<!-- <link rel="stylesheet" href="../resources/css/buscador.css"> -->
+
+</head>	 
+<body>
+	<form id="formulario-add-aprob" action="../RestAprobaciones/adicionar"
+		method="post" data-fv-excluded="disabled"
+		>
+		<div class="modal fade" id="modal-add" tabindex="-1" role="dialog"
+			data-backdrop="static" data-keyboard="false" aria-hidden="true"
+			style="display: none; padding-left: 0 !important">
+			<div class="modal-dialog modal-lg modal-responsivo-mediano" role="document">
+				<div class="modal-content">
+					<div class="card">
+						<div class="card-header" style="padding-bottom: 1.5em">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h2>
+								Aprobaciones de Solicitud<small>Aprobar solicitud por favor</small>
+							</h2>
+						</div>
+						<div class="modal-body">
+							<div class="contenido-solicitud">
+								<div class="row">
+									<!-- .col-md-3*4>.form-group.fg-line>label{campo}+input[name="nombre" placeholder="Ingrese" value data-fv-notempty="true" data-fv-message="Requiere" disabled].form-control.fg-input.input-sm -->
+									<div class="col-md-3 ">
+										<div class="form-group fg-line"><label for="">Fecha de Creación</label><input type="text" name="fecha" placeholder="Ingrese" value=""  disabled="disabled" class="form-control fg-input"></div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group fg-line"><label for="">Número de Solicitud</label><input type="text" name="numSolt" placeholder="Ingrese" value=""  disabled="disabled" class="form-control fg-input"></div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group fg-line"><label for="">Usuario Creador de Solicitud</label><input type="text" name="nombreCompleto" placeholder="Ingrese" value=""  disabled="disabled" class="form-control fg-input"></div>
+									</div>
+								</div>	
+							</div>
+							<fieldset>
+								<legend><strong>BENEFICIARIO</strong></legend>
+								<div class="beneficiario-datos">
+									<!-- .row*7>.col-md-6*2>.form-group>(label.col-md-2.control-label>b{campo})+.col-md-10>.fg-line>input[placeholder="ingrese"].form-control.input-sm -->
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label" style=""><b>Cédula:</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="ci"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label" style=""><b>Nombre Completo:</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="nombreCompletoBen"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label" style=""><b>Género:</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="generoBen"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label" style=""><b>Dirección:</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="direccion"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label" style=""><b>Correo:</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm " name="email"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label" style=""><b>Institución:</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="institucion"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label" style=""><b>Teléfonos:</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  disabled="disabled" type="text" name="telefonos" placeholder="" class="form-control mcss_input input-sm"></div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend><strong>VEHÍCULO</strong></legend>
+								<div class="vehiculo-datos">
+									<!-- .row*6>.col-md-6*2>.form-group>(label.col-md-2.control-label> style=""b{campo})+.col-md-10>.fg-line>input[placeholder=""].form-control mcss_input.input-sm -->
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Placa</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="placa"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Color</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="color"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Targeta de Prioridad</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="tjeta_prioridad"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Cilindrada</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="cilindrada"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Número de Chasis</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="num_chasis"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Número de Motor</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="num_motor"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Sistema Motor</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="tipoMotor"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Tipo</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="tipoVehiculo"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Marca</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="marcaVehiculo"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Modelo</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="modeloVehiculo"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Tipo de Servicio</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="tipoServicio"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-6 control-label" style=""><b>Combustibles</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input disabled="disabled" type="text" placeholder="" class="form-control mcss_input input-sm" name="combustibles"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend><strong>APROBACIONES</strong></legend>
+								<div class="row">
+							        <div class="col-md-2"></div>
+							        <div class="col-md-8">
+							        	<div class="form-group aprobaciones-contenido">
+								           <!--  <div class="checkbox">
+								                <label>
+								                    <input type="checkbox" name="aprobacion[]" value="net" />
+								                    <i class="input-helper"></i> Aprobador
+								                </label>
+								            </div> -->
+											
+							        	</div>   
+							        </div>
+							        <div class="col-md-2">
+							        	<div id="id_Pausa" class="form-group" style="margin-top: 10px;">
+							        		
+							        	</div>
+							        </div>
+
+							    </div>	
+								<div class="row">
+									<div class="col-md-12">
+									  <div class="form-group">	
+									      <label data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+									        <input type="checkbox" id="check_pausa" value="" name="idtipoPausa" />
+									      	<!-- <i class="input-helper"></i> -->
+									      </label>
+									      <b>PAUSAR: </b><span id="title_pausa"></span> 
+									     
+									  </div>
+									  <div id="collapseOne" aria-expanded="false" class="collapse">
+								    	<textarea name="descripcionPausa" class="form-control " rows="5" placeholder="Ingrese detalle de pausa" id="cont_pausa"></textarea>
+									     
+									  </div>
+										
+									</div>	
+								</div>
+
+							</fieldset>	
+							<!-- <div class="col-md-12">
+								<div class="form-group">
+									<label for="">prueba</label>
+									<input type="text" data-fv-notempty="true" data-fv-message="Requiere" name="prueba" val=""  class="form-control fg-input input-sm">
+								</div>
+							</div>		 -->
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" id="btn-guardar-aprob" name="aprobar" class="btn btn-primary waves-effect" data-id="7">Aprobar</button>
+							<!-- <button type="submit" disabled="disabled">BARCA</button> -->
+							<!-- <button type="button" disabled="disabled">BARCA1</button> -->
+							<button type="button" class="btn btn-danger waves-effect"
+								data-dismiss="modal" >Cancelar</button>
+						</div>
+ 
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</form>
+
+	<!-- <script type="" src="../resources/bower_components/jquery/dist/jquery.js"></script> -->
+	<script type=""
+		src="../../static/bower_components/jquery.nicescroll/dist/jquery.nicescroll.js" th:src="@{/bower_components/jquery.nicescroll/dist/jquery.nicescroll.js}" ></script>
+	<script type=""
+		src="../../static/bower_components/autosize/dist/autosize.js" th:src="@{/bower_components/autosize/dist/autosize.js}"></script>
+	<script type="" src="../../static/js/tema/js/functions.js" th:src="@{/js/tema/js/functions.js}"></script>
+	<script type="text/javascript">
+		// alert('idsolt'+idsolt)
+		var GTipoAprob;
+		var GTiposPausa;
+		var GtamComp;
+
+		$('#btn-guardar-aprob').prop('disabled',true)
+
+		$('body').on('click','.css_check',function(){
+			// alert('click')
+			$('#btn-guardar-aprob').removeAttr('disabled')
+			$('#btn-guardar-aprob').removeAttr('type')
+			$('#btn-guardar-aprob').prop('type','submit')
+
+		})
+        $('#btn-guardar-aprob').on('click',function(){
+            // alert('se hizo click')
+			GClickBotton=true
+        })
+		$.getJSON('../RestAprobaciones/getDatosSolicitud',{idsolt:idsolt},function(resp){
+			
+			console.log(resp)
+			/******Modificacion del usuario creador de solicitud****/
+			GTipoAprob=resp[1].ListaAprobaciones;
+			GTiposPausa=resp[1].ListPausaAprob;
+			var ObjUsuario=resp[1].UsuarioCreador;
+			var NombreCompleto=ObjUsuario.nombres+" "+ObjUsuario.ap+" "+ObjUsuario.am;
+			ObjUsuario.nombreCompleto=NombreCompleto;
+			$('.contenido-solicitud').loadJSON(resp[0])
+			$('.contenido-solicitud').loadJSON(resp[1].UsuarioCreador)
+			/********Modificaci�n del Beneficiario********/
+			var ObjBenPer=resp[0].persona;
+			var GeneroPer;
+			if(ObjBenPer.genero='f'){
+				GeneroPer='Femenino'
+			}else{
+				GeneroPer='Masculino'
+			}
+			ObjBenPer.generoBen=GeneroPer
+			var NombreCompletoBen=ObjBenPer.nombres+" "+ObjBenPer.ap+" "+ObjBenPer.am
+			ObjBenPer.nombreCompletoBen=NombreCompletoBen
+			/******************HAcer para Telefonos concatenar**************************/
+			ObjTelefonos=resp[1].ListaTelefonos
+			var Telefonos='';
+			$(ObjTelefonos).each(function(i,d){
+				Telefonos+=d.numero+' '
+			})
+			resp[0].persona.telefonos=Telefonos;
+			$('.beneficiario-datos').loadJSON(resp[0].persona)
+			// $('.beneficiario-datos').loadJSON(resp[1].ListaTelefonos)
+			$('.beneficiario-datos').loadJSON(resp[0].persona.beneficiario)
+
+			$('.vehiculo-datos').loadJSON(resp[0].vehiculo)
+			$('input[name="tipoMotor"]').val(resp[0].vehiculo.tipoMotor.nombre)			
+			$('input[name="tipoVehiculo"]').val(resp[0].vehiculo.tipoVehiculo.nombre)			
+			$('input[name="marcaVehiculo"]').val(resp[0].vehiculo.marcaVehiculo.nombre)			
+			$('input[name="modeloVehiculo"]').val(resp[0].vehiculo.modeloVehiculo.nombre)			
+			$('input[name="tipoServicio"]').val(resp[0].vehiculo.tipoServicio.nombre)
+			var combustible='';
+			 $(resp[0].vehiculo.combustibleVehiculo).each(function(i,v){
+			 	combustible+=v.nombre+' - '
+			 })
+			// console.log('tam: ',combustible.length)
+            // var SubString=combustible.substring(combustible.length-1,combustible.length)
+            // combustible.replace(SubString,'')
+			//combustible=resp[0].vehiculo.combustibleVehiculo.join()			
+			// combustible.trim()
+			$('input[name="combustibles"]').val(combustible.trim().slice(0,combustible.length-2));
+			// console.log('TipoMotor: ',resp[0].vehiculo.tipoMotor.nombre)
+
+			/**********************************************COMBUSTIBLES**********************************************/
+			console.log('GDataOpciones: ',GDataOpciones);
+			GTamAprob=resp[1].ListaAprobaciones.length;
+			$(resp[1].ListaAprobaciones).each(function(i,aprob){
+				var check='',bloqueo='';
+				var tipo;
+				var cont_pausa;
+				var SmallPermiso=''
+				var ReadOnly='';
+				var ServCheck=false;
+				var valueTipoAprob;
+
+				if(!ExisteOpcion(aprob.codigo)){
+					SmallPermiso='Sin Permiso para Aprobar'
+					// ReadOnly='readonly'
+					bloqueo='disabled'
+				}
+				valueTipoAprob=aprob.idTipoAp;
+				$(resp[0].aprobaciones).each(function(j,a){
+					if(aprob.idTipoAp==a.idTipoAp){
+						// alert('check')
+						check='checked'
+						bloqueo='disabled'
+						ServCheck=true
+						valueTipoAprob=''
+					}
+				})	
+				tipo=`<div class="checkbox">
+			                <label>
+			                    <input class="css_check" type="checkbox" id="id_aprob${aprob.jerarquia}" data-id="${valueTipoAprob}" name="aprobacion[]" accesskey="${aprob.jerarquia}" value="${valueTipoAprob}" ${check} ${bloqueo} servcheck="${ServCheck}"/>
+			                    <i class="input-helper"></i>${aprob.nombre}
+			                </label>
+								
+			               
+			                <small style="color:orange;">${SmallPermiso}</small>
+			          </div>
+			          `
+			    //    			 cont_pausa=`<label class="radio radio-inline">
+							//   <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked> 
+							// 	  <i class="input-helper"></i>	
+							//   	  <small>No Pausar</small> 
+							// </label>
+							// <label class="radio radio-inline m-r-10">
+							//   <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+							// 	<i class="input-helper"></i>
+							//    <small>Pausar</small>
+							// </label>`  
+
+			    $('.aprobaciones-contenido').append(tipo);
+
+			})
+			$('#formulario-add-aprob').formValidation('addField','aprobacion[]');      
+			console.log('respModificada: ',resp)
+			PausaAprob(-1);
+		})
+		
+		$('#cont_pausa').on('keyup',function(){
+			// alert('se esta escribiendo')
+			
+			$('#check_pausa').removeAttr('disabled')
+		})
+
+		
+
+		function PausaAprob(value,idtip){
+
+			// alert('Pausa_value: '+value)
+			console.log('Pausa_value: ',value)
+			console.log('Pausa_GTipoAprob: ',GTipoAprob)
+			console.log('Pausa_GTiposPausa: ',GTiposPausa)
+			var valueTipo=value;
+			
+			// $('#collapseOne').collapse('hide')
+			$('#check_pausa').removeAttr('disabled')
+			GtamComp=GTamAprob+1;
+			if(valueTipo<GtamComp){
+				GAprobFinal=0
+				$(GTipoAprob).each(function(i,tp){
+					var mayor=0;
+					var estadoPausa;
+					if(valueTipo==-1){
+						//alert('entro -1')
+						// $('#check_pausa').prop('checked',true)
+						$('#check_pausa').attr('disabled','disabled')
+						$(GTiposPausa).each(function(j,tpPause){
+							if(mayor<=tpPause.idTipoAp){
+								mayor=tpPause.idTipoAp;
+								estadoPausa=tpPause;
+							}
+						})
+						//alert('mayor: '+mayor)
+						//alert(tp.idTipoAp)
+						// console.log('mayor:',mayor)
+						// console.log('tipoPausaID:',tp.idTipoAp)
+						if(tp.idTipoAp==mayor){
+							//alert('entro pausaServer')
+							$('#check_pausa').removeAttr('disabled')
+							if(!$('#check_pausa').is(':checked')){
+								//alert('no esta checked')
+								$('#check_pausa').prop('checked',true)
+								$('#check_pausa').attr('checked','checked')
+							}
+							$('#check_pausa').val(tp.idTipoAp)
+							$('#collapseOne').collapse('show')
+							$('#title_pausa').html(tp.nombre)
+							// $('#cont_pausa').val('')
+							$('#cont_pausa').val(estadoPausa.descripcion)
+						}
+					}else{
+						if(valueTipo==1){//controla para la primera aprobacion
+							//alert('entro reset')
+						//$('#check_pausa').removeAttr('checked')
+							$('#check_pausa').attr('disabled','disabled')
+							$('#check_pausa').val('')
+							$('#collapseOne').collapse('hide')
+							$('#title_pausa').html('')
+							$('#cont_pausa').val('')
+						}else{
+							if(tp.idTipoAp==valueTipo){
+								//alert('entro title')
+								$('#check_pausa').removeAttr('disabled')
+								$('#check_pausa').removeAttr('checked')
+								$('#check_pausa').prop('checked',false)
+								$('#check_pausa').val(tp.idTipoAp)
+								$('#collapseOne').collapse('hide')
+								$('#title_pausa').html(tp.nombre)
+								$('#cont_pausa').val('')
+							}	
+						}
+					}
+				})
+			}else{
+				// var id_val=value-1
+				// GAprobFinal=$('#'+'id_aprob'+id_val+'').val();
+				GAprobFinal=idtip
+				$('#check_pausa').attr('disabled','disabled')
+				$('#check_pausa').removeAttr('checked')
+				$('#check_pausa').prop('checked',false)
+				$('#check_pausa').val('')
+				$('#collapseOne').collapse('hide')
+				$('#title_pausa').html('')
+				$('#cont_pausa').val('')
+			}
+		}
+	</script>
+</body>
+</html>

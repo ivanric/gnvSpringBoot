@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="../../static/bower_components/bootstrap/dist/css/bootstrap.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.css}"/>
+    <!-- <link rel="stylesheet" href="../css/tema/materialize.css"/> -->
+    <!-- <link rel="stylesheet" href="../css/tema/style.css"/> -->
+    <!-- <link rel="stylesheet" href="../css/tema/themes/all-themes.css"/> -->
+    <link rel="stylesheet" href="../../static/bower_components/animate.css/animate.css" th:href="@{/bower_components/animate.css/animate.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/Waves/dist/waves.css" th:href="@{/bower_components/Waves/dist/waves.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/form.validation/dist/css/formValidation.css" th:href="@{/bower_components/form.validation/dist/css/formValidation.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css" th:href="@{/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/font-awesome/css/font-awesome.css" th:href="@{/bower_components/font-awesome/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/datatables.net-bs/css/dataTables.bootstrap.css" th:href="@{/bower_components/datatables.net-bs/css/dataTables.bootstrap.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.css" th:href="@{/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/chosen/chosen.min.css" th:href="@{/bower_components/chosen/chosen.min.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/bootstrap4c-chosen/dist/css/component-chosen.css" th:href="@{/bower_components/bootstrap4c-chosen/dist/css/component-chosen.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/bootstrap-select/dist/css/bootstrap-select.css" th:href="@{/bower_components/bootstrap-select/dist/css/bootstrap-select.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/bootstrap-sweetalert/dist/sweetalert.css" th:href="@{/bower_components/bootstrap-sweetalert/dist/sweetalert.css}"/>
+    <link rel="stylesheet" href="../../static/bower_components/growl/stylesheets/jquery.growl.css" th:href="@{/bower_components/growl/stylesheets/jquery.growl.css}"/>
+
+    <link rel="stylesheet" href="../../static/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css" th:href="@{/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css}"/>
+    
+    <link rel="stylesheet" href="../../static/bower_components/bootstrap-fileinput/css/fileinput.css" th:href="@{/bower_components/bootstrap-fileinput/css/fileinput.css}"/>
+    <!-- <link rel="" href="../../static/bower_components/bootstrap-material-design/scss/bootstrap-material-design.scss" th:href="@{/bower_components/bootstrap-material-design/scss/bootstrap-material-design.scss}"/> -->
+
+
+<!--     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous"> -->
+
+   
+
+	<link rel="stylesheet" href="../../static/css/styles.css" th:href="@{/css/styles.css}"/>
+	<link rel="stylesheet" href="../../static/css/reloj.css" th:href="@{/css/reloj.css}"/>
+    <link rel="stylesheet" href="../../static/css/tema/app.min.1.css" th:href="@{/css/tema/app.min.1.css}"/>
+    <link rel="stylesheet" href="../../static/css/tema/app.min.2.css" th:href="@{/css/tema/app.min.2.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../static/css/mystyles.css" th:href="@{/css/mystyles.css}">
+	<title>Document</title>
+	<style>
+		.selected{
+			background-color: #B0BED9;
+		}
+	</style>
+</head>
+<body>
+<button type="button" class="btn btn-raised btn-primary">Primary</button>
+<button type="button" class="btn btn-raised btn-secondary">Secondary</button>
+<form id="formulario-add" action="../RestBeneficiarios/adicionar" method="post" 
+    data-fv-excluded="disabled">
+
+    <div class="" id="modal-add" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="">
+       <div class="modal-dialog modal-md" role="document">
+         <div class="modal-content">
+            <div class="card">
+                <div class="card-header my-card-padding">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2>Adicionar Beneficiario<small>Complete el formulario por favor</small></h2>
+                </div>
+                <div class="modal-body">                      
+                    <div class="row">
+                    <!--<div class="col-md-6">
+                            <p class="f-500 c-black m-b-20">Fotografia Usuario</p>
+                            <div class="fileinput fileinput-new form-group" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                                <div>
+                                    <span class="btn btn-info btn-file">
+                                        <span class="fileinput-new">Seleccione Imagen</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        <input class="" type="file" name="..." maxlength="100" data-fv-stringlength-message="">
+                                    </span>
+                                    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Borrar</a>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-md-12">
+                            <label for="" class=""><b>Fotografía de Usuario</b></label>
+                            <input class="file"  maxlength="8" data-fv-stringlength-message="" id="fotografia" name="foto" type="file">
+                            
+                        </div>
+                    </div> 
+                    <br><br>
+                    <fieldset>
+                        <legend><b>DATOS LOGUEO</b></legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group fg-float">
+                                    <div class="fg-line">
+                                        <input class="form-control fg-input" name="usuario" type="text" data-fv-notempty="true" data-fv-message="Requiere Nombres"  maxlength="12" data-fv-stringlength-message="Solo 12 caracteres">
+                                    </div>
+                                    <label class="fg-label">Nombre de Usuario</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group fg-float">
+                                    <div class="fg-line">
+                                        <input class="form-control fg-input" name="password" type="password" value="12345" maxlength="20" data-fv-stringlength-message="Solo 20 caracteres">
+                                    </div>
+                                    <label class="fg-label">Contraseña de Usuario</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend><b>DATOS GENERALES</b></legend>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group fg-float">
+                                    <div class="fg-line">
+                                        <input class="form-control fg-input" minlength="7" maxlength="8" data-fv-stringlength-message="La Cedula debe ser entre 7 u 8 caracteres" id="cedula" name="ci" type="text"  data-fv-notempty="true" data-fv-message="Requiere Cedula" data-fv-integer="true" data-fv-integer-message="El valor de este campo debe ser numerico y sin espacios en blanco">
+                                    </div>
+                                    <label class="fg-label">Cedula</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="fg-line">
+                                        <select data-placeholder="n" name="ciCod" class="form-control" data-fv-notempty='true' data-fv-message="Requiere Ciudadania" id="ciCod">
+                                            <option value="TJ">TJ</option>
+                                            <option value="PT">PT</option>
+                                            <option value="PA">PA</option>
+                                            <option value="LP">LP</option>
+                                            <option value="OR">OR</option>
+                                            <option value="CB">CB</option>
+                                            <option value="BN">BN</option>
+                                            <option value="CH">CH</option>
+                                            <option value="SC">SC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group fg-float">
+                                    <div class="fg-line">
+                                        <input class="form-control fg-input" name="nombres" type="text" data-fv-notempty="true" data-fv-message="Requiere Nombres"  maxlength="12" data-fv-stringlength-message="Solo 12 caracteres">
+                                    </div>
+                                    <label class="fg-label">Nombres</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group fg-float">
+                                    <div class="fg-line">
+                                        <input class="form-control fg-input" maxlength="12" name="ap" type="text" data-fv-notempty="true" data-fv-message="Requiere Apellido Paterno" data-fv-stringlength-message="Solo 12 caracteres">
+                                    </div>
+                                    <label class="fg-label">Apellido Paterno</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group fg-float">
+                                    <div class="fg-line">
+                                        <input class="form-control fg-input" maxlength="12" name="am" type="text"  data-fv-stringlength-message="Solo 12 caracteres">
+                                    </div>
+                                    <label class="fg-label">Apellido Materno</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="fg-line">
+                                        <select data-placeholder="n" name="genero" class="form-control" data-fv-notempty='true' data-fv-message="Requiere Género" id="select-genero">
+                                            <option value="">Seleccione Género</option>
+                                            <option value="m">Masculino</option>
+                                            <option value="f">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group fg-float">
+                                    <div class="fg-line">
+                                        <input class="form-control fg-input"  name="direccion" type="text" data-fv-notempty="true" data-fv-message="Requiere Dirección" maxlength="40">
+                                    </div>
+                                    <label class="fg-label">Dirección</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="form-group fg-float">
+                                        <div class="fg-line">
+                                            <input class="form-control fg-input"  name="email" type="email" maxlength='40'>
+                                        </div>
+                                        <label class="fg-label">Correo</label>
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+    	                     <div class="form-group">
+    					        <label class="col-md-3 control-label">Telefonos/Celulares</label>
+    					        <div class="col-md-5">
+    					            <input type="text"  class="form-control" name="telefono[]" placeholder="Ingrese número" maxlength="10" data-fv-integer="true" data-fv-integer-message="El campo debe ser numerico"/>
+    					        </div>
+    					        <div class="col-md-4">
+    					            <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+    					        </div>
+    					    </div>
+    					    <div class="form-group hide" id="optionTemplate" >
+    					        <div class="col-xs-offset-3 col-xs-5">
+    					            <input class="form-control" type="text" name="" placeholder="Ingrese número" maxlength="10" data-fv-integer="true" data-fv-integer-message="El campo debe ser numerico"/>
+    					        </div>
+    					        <div class="col-xs-4">
+    					            <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+    					        </div>
+    					    </div>
+                        </div>
+                    </fieldset>   
+					   
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"  id="btnAdicionarConfirmacion" class="btn btn-primary waves-effect"> Guardar</button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"> Cancelar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</form> 
+	<script type="" src="../../static/bower_components/jquery/dist/jquery.js" th:src="@{/bower_components/jquery/dist/jquery.js}"></script>
+    <script type="" src="../../static/bower_components/bootstrap/dist/js/bootstrap.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.js}"></script>
+    <!-- <script type="" src="../bower_components/jquery.nicescroll/dist/jquery.nicescroll.js"></script> -->
+    <!-- <script type="" src="../bower_components/autosize/dist/autosize.js"></script> -->
+    <script type="" src="../../static/bower_components/Waves/dist/waves.js" th:src="@{/bower_components/Waves/dist/waves.js}"></script>
+    <script type="" src="../../static/bower_components/jquery-form/dist/jquery.form.min.js" th:src="@{/bower_components/jquery-form/dist/jquery.form.min.js}"></script>
+    <script type="" src="../../static/bower_components/form.validation/dist/js/formValidation.js" th:src="@{/bower_components/form.validation/dist/js/formValidation.js}"></script>
+    <script type="" src="../../static/bower_components/form.validation/dist/js/framework/bootstrap.js" th:src="@{/bower_components/form.validation/dist/js/framework/bootstrap.js}"></script>
+    <script type="" src="../../static/bower_components/form.validation/dist/js/language/es_ES.js" th:src="@{/bower_components/form.validation/dist/js/language/es_ES.js}"></script>
+    <script type="" src="../../static/bower_components/datatables.net/js/jquery.dataTables.js" th:src="@{/bower_components/datatables.net/js/jquery.dataTables.js}"></script>
+    <script type="" src="../../static/bower_components/datatables.net-bs/js/dataTables.bootstrap.js" th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.js}"></script>
+    <script type="" src="../../static/bower_components/datatables.net-responsive/js/dataTables.responsive.js" th:src="@{/bower_components/datatables.net-responsive/js/dataTables.responsive.js}"></script>
+    <script type="" src="../../static/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js" th:src="@{/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+    <script type="" src="../../static/bower_components/chosen/chosen.jquery.min.js" th:src="@{/bower_components/chosen/chosen.jquery.min.js}"></script>
+    <script type="" src="../../static/bower_components/bootstrap-select/dist/js/bootstrap-select.js" th:src="@{/bower_components/bootstrap-select/dist/js/bootstrap-select.js}"></script>
+    <script type="" src="../../static/bower_components/bootstrap-select/dist/js/i18n/defaults-es_ES.js" th:src="@{/bower_components/bootstrap-select/dist/js/i18n/defaults-es_ES.js}"></script>
+    <script type="" src="../../static/bower_components/bootstrap-sweetalert/dist/sweetalert.js" th:src="@{/bower_components/bootstrap-sweetalert/dist/sweetalert.js}"></script>
+    <script src="../../static/bower_components/growl/javascripts/jquery.growl.js" th:src="@{/bower_components/growl/javascripts/jquery.growl.js}"></script>
+    <script src="../../static/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js" th:src="@{/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js}"></script>
+    <script type="" src="../../static/bower_components/jquery-load-json/dist/jquery.loadJSON.min.js" th:src="@{/bower_components/jquery-load-json/dist/jquery.loadJSON.min.js}"></script> 
+    <script type="" src="../../static/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js" th:src="@{/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js}"></script> 
+    <script type="" src="../../static/bower_components/bootstrap-fileinput/js/fileinput.js" th:src="@{/bower_components/bootstrap-fileinput/js/fileinput.js}"></script> 
+   
+    <script type="" src="../../static/bower_components/bootstrap-fileinput/js/locales/es.js" th:src="@{/bower_components/bootstrap-fileinput/js/locales/es.js}"></script> 
+    <!-- <script type="" src="../../static/bower_components/bootstrap-material-design/js/bootstrapMaterialDesign.js" th:src="@{/bower_components/bootstrap-material-design/js/bootstrapMaterialDesign.js}"></script>  -->
+
+   <!--  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script> -->
+
+    <script type="" src="../../static/js/tema/js/functions.js" th:src="@{/js/tema/js/functions.js}"></script>
+    <script type="" src="../../static/js/ajax/GBeneficiarios.js" th:src="@{/js/ajax/GBeneficiarios.js}"></script>
+    <script src="../../static/js/myscript.js" th:src="@{/js/myscript.js}"></script>
+    <!-- <script type="" src="../../static/js/fileinput/fileinput.min.js" th:src="@{/js/fileinput/fileinput.min.js}"></script> -->
+  <!--   <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script> -->
+    <script type="text/javascript">
+
+    	var tipos = ['jpg','png','jpeg'];
+        iniciarFileInput();
+        function iniciarFileInput(){
+            $('#fotografia').fileinput({
+                language:'es',
+                showUpload: false,
+                showCaption: false,
+                showCancel: false,
+                allowedFileExtensions : tipos,
+                initialPreview: [
+                    '<img src="../../static/img/user.png" class="file-preview-image" alt="USER" title="USUARIO" width="200px;">',
+                ],
+                // initialPreviewConfig: [
+                //     {
+                //         caption: 'usuario.gif', 
+                //         // width: '120px', 
+                //         // url: 'http://localhost/avatar/delete',
+                //         // key: 100, 
+                //         // extra: {id: 100}
+                //     }
+                // ]
+                previewFileType: "image",
+                browseClass: "btn btn-success",
+                browseLabel: "",
+                // browseLabel: "Buscar",
+                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                removeClass: "btn btn-danger",
+                removeLabel: "",
+                // removeLabel: "Quitar Imagen",
+                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                // uploadLabel: "Upload",
+                // uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> "
+                // browseClass: "btn btn-primary btn-sm",
+            })
+            
+        }
+
+        $('#fotografia').on('fileclear', function(event) {
+            console.log("fileclear");
+            $('#fotografia').fileinput('destroy');
+            iniciarFileInput();
+        });
+    </script>
+</body>
+</html>

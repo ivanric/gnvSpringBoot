@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title></title>  
+</head>	
+<body>
+	<form id="formulario-add" action="../RestRoles/adicionar"
+		method="post" data-fv-excluded="disabled"
+		>
+		<div class="modal fade modal-extra" id="modal-add" tabindex="-1" role="dialog"
+			data-backdrop="static" data-keyboard="false" aria-hidden="true"
+			style="display: none; padding-left: 0 !important;">
+			<div class="modal-dialog modal-md " role="document">
+					<div class="modal-content">
+						<div class="card">
+							<div class="card-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h2>
+									Nuevo Servicio<small>Llene los campos por favor</small>
+								</h2>
+							</div>
+							<div class="modal-body">
+								<fieldset>
+									<legend><strong>ROL</strong></legend>
+										<div class="row">
+											<div class="col-md-12">
+												<label for="" class="col-md-12 control-label espacio-form"><b>Nombre de Rol</b></label>
+												<div class="col-md-12">
+													<div class="form-group">
+														<div class="fg-line">
+															<input type="text" placeholder="ingrese nombre de rol" maxlength="50" data-fv-stringlength-message="Maximo 50 caracteres" class="form-control input-sm"  data-fv-notempty="true" data-fv-message="Campo Requerido" name="nombre">
+														</div>
+													</div>
+												</div>
+											</div>
+									
+										</div>
+								</fieldset>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" id="btn-guardar-aprob"
+									class="btn btn-primary waves-effect">Guardar</button>
+								<button type="button" class="btn btn-danger waves-effect"
+									data-dismiss="modal">Cancelar</button>
+							</div>
+
+						</div>
+					</div>
+			</div>
+		</div>
+	</form>
+
+	
+	<script type="" src="../bower_components/jquery.nicescroll/dist/jquery.nicescroll.js"></script>
+	<script type="" src="../bower_components/autosize/dist/autosize.js"></script>
+</body>
+</html>

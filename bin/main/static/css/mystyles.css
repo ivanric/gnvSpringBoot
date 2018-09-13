@@ -1,0 +1,514 @@
+/*SCROLL*/
+/*::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: red;
+	
+	background-image: -webkit-gradient(linear, 0 0, 0 100%,
+	                   color-stop(.5, rgba(255, 255, 255, .2)),
+					   color-stop(.5, transparent), to(transparent));
+}*/
+
+
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background: #fffffa;
+	/*background: red;*/
+}
+.control-label {
+    font-weight: normal;
+    margin-top: 3px !important;
+}
+.help-block {
+    display: block;
+    margin-top: 0px !important;
+    margin-bottom: 10px;
+    color: #9e9e9e;
+}
+.desc {
+	color: #040404;
+    font-size: 1em;
+}
+
+.desc:hover {
+	color: #fff;
+}
+.fg-line .form-control:disabled {
+    color: #000000 !important;
+    background: transparent;
+}
+header{
+	width: 100%;
+	background:#000f51;
+	margin-bottom:20px;
+	/*para poner float de izquierda a derecha*/ 
+	/*overflow: hidden;*/
+}
+select{
+	-webkit-appearance: menulist !important;
+}
+.wrapper{
+	width: 90%;
+	max-width: 1300px;
+	margin: auto;/*lo centra con 90% de lo establecido*/
+	/*overflow: hidden;*/
+}
+
+header .logo{
+	color: #f2f2f2;
+	line-height: 100px;/*hace que el tamaño verical del logo sea 200px sin padding solo line-height*/
+	float: left;
+}
+.logo-img{
+	width: 75px;
+/* 	height:70px; */
+/* 	background: red; */
+}
+
+.titulo-gnv{
+	font-size: 20px;
+	
+}
+.logo-img,.titulo-gnv{
+	display: inline-block;
+}
+.logo-img img{
+/* 	height: 130px; */
+/* 	float: left; */
+/* 	padding:30px 12px; */
+	width: 100%;	
+	padding-bottom: 7px;
+}
+
+/*Logout*/
+.logout-div{
+	background: rgba(0,0,0,.9);
+	display: none;
+	width: 275px;
+	height: auto;
+	position: absolute;
+	right: 2em;
+	top:6em;
+	z-index: 200;
+	border-radius: 2px;
+	/*--webkit-transition: all 7s;
+	--moz-transition: all 7s;
+	-o-transition: all 7s;
+	transition: all 7s;*/
+}
+.logout-div figure{
+	background: rgba(0,200,255,0);
+	border-radius: 50%;
+	color:rgb(0,220,255);
+	box-shadow: 0px 0px 20px 1px;
+	height: auto;
+	/*line-height: 5px;*/
+	width: 80px;
+	margin:4em auto;
+}
+.logout-div figure img{
+	width: 100%;
+	border-radius:  50%;
+	height: 80px
+}
+.logout-div .informacion{
+	padding: 0 3em;
+	font-size: 0.7em;
+	color: white;
+}
+.logout-div p{
+	padding-bottom: 1.5em;
+}
+.logout-div p .conectado{
+	font-size: 0.7em;
+	color: rgb(0,204,0);
+} 
+
+.logout-div .div-btn-logout{
+	width: 100%;
+	/*background: rgb(255,0,0);*/
+	margin-bottom: 2em;
+	margin-top: 3em;
+	text-align: center;
+}
+.logout-div .div-btn-logout .btn-logout{
+	background: rgb(255,0,0);
+	border: none;
+	border-radius: 5px;
+	padding: 16px;
+	color: white;
+	box-shadow: #960000 0px 3px 1px 2px;
+	width: 10em;
+}
+.logout-div .div-btn-logout .btn-logout:hover{
+	background: rgb(197, 18, 18);
+	color: #b0acac;
+}
+
+.logout-mostrar{
+	display: block;
+}
+.modal-extra{
+
+	padding-left: 0 !important;
+}
+
+header nav{
+	float: right;
+	line-height:100px;
+}
+header .sp-btn{
+	line-height: 100px;
+	overflow: hidden;
+	/*float: left;*/
+	margin-left: 20px;
+	color: #fff;
+}
+header .sp-btn .btn-menu{
+	color: #fff;
+	text-decoration: none;
+	padding: 10px;
+	position: relative;
+	z-index:120; 
+/*	-webkit-transition: all 500ms ease;
+	 -o-transition: all 500ms ease;
+	 transition: all 500ms ease; */
+}
+
+/*header .sp-btn .btn-menu:hover{
+	z-index:300; 
+}*/
+
+header .btn-menu:hover{
+	background: #f56f3a;
+	border-radius: 2px;
+	/*padding: 5px;*/
+	/*line-height: normal;*/
+}
+
+header nav .navegacion{
+	float: right;
+}
+
+
+header nav a{
+	display: inline-block;
+	color: #fff !important;
+	line-height: normal;/*para que no ocupe todo el header el enlace su tamaño*/
+	margin-left: 20px;
+	text-decoration: none;
+	padding: 10px;
+	-webkit-transition: all 500ms ease;
+	 -o-transition: all 500ms ease;
+	 transition: all 500ms ease; 
+}
+header nav a:hover{
+	background: #f56f3a;
+	border-radius: 2px;
+}
+
+
+header nav a .btn-menu{
+	float: left;	
+}
+
+
+
+.header2{/*para hacer lo fijo al header*/
+	position: fixed;
+	height: 100px;
+	/*z-index: 200;*/
+}
+.header2 .logo{
+	line-height: 100px;
+	font-size: 30px;
+}
+.header2 .sp-btn{
+	line-height: 100px;
+	/*z-index: 400;*/
+}
+.header2 nav{
+	line-height: 100px;
+}
+/*con javascrip se hara el padding*/
+/*.contenido{
+	padding-top: 100px;
+}*/
+.contenido p{
+	margin-bottom: 16px;
+}
+
+
+
+
+.main-menu {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 !important;
+}
+
+/*MENU*/
+
+.div-menu{	
+	background: rgba(0,0,0,.9);
+	display: block;
+	left: -20em;
+	/*left: 0em;*/
+	/*padding-top: 7em;*/
+	position:fixed;
+	/*overflow: scroll;*/
+	width: 20em;
+	height: 100%;
+	z-index:100;
+	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+
+.nav-menu ul{
+	/*quitar biñetas de las ul poe default*/
+	list-style: none;
+}
+.menu{
+	list-style: none;
+	line-height: 42px;
+	/*cnetra con el width: 15px definifo*/
+	/*margin:  auto;*/
+	/* outline: similar al border pero no ocupa el pixel de ancho*/
+	/*outline:4px solid red;*/
+	width: 20em;
+	/*height: calc(100% - 65px);*/
+	
+	height:100%;
+	z-index: -200;
+
+}
+.menu li{
+	/*outline: 1px solid green;*/
+	/*border-left: 3px solid rgba(255,255,255,.2);*/
+
+	/*inset= hace crecer la sombra a la derecha*/
+	box-shadow: 5px 0 rgba(255,255,255,.2) inset;
+	/*padding-left: 1.5em;*/
+	margin-bottom: 5px;
+	--webkit-transition: all .5s;
+	-o-transition: all .5s;
+	transition: all .5s;
+}
+
+.menu li:hover{
+	/*llena la sombra al tamño del li*/
+	box-shadow: 20em 0 rgba(255,255,255,.2) inset;
+}
+
+
+.menu li a{
+	padding-left: 1.5em;
+	
+}
+
+.menu a{
+	color: #ddd;
+	/*si no esta display: block no se puede poner width*/
+	display: block;
+	text-decoration: none;
+	text-transform: uppercase;
+	width: 100%;
+	--webkit-transition: all .5s;
+	-o-transition: all .5s;
+	transition: all .5s;
+}
+.menu a:hover{
+	margin-left: 0.7em;
+}
+
+
+.menu .icono.derecha{
+	float: right;
+	padding-right: 22px;	
+	line-height: 2.3em;
+}
+.menu ul{
+	display: none;
+	/*background: #424242;*/
+}
+.menu ul li{
+	background:#030663b3;
+	/*background: black;*/
+	margin-bottom: 1.1px;
+}
+.menu ul li a{
+	color: #e9e9e9;
+
+}
+
+
+
+
+/*.menu .activado>a{
+	padding-left: 5.1px;
+	background: #1a95d5;
+	color: #fff;
+}*/
+
+/*Menu responsivo*/
+
+
+.nav-menu {
+	/*background: rgba(0,0,0,.8);*/
+	/*height:0%;*/
+	height:auto;
+	left: -20em;
+	/* position:  para que se mantega fijo*/
+	/*position: fixed;*/
+	z-index:100;
+	/*margin-top: 12.4em;*/
+	/*top: 12.5em; */
+	/*padding-top: 12.5em;*/
+	padding-right: .25em;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+/*	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;*/
+
+}
+.mostrar{
+	/*position: absolute;*/
+	left: 0;
+}
+
+.top-menu-default{
+	top: 12.5em;
+}
+.top-menu-mov{
+	top: 23.1em;
+}
+
+.ir-arriba{
+	border-radius: 50px;
+	display: none;
+	padding: 10px;
+	background: #024959;
+	font-size: 20px;
+	color: #fff;
+	cursor: pointer;
+	position: fixed;
+	bottom: 59px;
+	right: 20px;
+}
+
+.sel-div{ 
+	padding:2em 13px 5px 13px;
+}
+/*adaptando a dispositivos moviles*/
+@media screen and (max-width: 950px) {
+	.desc {
+    	font-size: 0.8em;
+	}
+	header .logo{
+		/*height: 100px;*/
+		font-size: 20px;
+		width: 80%;
+		/*text-align:center;*/
+		line-height: 80px; 
+	}
+	header .sp-btn{
+		float: right;
+		line-height: 80px; 
+		margin-left: 0px;
+		text-align: right;
+		width: 20%;
+	}
+
+
+	header nav{
+		width: 100%;
+		line-height: 80px; 
+	}
+	.header2 .logo{/*para hacer lo fijo al header*/
+		font-size: 15px;
+	}
+	.header2 .logo,
+	.header2 nav,
+	.header2 .sp-btn
+	{
+		line-height: 50px;
+	}
+
+
+	.pie_pag {
+		background: #000000;
+		/*background: radial-gradient(ellipse at center, rgba(48, 80, 88, 0.55) 0%, rgba(26, 3, 103, 0.73) 70%); */
+		background:#000f51;
+		background-size: 100%;
+		bottom: 0;
+		/* border-radius: 12px; */
+		position: fixed;
+		left: 0;
+		width: 100%;
+		height: 2.5em;
+		z-index: 1;
+	}
+	.logout-div{
+		right:2em;
+		top:12em;
+/* 		width: 130px; */
+	}
+	.logout-div figure{
+		margin:3em auto;
+	}
+
+	.div-menu{
+		z-index: 2;
+	}
+	
+	.nav-menu {
+		z-index: 150;
+		position: fixed;
+		overflow: scroll;
+		overflow-x: hidden;
+		overflow-y: auto;
+		/*margin-top: 6.5em;*/
+		height: 100%;
+
+	}
+	.ir-arriba{
+		padding: 8px;
+		font-size: 15px;
+	}
+	.logo-img {
+    	width: 55px;
+	}
+	.modal-responsivo-mediano{
+		width: 94% !important;	
+	}
+	.titulo-gnv {
+    	font-size: 16px;
+	}
+	.wrapper{
+		overflow: hidden;
+	}
+/*	.top-menu-mov{
+		top: 6.5em;
+	}	*/
+}
+

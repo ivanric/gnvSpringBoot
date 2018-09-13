@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>MiConnect</name><driver>net.sourceforge.jtds.jdbc.Driver</driver><username>MiConexion</username><password>ivanric12</password><savePassword>true</savePassword><url>jdbc:jtds:sqlserver://localhost:1433/v9_taller</url><database/><serverAddress/></jdbcDataAdapter>

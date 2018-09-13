@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title></title>
+</head>
+<body>
+
+	<form id="formulario-ver" action="#"
+		method="post" data-fv-excluded="disabled"
+		>
+		<div class="modal fade" id="modal-ver" tabindex="-1" role="dialog"
+			data-backdrop="static" data-keyboard="false" 
+			style=" padding-left: 0;display: none;">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="card">
+						<div class="card-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							
+							<div class="row">
+								<div class="col-md-4">
+		                           	<h2>Orden de Servicio<small>Datos de Orden de Servicio</small></h2>
+		                        </div>
+		                        <div class="col-md-8">
+		                            <b>NÚMERO DE ORDEN DE SERVICIO: </b><span id="numOrdServ"></span> 
+		                            <b style="margin-left: 5em;">FECHA DE CREACIÓN: </b><span id="fechaCreacion"></span> 
+		                        </div>
+							</div>
+						</div>
+						<div class="modal-body">
+							<fieldset>
+								<legend>TALLER</legend>
+								<div class="taller-data">
+									<!-- .col-md-6*2>.form-group>(label.col-md-4.control-label>b{campo})+.col-md-6>.fg-line>input[type=text].form-control.mcss_input -->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="" class="col-md-4 control-label"><b>Nombre Taller</b></label>
+											<div class="col-md-6">
+												<div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="nombreTall" id="nombreTall"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="" class="col-md-4 control-label"><b>Teléfono/Celular</b></label>
+											<div class="col-md-6">
+												<div class="fg-line"><input type="text" id="telefonoTaller" class="form-control mcss_input" disabled="disabled"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="" class="col-md-4 control-label"><b>Dirección</b></label>
+											<div class="col-md-6">
+												<div class="fg-line"><input type="text" name="direccionTaller" id="direccionTaller" class="form-control mcss_input" disabled="disabled"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend>SOLICITUD</legend>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="" class="col-md-4 control-label"><b>Núm. Solicitud</b></label>
+										<div class="col-md-6">
+											<div class="fg-line"><input type="text" name="numSolt" class="form-control mcss_input" disabled="disabled"></div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="" class="col-md-4 control-label"><b>Fecha Solicitud</b></label>
+										<div class="col-md-6">
+											<div class="fg-line"><input type="text" name="fechaSolt" class="form-control mcss_input" disabled="disabled"></div>
+										</div>
+									</div>
+								</div>
+
+							</fieldset>
+							<fieldset>
+								<legend>BENEFICIARIO</legend>
+								<div class="beneficiario-data">
+									<!-- .col-md-6*6>.form-group>(label.col-md-4.control-label>b{campo})+.col-md-6>.fg-line>input[type=text].form-control.mcss_input -->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="" class="col-md-4 control-label"><b>Nombre Completo</b></label>
+											<div class="col-md-6">
+												<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="nombreCompleto" id="nombreCompleto"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="" class="col-md-4 control-label"><b>Cédula</b></label>
+											<div class="col-md-6">
+												<div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="ci"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="" class="col-md-4 control-label"><b>Dirección</b></label>
+											<div class="col-md-6">
+												<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="direccion"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="" class="col-md-4 control-label"><b>Institución</b></label>
+											<div class="col-md-6">
+												<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="institucion" id="institucion"></div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="" class="col-md-4 control-label"><b>Teléfono/Celular</b></label>
+											<div class="col-md-6">
+												<div class="fg-line"><input  type="text" id="telefonoBeneficiario" name="telefonoBeneficiario" class="form-control mcss_input" disabled="disabled"></div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</fieldset>							
+							<fieldset>
+								<legend>VEHÍCULO</legend>
+							  	<div class="vehiculo-data">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>Placa</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="placa"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>Marca</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="marcaVeh" id="marcaVeh"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>Modelo</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="modeloVeh" id="modeloVeh"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>Tipo Vehículo</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="tipoVeh" id="tipoVeh"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>Tipo Servicio</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="tipoServ" id="tipoServ"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>Sistema Motor</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="sistemaMotor" id="sistemaMotor"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>número Motor</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="numeroMotor" id="numeroMotor"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>número Chasis</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="numeroChasis" id="numeroChasis"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>targeta Prioridad</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="tjeta_prioridad" id="tjeta_prioridad"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>Cilindrada</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="cilindrada" id="cilindrada"></div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								 	<div class="row">
+								 		<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-12 control-label text-center"><b>Combustible</b></label>
+												<div class="col-md-8">
+			                                        <div class="row">
+			                                            <div id="js-comb"> 
+			                                               
+			                                            </div>
+			                                        </div>
+			                                    </div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="" class="col-md-4 control-label"><b>Color</b></label>
+												<div class="col-md-6">
+													<div class="fg-line"><input  type="text" class="form-control mcss_input" disabled="disabled" name="color" id="color"></div>
+												</div>
+											</div>
+										</div>
+
+								 	</div>
+								 	<div class="row">
+								 		<div class="col-md-6">
+											<div class="form-group">
+												<div class="col-md-12">
+													
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6"></div>
+								 	</div>
+
+
+							 	</div>
+							</fieldset>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" id="btnAdicionarConfirmacion"
+								class="btn btn-primary waves-effect">Imprimir</button>
+							<button type="button" class="btn btn-danger waves-effect"
+								data-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</form>
+	<script type="text/javascript">
+		var listaComb;
+		$.getJSON('../RestServicios/VerOS',{idOrdServ:idOrdServ},function(datos){
+			console.log('data:',datos)
+		 	listaComb=datos[2]
+			$('#numOrdServ').html(datos[0].numords)
+			$('#fechaCreacion').html(datos[0].fechaords)
+			$('#nombreTall').val(datos[0].taller.nombretall)
+			$('#telefonoTaller').val(datos[1].listaTelefonosTaller)
+			$('#direccionTaller').val(datos[0].taller.direccion)
+			$('input[name="numSolt"]').val(datos[0].solicitud.numSolt)
+			$('input[name="fechaSolt"]').val(datos[0].solicitud.fecha)
+			$('#nombreCompleto').val(datos[0].solicitud.persona.nombres+" "+datos[0].solicitud.persona.ap+" "+datos[0].solicitud.persona.am)
+			$('.beneficiario-data').loadJSON(datos[0].solicitud.persona)
+			$('#institucion').val(datos[0].solicitud.persona.beneficiario.institucion)
+			$('#telefonoBeneficiario').val(datos[1].listaTelefonosBeneficiario)
+			
+			/*
+			$('.documentacion').html('')
+			$(datos[2]).each(function(i,t){
+				var check="",checkf=""
+				$(datos[0].persona.beneficiario.documentos).each(function(i,y){
+					if(t.iddocb==y.iddocb){
+						check="checked"
+					}
+					// return false
+				})
+				if(check==""){
+					checkf="checked"
+				}
+				$('.documentacion').append(
+					`<div class="">
+						<div class="col-md-6">
+								${t.nombre}
+						</div>
+						<div class="col-md-6">
+							SI <input type="checkbox" ${check} disabled="disabled">
+							NO <input type="checkbox" ${checkf} disabled="disabled">	
+						</div>
+					</div>`
+				);
+			})
+			*/
+
+			$('.vehiculo-data').loadJSON(datos[0].solicitud.vehiculo)
+			$('#modeloVeh').val(datos[0].solicitud.vehiculo.modeloVehiculo.nombre)
+			$('#marcaVeh').val(datos[0].solicitud.vehiculo.marcaVehiculo.nombre)
+			$('#tipoVeh').val(datos[0].solicitud.vehiculo.tipoVehiculo.nombre)
+			$('#tipoServ').val(datos[0].solicitud.vehiculo.tipoServicio.nombre)
+			$('#sistemaMotor').val(datos[0].solicitud.vehiculo.tipoMotor.nombre)
+			$('#numeroMotor').val(datos[0].solicitud.vehiculo.num_motor)
+			$('#numeroChasis').val(datos[0].solicitud.vehiculo.num_chasis)
+            
+            $(listaComb).each(function(i,tg){
+                var checked1="",checked2="";
+                $(datos[0].solicitud.vehiculo.combustibleVehiculo).each(function(j,item){
+                    if (tg.idcomb==item.idcomb) {
+                        checked1="checked";
+                    }
+                })
+                if(checked1==""){
+					checked2="checked"
+				}
+                $('#js-comb').append(`
+                    <div class="col-md-6" style="margin-top: 4px;">
+                        <div class="fg-line">${tg.nombre}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <span style="">SI</span> 
+                        <input type="checkbox" disabled="disabled" class="" ${checked1}>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="">NO</span> 
+                        <input type="checkbox" disabled="disabled" class="" ${checked2}>
+                    </div>
+                `)
+            })
+		})
+
+	</script>
+</body>
+</html>

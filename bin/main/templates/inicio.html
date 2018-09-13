@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+	
+	<link rel="stylesheet" href="../static/bower_components/bootstrap/dist/css/bootstrap.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/animate.css/animate.css" th:href="@{/bower_components/animate.css/animate.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/Waves/dist/waves.css" th:href="@{/bower_components/Waves/dist/waves.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/form.validation/dist/css/formValidation.css" th:href="@{/bower_components/form.validation/dist/css/formValidation.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css" th:href="@{/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/font-awesome/css/font-awesome.css" th:href="@{/bower_components/font-awesome/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/datatables.net-bs/css/dataTables.bootstrap.css" th:href="@{/bower_components/datatables.net-bs/css/dataTables.bootstrap.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.css" th:href="@{/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/chosen/chosen.min.css" th:href="@{/bower_components/chosen/chosen.min.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/bootstrap4c-chosen/dist/css/component-chosen.css" th:href="@{/bower_components/bootstrap4c-chosen/dist/css/component-chosen.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/bootstrap-select/dist/css/bootstrap-select.css" th:href="@{/bower_components/bootstrap-select/dist/css/bootstrap-select.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/bootstrap-sweetalert/dist/sweetalert.css" th:href="@{/bower_components/bootstrap-sweetalert/dist/sweetalert.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/growl/stylesheets/jquery.growl.css" th:href="@{/bower_components/growl/stylesheets/jquery.growl.css}"/>	
+    <link rel="stylesheet" href="../static/bower_components/bootstrap-fileinput/css/fileinput.css" th:href="@{/bower_components/bootstrap-fileinput/css/fileinput.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/bootstrap-duallistbox/dist/bootstrap-duallistbox.css" th:href="@{/bower_components/bootstrap-duallistbox/dist/bootstrap-duallistbox.css}"/>
+	
+	<link rel="stylesheet" href="../static/css/inicio.css" th:href="@{/css/inicio.css}"></link>
+	<link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}"/>
+	<link rel="stylesheet" href="../static/css/tema/app.min.1.css" th:href="@{/css/tema/app.min.1.css}"/>
+    <link rel="stylesheet" href="../static/css/tema/app.min.2.css" th:href="@{/css/tema/app.min.2.css}"/>
+
+
+
+
+</head>
+<body>
+	
+	<a href="#" class="flecha_menu showMenu" id="showMenu"><i class="icono fa fa-bars"></i></a>
+	<div class="menu">
+		<!-- <h3 class="menu_titulo">MENU</h3> -->
+		<div class="contenido_menu">
+			<ul class="lista-menu" id="side-menu">
+			</ul>	
+		</div>	
+	</div>
+	<div class="contenedor">
+		<header>
+			<div class="logo">
+				<img src="../static/img/escudo-tarija.png" th:src="@{/img/escudo-tarija.png}" width="150" alt="">
+				<a href="#">PROGRAMA GNV</a>
+			</div>
+			<!-- <span class="sp-btn">
+				<a href="#" class="btn-menu showMenu" id="showMenu"><i class="icono fa fa-bars"></i></a>
+			</span> -->
+			<nav>
+				<ul class="menu_navegacion">
+					<li>
+						<select class="tipe form-control" name="roles" id="select-Roles" onchange="GetMenus(this)">	
+						</select>
+					</li>
+					<li>
+						<p>Conectado: <i class="fa fa-circle conectado" ></i>&nbsp; <strong ><h5 class="conectado_user"> Ivan Mamani Corzo</h5></strong></p>
+					</li>
+					<li>
+						<img class="avatar" src="../static/img/user.png" th:src="@{/img/user.png}" alt="logo">
+					</li>
+					<li>
+						<a href="#" class="salir">
+							<i class="fa fa-sign-out btn-logout" id="btn-desc"></i>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+ 
+		<section class="main">	
+			<div id="contenedor-gestion">
+				<h4>Te damos la bienvenida al Sistema del Programa GNV</h4>
+			</div>
+		</section>
+		<footer>
+			<div class="social">
+				<a href="#"><i class="fa fa-facebook"></i> Facebook</a>
+				<a href="#"><i class="fa fa-twitter"></i> Twitter</a>
+			</div>
+		</footer>
+	</div>
+
+	<div id="cont-modales" class="cont-modales"></div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="reportes" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" style="width: 90%">
+	    <div class="modal-content cont-reportes" >
+	      <iframe id="frameReportes" width="100%" height="600px"></iframe>
+	    </div>
+	  </div>
+	</div>
+
+	<script type="" src="../static/bower_components/jquery/dist/jquery.js" th:src="@{/bower_components/jquery/dist/jquery.js}"></script>
+    <script type="" src="../static/bower_components/bootstrap/dist/js/bootstrap.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.js}"></script>
+    <script type="" src="../static/bower_components/Waves/dist/waves.js" th:src="@{/bower_components/Waves/dist/waves.js}"></script>
+    <script type="" src="../static/bower_components/jquery-form/dist/jquery.form.min.js" th:src="@{/bower_components/jquery-form/dist/jquery.form.min.js}"></script>
+    <script type="" src="../static/bower_components/form.validation/dist/js/formValidation.js" th:src="@{/bower_components/form.validation/dist/js/formValidation.js}"></script>
+    <script type="" src="../static/bower_components/form.validation/dist/js/framework/bootstrap.js" th:src="@{/bower_components/form.validation/dist/js/framework/bootstrap.js}"></script>
+    <script type="" src="../static/bower_components/form.validation/dist/js/language/es_ES.js" th:src="@{/bower_components/form.validation/dist/js/language/es_ES.js}"></script>
+    <script type="" src="../static/bower_components/datatables.net/js/jquery.dataTables.js" th:src="@{/bower_components/datatables.net/js/jquery.dataTables.js}"></script>
+    <script type="" src="../static/bower_components/datatables.net-bs/js/dataTables.bootstrap.js" th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.js}"></script>
+    <script type="" src="../static/bower_components/datatables.net-responsive/js/dataTables.responsive.js" th:src="@{/bower_components/datatables.net-responsive/js/dataTables.responsive.js}"></script>
+    <script type="" src="../static/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js" th:src="@{/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+    <script type="" src="../static/bower_components/chosen/chosen.jquery.min.js" th:src="@{/bower_components/chosen/chosen.jquery.min.js}"></script>
+    <script type="" src="../static/bower_components/bootstrap-select/dist/js/bootstrap-select.js" th:src="@{/bower_components/bootstrap-select/dist/js/bootstrap-select.js}"></script>
+    <script type="" src="../static/bower_components/bootstrap-select/dist/js/i18n/defaults-es_ES.js" th:src="@{/bower_components/bootstrap-select/dist/js/i18n/defaults-es_ES.js}"></script>
+    <script type="" src="../static/bower_components/bootstrap-sweetalert/dist/sweetalert.js" th:src="@{/bower_components/bootstrap-sweetalert/dist/sweetalert.js}"></script>
+    <script src="../static/bower_components/growl/javascripts/jquery.growl.js" th:src="@{/bower_components/growl/javascripts/jquery.growl.js}"></script>
+    <script src="../static/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js" th:src="@{/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js}"></script>
+    <script type="" src="../static/bower_components/jquery-load-json/dist/jquery.loadJSON.min.js" th:src="@{/bower_components/jquery-load-json/dist/jquery.loadJSON.min.js}"></script> 
+
+    <script type="" src="../static/bower_components/bootstrap-fileinput/js/fileinput.js" th:src="@{/bower_components/bootstrap-fileinput/js/fileinput.js}"></script> 
+	<script type="" src="../static/bower_components/bootstrap-fileinput/js/locales/es.js" th:src="@{/bower_components/bootstrap-fileinput/js/locales/es.js}"></script> 
+	<script type="" src="../static/bower_components/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js" th:src="@{/bower_components/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js}"></script> 
+   
+	<script type="" src="../static/js/tema/js/functions.js" th:src="@{/js/tema/js/functions.js}"></script>
+    <script type="" src="../static/js/ajax/GBeneficiarios.js" th:src="@{/js/ajax/GBeneficiarios.js}"></script>
+    <script src="../static/js/myscript.js" th:src="@{/js/myscript.js}"></script>
+    
+    <script type="text/javascript">
+    	
+    	var urlServer='http://localhost:8080';
+		
+	// $(function () {
+	    Waves.attach('.btn',['waves-button']);
+	    Waves.init();
+		
+		$.post('/RestUsuario/getUserSession', function(result){
+			$('.conectado_user').html(result.user.nombres+" "+result.user.ap+" "+result.user.am)
+		},'json');
+
+		ObtenerRoles();
+	   	var idrol_init=0;
+		function ObtenerRoles() {
+			var idrol1;
+			$('#select-Roles').empty();
+			$.ajax({
+				url:"/RestUsuario/obtenerRoles",
+				dataType:"json",
+				cache: false,
+				success:function(resp){
+					console.log('Roles: ',resp)
+					idrol1=resp[0].idrol;
+					var selecion='';
+					$('#select-Roles').append('<option value="-1" >Selecione Rol</option>')
+					$(resp).each(function(index,array) {
+						if(idrol1==array.idrol){
+							seleccion='selected'
+						}else{
+							seleccion=''
+						}
+						$('#select-Roles').append(
+								'<option value="'+array.idrol+'" accesskey="'+array.idrol+'" '+seleccion+'>'+
+								'<a href="">'+array.nombre+'</a>'+
+								'</option>');
+						var selecion='';
+					})
+					$('#select-Roles').chosen();
+					enviarIdrol(idrol1);	
+				},
+				error:function(err){
+			
+				}
+				
+			})	
+		}
+		var idrol_select;
+		function enviarIdrol(id_rol){
+			GetMenus(id_rol);
+			idrol_select=id_rol;
+		}
+		var ListaMenus;
+		function GetMenus(rol){
+			var valor;
+			if(isNaN(rol)){
+				valor = $(rol).val();
+				
+			}else{
+				valor=rol;
+			}
+			var idr=valor;
+			idrol_select=valor;
+			$.ajax({
+				url:'../RestUsuario/MenuRol',
+				type:'post',
+				dataType:"json",
+				data:{
+					idrol:valor
+				},
+				success:function(resp){
+
+					console.log('respActual: ',resp);
+					var name="";
+					$('.lista-menu').empty();//remove igual borra todos los li dentro
+					$(resp).each(function(index,item){
+						var proc=item;
+						$('.lista-menu').append(
+								`<li class="">
+									<a href="#" id="mod" data-id="${item.idmod}" class="title_menu"><i class="${item.icono}"></i>
+									<span>${item.nombre}</span>
+									<!--<i class="icono derecha fa fa-chevron-down" aria-hidden="true"></i>-->
+									</a>
+		                    	<ul class="lista-procesos list-procesos${(index+1)}" data-id="${item.idmod}" >
+		                		</ul>
+		                    	</li>`	
+		                );
+		  	          	$(resp[index].procesos).each(function (index1,item1){
+		            		var idlist='.list-procesos'+(index+1);
+		            		$(idlist).append('<li class="sub-proceso"><a href="#" data-href="'+item1.enlace+'" data-id="'+item1.idproc+'" accesskey="'+item.idmod+'" data-idrol="'+idr+'" class="enlace-proc enl-gestion" onclick=(getGestion(this))>'+item1.nombre+'</a></li>')
+		            		$(item1.opciones).each(function(index2,item2) {
+							})
+		            	});
+					})
+					ObtenerMenus(resp);
+				}
+			})
+		} 
+		function ObtenerMenus(Menus){
+			ListaMenus=Menus;
+		}
+		function getGestion(link_gest){	
+			var idrol=$(link_gest).attr('data-idrol')
+			var idmod=$(link_gest).attr('accesskey')
+			var idproc=$(link_gest).data('id');
+			var enlace=$(link_gest).data('href');
+			$.post(enlace,function(resp){
+				$('#contenedor-gestion').html(resp);
+			})
+			$('#opcionesRol').html('');
+			var OpcionesSistema=new Object();
+			$(ListaMenus).each(function(index,menus){
+					if(menus.idmod==idmod){
+						$(ListaMenus[index].procesos).each(function(index1,procesos){
+							if(procesos.idproc==idproc){
+									OpcionesSistema.AccionesUser=new Array();	
+									$(procesos.opciones).each(function(index2,opciones){
+										$('#opcionesRol').append('<button class="btn btn-primary waves-effect" name="">'+opciones.nombre+'</button>')
+										OpcionesSistema.AccionesUser[index2]=opciones;
+									})
+								Get_Opciones(OpcionesSistema);	
+							}
+						})
+					}
+			})
+		}
+		var OpcionesSistema;
+		function Get_Opciones(opc){
+			var resp;
+			if(opc==null){		
+				resp=OpcionesSistema;
+			}else{
+				OpcionesSistema=opc;
+				resp=opc;
+			}
+			return resp;
+		}
+		$('#btn-desc').on('click',function(){
+            swal({   
+                title: "Esta seguro de salir del Sistema?",   
+                text: "Se desconectara del Sistema para redirigirse a la pantalla de login!",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Si, Salir!",
+                cancelButtonText: "No, Cancelar!",    
+                closeOnConfirm: false//q no se cierre al hacer click en aceptar, q haga otro evento 
+				// closeOnCancel: false 
+
+            }, function(isConfirm){  
+				if(isConfirm){
+             	   window.location.href="/desconectar"
+				} 
+            });
+
+		})
+    </script>
+	<script>
+		$(function() {
+			var meses = new Array("01", "02", "03","04", "05", "06", "07","08", "09", "10","11", "12");
+			var f = new Date();
+			var fecha= f.getFullYear()+ "-" + meses[f.getMonth()] + "-" +f.getDate();
+			$("#date").html(fecha);
+
+		})
+
+		function mueveReloj(){
+		    momentoActual = new Date()
+		    hora = momentoActual.getHours()
+		    minuto = momentoActual.getMinutes()
+		    segundo = momentoActual.getSeconds()
+
+		    horaImprimible = hora + ":" + minuto + ":" + segundo
+			$("#time").html(horaImprimible);
+		    setTimeout("mueveReloj()",1000)
+		} 
+	</script>	
+	<script>
+		$('.showMenu').on('click',function(e){
+			e.preventDefault();
+			if ($('.menu').hasClass('menu_mostrar')) {
+				$('.menu').removeClass('menu_mostrar')
+				$('.flecha_menu').removeAttr('style')
+			} else {
+				$('.menu').addClass('menu_mostrar')
+				$('.flecha_menu').css("background","blue")
+			}
+		})
+	</script>
+</body>
+</html>

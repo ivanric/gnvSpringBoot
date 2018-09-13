@@ -1,0 +1,85 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'app'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven{url "http://jasperreports.sourceforge.net/maven2/"}
+    maven{url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/"}
+    maven {
+        url "https://www.mvnrepository.com/"
+    }
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	//compile('org.springframework.boot:spring-boot-starter') 
+	
+	//*******************SECURITY
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.2.RELEASE'
+	
+    //*******************TRANSACIONES JDBC
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    
+    //*******************DRIVER SQLSERVER
+	compile 'com.microsoft.sqlserver:mssql-jdbc:6.5.4.jre8-preview'//DRIVER ACEPTADO CON GRADLE
+    
+    //*******************DEVTOOLS
+    compile("org.springframework.boot:spring-boot-devtools") 
+    
+	//*******************JASPERREPORT
+    compile 'javax:javaee-endorsed-api:7.0'
+    // https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
+	compile group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.0.0'
+	
+	// https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts
+	compile group: 'net.sf.jasperreports', name: 'jasperreports-fonts', version: '6.0.0'
+	
+	// https://mvnrepository.com/artifact/com.lowagie/itext-necesario para jasper
+	compile group: 'com.lowagie', name: 'itext', version: '2.1.7'   
+
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '1.4.1.RELEASE', ext: 'pom'
+
+	// https://mvnrepository.com/artifact/org.apache.poi/poi
+	compile group: 'org.apache.poi', name: 'poi', version: '3.10.1' //para xls para jasper  version: '6.0.0'
+
+
+
+	//******************THYMELEAF
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	
+	//******************JWT
+		// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
+	
+	//*****************OTROS
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.7'//CODECT PARA ENCRIPTACION
+	
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.7'
+	//****************JAVAX
+	compile 'javax:javaee-endorsed-api:7.0'
+	
+    //testImplementation 'junit:junit:4.12'
+}

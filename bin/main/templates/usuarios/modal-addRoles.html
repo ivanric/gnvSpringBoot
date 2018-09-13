@@ -1,0 +1,38 @@
+<div class="modal fade" id="modalAddRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form name="formularioAsignar" role="form" id="formAddRol" method="post" action="../RestRoles/asignarRolUser"
+            data-fv-excluded="disabled"
+            data-fv-icon-valid="glyphicon glyphicon-ok"
+                data-fv-icon-invalid="glyphicon glyphicon-remove"
+                data-fv-icon-validating="glyphicon glyphicon-refresh">
+        <div class="modal-dialog "  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Asignar Rol</h4>
+            </div>
+            <div class="modal-body">
+                    <!-- <input type="hidden" id="codr" name="codr" />	 -->
+                    <div class="row">
+                        <div class="col-md-9"><h3>Usuario:  <b id="nameUser"></b></h3></div>
+                    </div>
+                    <select id="js_roles_users" name="roles[]" multiple="multiple">
+                        <!-- #foreach($m in $menus)
+                        <option value="$m.codm">$m.nombre</option>
+                        #end -->
+                    </select>	
+        </div>
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> Cancelar</button>
+            </div>
+        </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(function(){
+
+
+
+    })
+</script>

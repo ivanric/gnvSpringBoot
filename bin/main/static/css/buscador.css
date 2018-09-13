@@ -1,0 +1,36 @@
+#display
+	/*estilos para la caja principal en donde se puestran los resultados de la busqueda en forma de lista*/
+	{
+	/*width:300px; */
+	height: 137px;
+	display: none;
+	z-index: 2000;
+	position:absolute;
+/* 	border: solid 1px #666; */
+	overflow: scroll;
+/* 	overflow-y: scroll; */
+    overflow-x: hidden;
+    background: #fff;
+}
+
+.display_box
+	/*estilos para cada caja unitaria de cada usuario que se muestra*/ {
+	padding: 2px;
+	/*padding-left:6px; */
+	font-size: 12px;
+	height: 45px;
+	/*text-decoration:none;*/
+	color: #3b5999;
+}
+
+.display_box:hover
+	/*estilos para cada caja unitaria de cada usuario que se muestra. cuando el mause se pocisiona sobre el area*/
+	{
+	background: #415AB5;
+	color: #FFF;
+}
+
+
+
+
+

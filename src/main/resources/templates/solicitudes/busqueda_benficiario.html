@@ -1,0 +1,21 @@
+#foreach($reg in $listaB)
+<div class="" id="item-ben">
+	<div class="l_ben"  id="l_ben" >
+		<a href="#" style="text-decoration: none;" data-href="$reg.idper" onclick="mostrar_b(this)"> <!--Recuperamos el id para pasarlo a otra pagina -->
+			<div class="display_box" align="left">
+				<div style="float: left; margin-right: 6px;">
+					<img src="../resources/img/contacts/8.jpg" width="40" height="40" />
+				</div>
+				<!--Colocamos la foto Recuperada de la bd -->
+				<div style="margin-center: 6px;">
+					<b>$reg.ci</b>
+				</div>
+				<!--Recuperamos el nombre recuperado de la bd -->
+				<div style="margin-right: 6px;" class="desc">
+					$reg.nombres $reg.ap $reg.am
+				</div>
+			</div> <!--Recuperamos la direccion recuperada de la bd -->
+		</a>
+	</div>
+</div>
+#end

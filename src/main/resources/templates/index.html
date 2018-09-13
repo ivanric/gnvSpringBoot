@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/> 
+    <title>index DEFAULT</title>
+    <link rel="stylesheet" href="../static/bower_components/bootstrap/dist/css/bootstrap.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.css}"></link>
+    <link rel="stylesheet" href="../static/bower_components/animate.css/animate.css" th:href="@{/bower_components/animate.css/animate.css}"></link>
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}"></link>
+<!--    <link th:href="@{/bower_components/}" rel="stylesheet" href="../static/css/reloj.css" th:href="@{}"> -->
+    <link rel="stylesheet" href="../static/css/tema/app.min.1.css" th:href="@{/css/tema/app.min.1.css}"></link>
+    <link rel="stylesheet" href="../static/css/tema/app.min.2.css" th:href="@{/css/tema/app.min.2.css}"></link>
+    <link rel="stylesheet" href="../static/bower_components/Waves/dist/waves.css" th:href="@{/bower_components/Waves/dist/waves.css}"></link>
+    <link rel="stylesheet" href="../static/bower_components/form.validation/dist/css/formValidation.css" th:href="@{/bower_components/form.validation/dist/css/formValidation.css}"></link>
+    <link rel="stylesheet" href="../static/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css" th:href="@{/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css}"></link>  
+    <link rel="stylesheet" href="../static/css/btn-flotant.css" th:href="@{/css/btn-flotant.css}"></link>
+</head>
+<body>
+    <!-- MENú -->
+    <div class="baner">
+    </div>
+    <nav class="navbar navbar-inverse  navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+            
+                <a class="navbar-brand" href="index.html">PROGRAMA GNV</a>
+            </div>
+
+        </div>
+    </nav>
+    <div class="row" style="margin-right: 0px;">
+    <div class="col-lg-4 col-md-4 col-xs-12"></div>
+    <div class="col-lg-4 col-md-4 col-xs-12" style="padding: 0px 30px;">
+    <div class="row text-center">
+        <div class="col-lg-12 col-md-12 col-xs-12 ">
+            <!-- <img src="" class="img-circle"> -->
+            <i class="zmdi zmdi-account zmdi-hc-5x img-circle" style="background: #858988;width: 80px;height: 80px;"></i>   
+        </div>
+    </div>
+    <!-- <form action="http://localhost:8080/RestUsuario/validar" method="post" id="form-logueo" class="form-logueo" novalidate> -->
+    <form action="#" method="post" id="form-logueo" class="form-logueo" novalidate="novalidate">
+            <div class="modal-header text-center">      
+                <h4 class="modal-title">Conexión al Sistema</h4>
+            </div>
+        <p class="lock">
+            <i class="icon_lock_alt" style="color: rgb(66, 180, 180);"></i>
+        </p>
+        <div class="modal-body">
+            <div class="form-group">
+                <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                    <div class="fg-line">
+                        <input type="text" class="form-control" id="xlogin" placeholder="Usuario.." name="login"></input>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ">    
+                <div class="input-group m-b-20">
+                    <span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
+                    <div class="fg-line">
+                        <input type="password" class="form-control" id="xpassword" placeholder="Contrasenia.." name="password"></input>
+                    </div>
+                </div>
+            </div>
+            <div id="mensaje" class="mensaje"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-success waves-effect" id="btn-log"><span class="fa fa-external-link" ></span> aceptar</button>
+                <button type="button" class="btn btn-danger waves-effect" id="resetear"> <span class="fa fa-remove"></span>Resetear</button>            
+            </div>
+
+        </div>
+    </form>
+
+</div>
+<div class="col-lg-4 col-md-4 col-xs-12"></div>
+
+</div>
+
+
+<div class="fixed-action-btn" style="bottom: 25px;right:19px;">
+    <a class="btn-floating btn-large">
+    <i class="zmdi zmdi-plus-circle-o zmdi-hc-2x" style="margin: 10px -6px"></i>
+    </a>
+    <ul>
+        <li><a href="css-helpers.html" class="btn-floating btn-danger" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><i class="zmdi zmdi-help zmdi-hc-fw"></i></a></li>
+        <li><a href="app-widget.html" class="btn-floating btn-success" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><i class=""></i></a></li>
+        <li><a href="app-calendar.html" class="btn-floating btn-warning" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><i class=""></i></a></li>
+        <li><a href="app-email.html" class="btn-floating btn-info" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><i class=""></i></a></li>
+    </ul>
+</div>
+
+
+<script type="" src="../static/bower_components/jquery/dist/jquery.js"  th:src="@{/bower_components/jquery/dist/jquery.js}"></script>
+<script type="" src="../static/bower_components/bootstrap/dist/js/bootstrap.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.js}"></script>
+<script type="" src="../static/bower_components/jquery.nicescroll/dist/jquery.nicescroll.js" th:src="@{/bower_components/jquery.nicescroll/dist/jquery.nicescroll.js}"></script>
+<script type="" src="../static/bower_components/autosize/dist/autosize.js" th:src="@{/bower_components/autosize/dist/autosize.js}"></script>
+<script type="" src="../static/bower_components/Waves/dist/waves.js" th:src="@{/bower_components/Waves/dist/waves.js}"></script>
+
+<!-- <script type="" src="../static/js/materialize/materialize.js" th:src="@{/js/materialize/materialize.js}"></script> -->
+<script type="" src="../static/bower_components/jquery-form/dist/jquery.form.min.js" th:src="@{/bower_components/jquery-form/dist/jquery.form.min.js}"></script>
+<script type="" src="../static/bower_components/form.validation/dist/js/formValidation.js" th:src="@{/bower_components/form.validation/dist/js/formValidation.js}"></script>
+<script type="" src="../static/bower_components/form.validation/dist/js/framework/bootstrap.js" th:src="@{/bower_components/form.validation/dist/js/framework/bootstrap.js}"></script>
+<script type="" src="../static/bower_components/form.validation/dist/js/language/es_ES.js" th:src="@{/bower_components/form.validation/dist/js/language/es_ES.js}"></script>
+<!-- para el tema de materialize -->
+<script type="" src="../static/js/tema/js/functions.js" th:src="@{/js/tema/js/functions.js}"></script>
+
+
+<script type="text/javascript">
+    var urlServer='http://localhost:8080';
+    var urlClient='http://localhost:3000';
+    $(document).ready(function() {
+        var form=$('#form-logueo')
+        .formValidation({
+            framework: 'bootstrap',
+            // icon: {
+            //  valid: 'glyphicon glyphicon-ok',
+            //  invalid: 'glyphicon glyphicon-remove',
+            //  validating: 'glyphicon glyphicon-refresh'
+            // },
+            fields: {
+                login: {
+                    message: 'The username is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'ingrese un usuario'
+                        },
+                        stringLength: {
+                            min: 4,
+                            max: 20,
+                            message: 'El login deve ser 4 caracteres y menor que 20 caracteres'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: 'El login no acepta caracteres especiales'
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Requiere una clave'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.fv', function(e){
+            e.preventDefault();
+                     // alert('estoy dentro')
+            IngresoLogin(e);
+        })
+        function IngresoLogin(e){
+//             var formData=new FormData($('#form-logueo'))
+            console.log(e);
+
+            
+            $('#form-logueo').ajaxSubmit({
+                url:'/RestUsuario/validar',
+                // data: function() {
+             //      return $(this).serialize();
+             //    },
+                // contentType: "application/json;charset=UTF-8",
+                dataType:"json",
+                // async:false,
+                success:function(respuesta){
+                        console.log(respuesta);
+                        // $('#mensaje').html(respuesta.msg);
+                        if(respuesta.status==true){
+                            window.location.href='/inicio';
+
+                            // $.getJSON(urlServer+'/RestUsuario/salir',function(){
+                            //     console.log('autorize: ',resp)
+                            //     if(resp.autorize==true){
+                            //         window.location.href=urlClient+'/inicio';
+                            //         window.location.href=urlServer+'/RestUsuario/salir';
+                            //     }else{
+                            //      alert('no se ha podido iniciar session')
+                            //     }
+                            // })
+                            // alert('si')
+                        }else{
+                            $('#mensaje').html(respuesta.msg);
+                            
+                        }   
+                },
+                error:function(e){
+                    alert('Sin respuesta del servidor server');
+                }
+            });
+            
+        }
+        $('#resetear').on('click',function(){
+            $('#form-logueo').data('formValidation').resetForm(true);
+            $('#mensaje').html('');
+        })
+        
+        
+        // $(function(){
+            Waves.attach('.btn',['waves-button']);
+            Waves.init();
+        // })
+        $("html").niceScroll();
+
+    });
+    
+</script>
+</body>
+</html>

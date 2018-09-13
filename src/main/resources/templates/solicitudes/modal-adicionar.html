@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title></title>
+<link rel="stylesheet" href="../css/buscador.css">
+
+</head>	
+<body>
+	<form id="formulario-add" action="../RestSolicitudes/adicionar"
+		method="post" data-fv-excluded="disabled"
+		>
+		<div class="modal fade" id="modal-add" tabindex="-1" role="dialog"
+			data-backdrop="static" data-keyboard="false" aria-hidden="true"
+			style="display: none; padding-left: 0">
+			<div class="modal-dialog modal-lg" role="document"
+				style="width: 94%;">
+				<div class="modal-content">
+					<div class="card">
+						<div class="card-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h2>
+								Nueva Solicitud<small>Complete el formulario por
+									favor</small>
+							</h2>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-5">
+									<div class="form-group">
+										<label for="" class="col-md-6 control-label espacio-form" style="padding-top: 12px">FECHA DE CREACIÓN</label>
+										<div class="col-md-6">
+											<div class="fg-line"> 
+												<input disabled="disabled" class="form-control fg-input" id="fechaCreacion" name="fecha" type="text" value="" style="text-align: center;">
+												<input id="fechaHidden" name="fecha" type="hidden" value="" >
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3"> </div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="" class="col-md-8 control-label espacio-form" style="padding-top: 12px">NÚMERO DE SOLICITUD</label>
+										<div class="col-md-4">
+											<div class="fg-line">
+												<input disabled="disabled" class="form-control fg-input" id="numSolt" name="numSolt" type="text"  value="" style="text-align: center;">
+												<input  id="numSoltHidden" name="numSolt" type="hidden"  value="" >
+											</div> 
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="row" style="padding-top: 40px">
+								<div class="col-md-3"></div>
+								<div class="col-md-6 benef">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="zmdi zmdi-search"></i></span>
+											<div class="fg-line div_busca" id="div_busca">
+												<input class="form-control fg-input busca" accesskey="0"
+													placeholder=" Buscar beneficiario por nombre, apellidos o cedula"
+													type="text" id="busca" name="ben" autocomplete="off">
+												
+											</div>
+											<div id="display" class="lista_ben z-depth-3"
+												style="width: 95%"></div>
+										</div>
+
+									</div>
+								</div>
+								<div class="col-md-3"></div>
+								<div class="col-md-12" style="display: none;"
+									id="conversion_beneficiario">
+									<div class="card z-depth-1">
+										<div class="card-header text-center" style="padding-bottom: 0">
+											<h4>Beneficiario para la converción</h4>
+										</div>
+										<div class="panel-body">
+											<div id="contenido-ben"></div>
+										</div>
+										<input type="hidden" name="idben">
+									</div>
+								</div>
+
+							</div>
+							<fieldset>
+							  <legend>VEHÍCULO</legend>
+							  <div class="vehiculo-data">
+							  	<div class="row" >
+							  		<div class="col-md-12">
+							  			<div class="form-group" id="div-mod-veh" style="display: none;"></div>
+							  		</div>
+							  	</div>	
+								<div class="row" >
+									<div class="col-md-2">
+										<div class="form-group fg-float">
+											<div class="fg-line">
+												<input minlength="6" maxlength="8" data-fv-stringlength-message="Requiere por lo menos 6 caracteres " class="form-control fg-input" id="placa" name="placa" type="text" onclick="resetearPlaca()">
+												<!-- <input class="form-control fg-input" id="placa" name="placa" type="text" data-fv-notempty="true" data-fv-message="Requiere ingresar placa"> -->
+
+											</div>
+											<label class="fg-label">Placa</label>
+											<small class="help-block" id="mensaje-placa" style="display: none;"></small>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group fg-float">
+											<div class="fg-line">
+												<input class="form-control fg-input dt-veh input-veh" id="tg"
+													name="tjeta_prioridad" type="text" data-fv-notempty="true"
+													data-fv-message="Requiere Targeta de Prioridad" maxlength="15">
+											</div>
+											<label class="fg-label">Targeta de Prioridad</label>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group fg-float">
+											<div class="fg-line">
+												<input class="form-control fg-input dt-veh input-veh" id="cil"
+													name="cilindrada" type="text" data-fv-notempty="true"
+													data-fv-message="Requiere Cilindrada" data-fv-integer="true" data-fv-integer-message="Requiere solo nÃºmero" maxlength="2">
+											</div>
+											<label class="fg-label">Cilindrada (CC)</label>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group fg-float">
+											<div class="fg-line">
+												<input class="form-control fg-input dt-veh input-veh" id="color" name="color" type="text" data-fv-notempty="true" data-fv-message="Requiere Color" maxlength="12">
+											</div>
+											<label class="fg-label">Color</label>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group fg-float">
+											<div class="fg-line">
+												<input class="form-control fg-input dt-veh input-veh" id="numC"
+													name="num_chasis" type="text" data-fv-notempty="true"
+													data-fv-message="Requiere NÃºmero de Chasis" maxlength="20">
+											</div>
+											<label class="fg-label">Numero de Chasis</label>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group fg-float">
+											<div class="fg-line">
+												<input class="form-control fg-input dt-veh input-veh" id="numM"
+													name="num_motor" type="text" data-fv-notempty="true"
+													data-fv-message="Requiere NÃºmero de Motor" maxlength="20">
+											</div>
+											<label class="fg-label">Numero de Motor</label>
+										</div>
+									</div>
+								</div>	
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group">
+											<div class="fg-line">
+												<!-- <label for="">Tipo de VehÃ­Â­culo</label> -->
+												<select data-placeholder="n" name="idtipv"
+													class="form-control fg-input sel-opcv dt-veh " data-fv-notempty='true'
+													data-fv-message="Seleccione el Tipo de VehÃ­Â­culo" id="tipv">
+													<option value="" selected="selected">Tipo Vehiculo</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<div class="fg-line">
+												<!-- <label for="">Tipo de VehÃ­Â­culo</label> -->
+												<select data-placeholder="n" name="idmarcv"
+													class="form-control fg-input sel-opcv dt-veh" data-fv-notempty='true'
+													data-fv-message="Seleccione la marca del VehÃ­Â­culo"
+													id="marv">
+													<option value="" selected="selected">Marca Vehiculo</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<div class="fg-line">
+												<!-- <label for="">Tipo de VehÃ­Â­culo</label> -->
+												<select data-placeholder="n" name="idmodv"
+													class="form-control fg-input sel-opcv dt-veh" data-fv-notempty='true'
+													data-fv-message="Seleccione el modelo del VehÃ­Â­culo"
+													id="modv">
+													<option value="" selected="selected">Modelo Vehiculo</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<div class="fg-line">
+												<!-- <label for="">Tipo de VehÃ­culo</label> -->
+												<select data-placeholder="n" name="idtipoMotorVeh"
+													class="form-control fg-input sel-opcv dt-veh" data-fv-notempty='true'
+													data-fv-message="Seleccione el Sistema de motor del VehÃ­culo"
+													id="tipmv">
+													<option value="" selected="selected">Sistema Motor Vehiculo</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<div class="fg-line">
+												<!-- <label for="">Tipo de VehÃ­Â­culo</label> -->
+												<select data-placeholder="n" name="idTipSv"
+													class="form-control fg-input sel-opcv dt-veh" data-fv-notempty='true'
+													data-fv-message="Seleccione el tipo de servicio del VehÃ­Â­culo"
+													id="tipserv">
+													<option value="" selected="selected">Tipo de Servicio</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+			                            <div class="form-group">
+			                                <select multiple="multiple"  data-placeholder="Seleccione combustible"  name="combustible"
+			                                data-fv-notempty='true' 
+			                                data-fv-message="Requiere tipo de Combustible" 
+			                                data-fv-choice="true"
+			                                data-fv-choice-min="1"
+                                			data-fv-choice-max="2"
+			                                data-fv-choice-message="Selecione entre 1 y 2"
+			                                id="select-comb" 
+			                                class="form-control sel-opcv dt-veh">
+			                                </select>                            
+			                            </div>
+		                        	</div>
+		                        	<div class="col-md-6">
+			                            <div class="form-group fg-float">
+			                                <div class="fg-line">
+			                                    <textarea  class="form-control fg-input " id="text-desc" name="observaciones"  maxlength="120">                                    
+			                                    </textarea>
+			                                </div>
+			                                <label class="fg-label">Descripcion de Solicitud</label>
+			                            </div>    
+		                        	</div>	
+								</div>
+							  </div>
+							</fieldset>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" id="btnAdicionarConfirmacion"
+								class="btn btn-primary waves-effect">Guardar</button>
+							<button type="button" class="btn btn-danger waves-effect"
+								data-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</form>
+	<form id="formBen" class="vamos" action="#" method="post"
+		style="display: none">
+		<div class="row">
+			<div class="col-md-2 form-group">
+				<div class="fg-line">
+					<label for="">Cedula</label> <input class="form-control"
+						disabled="disabled" placeholder="Cedula.." type="text" name="ci"
+						data-fv-notempty="true" data-fv-message="Requiere Cedula"
+						autocomplete="off">
+				</div>
+			</div>
+			<div class="col-md-2 form-group">
+				<div class="fg-line">
+					<label for="">Nombres</label> <input class="form-control fg-input"
+						disabled="disabled" placeholder="Nombres" name="nombres"
+						type="text" data-fv-notempty="true"
+						data-fv-message="Requiere Nombres">
+				</div>
+			</div>
+
+			<div class="col-md-2 form-group">
+				<div class="fg-line">
+					<label for="">Apellido Paterno</label> <input
+						class="form-control fg-input" disabled="disabled"
+						placeholder="Apellido Paterno" name="ap" type="text"
+						data-fv-notempty="true"
+						data-fv-message="Requiere Apellido Paterno">
+				</div>
+			</div>
+			<div class="col-md-2 form-group">
+				<div class="fg-line">
+					<label for="">Apellido Materno</label> <input
+						class="form-control fg-input" disabled="disabled"
+						placeholder="Apellido Materno" name="am" type="text"
+						maxlength='10'
+						data-fv-stringlength-message='Ingrese apellido materno'>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<div class="fg-line">
+						<label for="">Genero</label>
+						<select disabled="disabled" 
+							data-placeholder="n" name="genero" class="form-control fg-input"
+							data-fv-notempty='true' data-fv-message="Requiere GÃƒÂ¯Ã‚Â¿Ã‚Â½nero"
+							id="select-genero">
+							<option value="">Seleccione Genero</option>
+							<option value="m">Masculino</option>
+							<option value="f">Femenino</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<div class="fg-line">
+						<label class="fg-label">Direccion</label> <input
+							class="form-control fg-input" disabled="disabled"
+							placeholder="direccion.." name="direccion" type="text"
+							data-fv-notempty="true" data-fv-message="Requiere DirecciÃƒÂ¯Ã‚Â¿Ã‚Â½n">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">
+					<div class="fg-line">
+						<label class="fg-label">Correo</label> <input
+							class="form-control fg-input" disabled="disabled"
+							placeholder="correo" name="email" type="email"
+							data-fv-notempty="true" data-fv-message="Requiere Correo">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<div class="fg-line">
+						<label class="fg-label">Institucion</label> <input
+							class="form-control fg-input" disabled="disabled"
+							placeholder="institucion" name="institucion" type="text"
+							data-fv-notempty="true" data-fv-message="Requiere Institucion">
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- <script type="" src="../resources/bower_components/jquery/dist/jquery.js"></script> -->
+	<script type="" src="../bower_components/jquery.nicescroll/dist/jquery.nicescroll.js"></script>
+	<script type="" src="../bower_components/autosize/dist/autosize.js"></script>
+	<script type="" src="../js/tema/js/functions.js"></script>
+	<script type="text/javascript">
+		var JsonListaBen = null;
+		var click_selec = 0;
+		var escrito = 0;
+		console.log('padre: ', $(".busca").parent())
+		$('#modal-add').on('click', function(e){
+			console.log('sin id?? ', (e.target.id) == '');
+			var id_busca = $('.busca').attr('id');
+			var id_l_ben = $('.l_ben').attr('id');
+			var id_click = e.target.id;
+			if (id_click !== '') {
+				if (id_click !== id_busca && id_click !== id_l_ben) {
+					var visible = $('#display').is(":visible");
+					if (visible) {
+						$('#display').hide()
+					} else {
+						console.log('entro, pero no esta visible')
+					}
+				} else {
+					console.log('sigue mostrando')
+				}
+			} else {
+				var visible = $('#display').is(":visible");
+				if (visible) {
+					$('#display').hide()
+				} else {
+					console.log('no esta visible')
+				}
+			}
+		})
+		console.log('click_selec: ', click_selec)
+		$(".busca").on('click keyup',function(e) {
+    		if (e.type == 'click'){
+    			$('.dt-veh').parent().removeClass('fg-toggled');
+    			 $('#mensaje-placa').hide();
+    			
+ 				$('#conversion_beneficiario').slideUp(200,function() {
+    				$('#contenido-ben').html('')
+		    		$('#formBen').resetForm();
+					$('#select-genero').trigger('chosen:updated');
+				})
+    			$('input[name="ben"]').val("");
+    			var vacio = $('input[name="ben"]').val() == "";
+    			if (vacio) {
+    				$("#div-mod-veh").html("").hide();
+    				$('#formulario-add').data('formValidation').resetForm(true);
+    				$('.sel-opcv').trigger('chosen:updated');
+                	click_selec = 0;
+    			} else {
+    				click_selec = 1;
+    			}
+    		} else {
+    			click_selec = 0;
+    			console.log('se esta es	cribiendo')
+    		}
+    		
+
+    		console.log('click_selec: ', click_selec)
+    		// Gestionar.Adicionar.EnviarFormulario();
+    		var texto = $(this).val();//se recupera el valor de la caja de texto y se guarda en la variable texto
+    		var dataString = 'palabra=' + texto;//se guarda en una variable nueva para posteriormente pasarla a busqueda.php
+    		//console.log('tex: ',texto)
+    		// if(texto==''){//si no tiene ningun valor la caja de texto no realiza ninguna accion
+    		$('#display').hide()
+    		// }else{
+    		$.ajax({//metodo ajax
+				type : "POST",//aqui puede  ser get o post
+				url : "../RestSolicitudes/busqueda_benficiario",//la url adonde se va a mandar la cadena a buscar
+				//data: dataString,
+				data : {
+					texto : texto
+				},
+				dataType : 'json',
+				cache : false,
+				async : false,
+				success : function(resp) {//funcion que se activa al recibir un dato
+					JsonListaBen = resp;
+					// respCall=resp.length;
+					// console.log('json_listaBen_:',resp)
+					$('.item-ben').remove();
+					if (resp.length == 0) {
+						$('#display').slideUp(500)
+								.hide();
+					} else {
+						$(resp).each(function(index,ben) {
+						    $('#display').append('<div class="item-ben" id="">'
+    							+ '<div class="l_ben"  id="l_ben" >'
+    							+ '<a href="#" style="text-decoration: none;" data-href="'
+    							+ ben.beneficiario.idben
+    							+ '" onclick="mostrar_b(this)">'
+    							+ '<div class="display_box" align="left">'
+    							+ '<div style="float: left; margin-right: 6px;">'
+    							+ '<img src="../img/usuario.gif" width="40" height="40" />'
+    							+ '</div>'
+    							+ '<div style="margin-center: 6px;">'
+    							+ '<b>CI: '
+    							+ ben.ci
+    							+ '</b>'
+    							+ '</div>'
+    							+ '<div style="margin-right: 6px;" class="desc">BENEFICIARIO: '
+    							+ ben.nombres
+    							+ ' '
+    							+ ben.ap
+    							+ ' '
+    							+ ben.am
+    							+ '</div>'
+    							+ '</div>'
+    							+ '</a>'
+    							+ '</div>'
+    							+ '</div>');
+							})
+						$('#display').show()
+						//                         $('#display').slideDown(500)
+						//                      $('#display').fadeIn(500)
+					}
+				}
+			});
+    		// }
+    		return false;
+		});
+		function resetearFormulario(formulario) {
+			var data = 0;
+		}
+		function mostrar_b(a) {
+			var dato = $(a).data('href')
+			$('input[name=ben]').removeAttr('accesskey');
+			$('input[name=ben]').attr({
+				accessKey : 1
+			})
+			$('#formulario-add').data('formValidation').resetForm(true);
+			var rec_ben = retornarBeneficiario(JsonListaBen, dato);
+			campoCedulaGlobal=rec_ben.ci;
+			$('input[name="ben"]').val(rec_ben.ci)
+			$('input[name="idben"]').val(rec_ben.beneficiario.idben)
+			console.log('Ben_Recuperado: ',rec_ben)
+			$('#formBen').loadJSON(rec_ben)
+			$('#select-genero').chosen();
+			$('#select-genero').val(rec_ben.genero).trigger('chosen:updated');			
+			// $('#formBen').find('#select-genero').val(rec_ben.genero);			
+			var cloneform = $('#formBen').clone();
+    		// console.log('clonado: ',cloneform)
+    		$('#contenido-ben').html(cloneform)
+			$('#formBen').show()
+			$('#conversion_beneficiario').slideDown(500)
+
+			click_selec = 1;
+			console.log('click_selec: ', click_selec)
+			// console.log('e_: ',e.target)
+			Gestionar.Adicionar.EnviarFormulario();
+		}
+
+		function retornarBeneficiario(ListaBeneficiario, idben) {
+			var beneficiario = null;
+			$(ListaBeneficiario).each(function(index, item1) {
+				if (item1.beneficiario.idben == idben) {
+					beneficiario = item1
+				}
+			})
+			return beneficiario
+		}
+		var meses = new Array("01", "02", "03","04", "05", "06", "07","08", "09", "10","11", "12");
+		var f= new Date();
+		var fecha= f.getFullYear()+ "-" + meses[f.getMonth()] + "-" +f.getDate();
+		console.log('date:',fecha)
+	    document.getElementById('fechaCreacion').value=fecha;
+	    document.getElementById('fechaHidden').value=fecha;
+	    $.getJSON('../RestSolicitudes/opcionesVehiculo',function(datos){
+            console.log('opcionesVehiculo: ',datos)
+            var numS=datos.numSolt;
+            // alert('numS: '+numS)
+            document.getElementById('numSolt').value=numS
+            document.getElementById('numSoltHidden').value=numS
+
+            $(datos.tipoVehiculo).each(function(index,item){
+                // console.log('tip: ',item)
+                $('#tipv').append('<option value="'+item.idtipv+'">'+item.nombre+'</option>')
+            })
+            $('#tipv').chosen()
+            $(datos.marcaVehiculo).each(function(index,item){
+                // console.log('tip: ',item)
+                $('#marv').append('<option value="'+item.idmarcv+'">'+item.nombre+'</option>')
+            })
+            $('#marv').chosen()
+            $(datos.modeloVehiculo).each(function(index,item){
+                // console.log('tip: ',item)
+                $('#modv').append('<option value="'+item.idmodv+'">'+item.nombre+'</option>')
+            })
+            $('#modv').chosen()
+            $(datos.tipoMotor).each(function(index,item){
+                // console.log('tip: ',item)
+                $('#tipmv').append('<option value="'+item.idtipoMotorVeh+'">'+item.nombre+'</option>')
+            })
+            $('#tipmv').chosen()
+            $(datos.tipoServicio).each(function(index,item){
+                // console.log('tip: ',item)
+                $('#tipserv').append('<option value="'+item.idTipSv+'">'+item.nombre+'</option>')
+            })
+            $('#tipserv').chosen()
+            $(datos.combustibles).each(function(index,item){
+            	$('#select-comb').append('<option value="'+item.idcomb+'">'+item.nombre+'</option>')
+            })
+            $('#select-comb').chosen()
+        })
+        
+        function resetearPlaca() {
+	    	$('#formulario-add').data('formValidation').resetForm(true);
+	    	console.log('valor_ben:', campoCedulaGlobal)
+	    	$('input[name="ben"]').val(campoCedulaGlobal);
+	    	// $('.dt-veh').parent().removeClass('fg-toggled');
+	    	$('#mensaje-placa').hide();
+	    	$("#div-mod-veh").html("").hide();
+//  			$('#placa').val('')
+//  			$('#mensaje-placa').hide();
+			$(".dt-veh").val($(".dt-veh").find("option:first").val())
+	    	$('.dt-veh ').val('').trigger('chosen:updated');
+// 	    	$('.input-veh').val('')	
+		}
+        
+	</script>
+</body>
+</html>

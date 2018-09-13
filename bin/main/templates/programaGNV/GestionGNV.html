@@ -1,0 +1,89 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content=""> 
+</head>
+<body> -->
+	
+	<!-- <h2 style="text-align: center;"></h2> -->
+    <div class="panel panel-default">
+       	<div class="panel-heading">
+    		<h3 class="panel-title">UNIDAD EJECUTORA DEL PROGRAMA GNV</h3>
+  		</div>	
+	  <div class="panel-body">
+	    <div class="">
+            <div class="col-md-12">
+                <button  class="navbar-right btn btn-default waves-effect">
+                    Agregar Institución 
+                </button>
+            </div>   &nbsp;
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <input type="text" name="" class="form-control unput-sm" placeholder="Buscar..">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+        	    <table  id="table-gnv" class="table table-vmiddle" width="100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        	<td>1</td>
+                        	<td>prgrama</td>
+                        	<td>
+                        		<button class="btn btn-icon btn-default waves-effect"><span class="zmdi zmdi-edit"></span></button>
+                        		<button class="btn btn-icon btn-danger waves-effect"><span class="zmdi zmdi-delete"></span></button>
+                        	</td>
+                        </tr>
+                    </tbody>
+            	</table>
+            </div>   
+        </div>  
+	  </div>
+	</div>
+	<script type="text/javascript">
+	$(function () {
+		var result=Get_Opciones(null);
+		console.log('GESTION: ',result)
+		console.log('opcion: ',result.Opciones[0]);
+		console.log('opcion: ',result.Opciones[1]);
+	    var tablaGNV='';
+	    tablaGNV=$('#table-gnv').DataTable();
+	    correr();
+	    function correr() {
+	       var dt= $.fn.DataTable.isDataTable('#table-gnv');
+	       console.log(dt);
+	       if (dt) {
+	           console.log('destruir')
+	           tablaGNV.destroy();
+	           iniciarDatable();  
+	       } else {
+	           iniciarDatable();
+	       }				
+	   }
+
+	    function iniciarDatable(){
+	        tablaGNV=$('#table-gnv').DataTable({
+	            "oLanguage": {
+	                "sUrl": "../resources/js/dataTables/Spanish.lang"
+	            },
+	            "dom":'rt<button>ip',
+	            // "ordering":false,
+	            "pageLength":3
+	        });
+	    }
+	})
+	</script>
+<!-- </body>
+</html> -->

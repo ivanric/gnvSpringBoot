@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>gestion</title>
+</head>
+<body> 
+	<div class="card z-depth-2">
+		<div class="card-header">
+			<h2 class="panel-title">
+				GESTION ROLES <small>Administre Roles
+					registrados en el Sistema</small>
+			</h2>
+		</div>
+		<div class="panel-body" style="margin-top: -30px"> 
+			<div class="row">
+				<div class="col-md-12" style="text-align: right;margin-bottom: 15px">			
+					<button id="btn-add" class="btn btn-default waves-effect" disabled="disabled">NUEVO ROL</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-3 col-xs-12" style="margin-bottom: 10px;">
+							<input type="text" id="js-filtro" name=""
+								class="form-control_filtro unput-sm"
+								placeholder=" Buscar por nombre de rol..">
+						</div>
+						<div class="col-md-3 col-xs-12"></div>
+						<div class="col-md-6 col-xs-12 navbar-right" style="text-align: right; margin-top: 10px">
+							<label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="activos" value="1"> <i
+								class="input-helper"></i>activos
+							</label> <label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="bajas" value="0"> <i
+								class="input-helper"></i>bajas
+							</label> <label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="todos" value="-1"
+								checked="checked"> <i class="input-helper"></i>todos
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 t">
+					<table id="table" class="table table-vmiddle  table-striped nowrap"
+						width="100%">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Estado</th>
+								<th class="text-center">Opciones</th>
+
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+        var result=Get_Opciones(null);
+        if(ExisteOpcion('adicionar')){
+            $('#btn-add').attr({
+                onclick:"(Gestion.add())",
+                // accesskey:""
+                })
+            $('#btn-add').removeAttr("disabled ").focus().val("Ahora si lo puedes utilizar")
+        }
+
+        function ExisteOpcion(opc){
+            // alert('entro comparar')
+            var resultado=false;
+            for (var i = 0; i < result.AccionesUser.length; i++) {
+                console.log('for_: ',result.AccionesUser[i]);
+                if(result.AccionesUser[i].codigo==opc){
+                    resultado=true;         
+                }
+            }
+            return resultado;
+        }
+
+        var filtro=$('#js-filtro').val();
+        var estado=$('input[name="iestado"]:checked').val();
+        listar();
+
+        $('#js-filtro').on('keyup',function(){
+            filtro=$(this).val();
+            listar();
+        })
+
+        $('input[name="iestado"]').on('change',function(){
+            estado=$(this).val();
+            listar();
+        })
+        var DTable='';
+        function listar(){
+            $.ajax({
+                url:'../RestRoles/listar',
+                type:'post',
+                dataType:'json',
+                data:{
+                    filtro:filtro,
+                    estado:estado,
+                },
+                success:function(resp){
+                    console.log('icont_')
+                    if ($.fn.DataTable.isDataTable('#table')) {
+                        DTable.destroy();
+                        iniciarDatable(resp);       
+                    } else {
+                        iniciarDatable(resp);
+                    }   
+                },
+                error:function(err){
+                    alert('sin respuesta del servidor')
+                }
+            })
+        }
+      
+        function iniciarDatable(lista){
+            console.log('respuestaAjax: ',lista);
+            DTable=$('#table').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                // "scrollCollapse":true,
+                // "paging":false,
+                // "ordering":false,
+                 responsive:true,
+                "dom":'rt<button>ip',
+                "pageLength":5,
+                data:lista,
+                columns:[
+                    {data:'idrol'},
+                    {data:'idrol'},
+                    {data:'idrol'},
+                    {data:'idrol'}
+                ]
+                ,
+                "createdRow":function(row,data,index){
+                    $('td',row).eq(0).html(index+1).addClass('text-center');
+                    $('td',row).eq(1).html(data.nombre)
+
+                    if(data.estado==1){
+                        $('td',row).eq(2).html('<button type="button" class="btn btn-success waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-up"></i></button>').addClass('text-center').addClass('text-center');
+                    }else{
+                        $('td',row).eq(2).html('<button type="button" class="btn btn-danger waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-down"></i></button>').addClass('text-center').addClass('text-center');
+                    }
+                    if(ExisteOpcion('modificar')){
+                        $('td',row).eq(3).html('<button id="btn-mod" class="btn btn-info btn-sm waves-effect btn-espacio" accesskey="'+data.idrol+'" data-href="'+data.idrol+'" onclick="(Gestion.mod(this))"><span class="zmdi zmdi-edit"></span> Modificar</button>')
+                        // $('td',row).eq(5).append('<button>hola</button>')
+                    }else{
+                        $('td',row).eq(3).html('<button id="btn-mod" class="btn btn-info btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-edit"></span> Modificar</button>') 
+                    }
+                    if(data.estado==1){
+                        if(ExisteOpcion('eliminar')  ){
+                            // if()
+                            $('td',row).eq(3).append('<button id="btn-elim" class="btn btn-danger btn-sm waves-effect btn-espacio" accesskey="'+data.idrol+'" data-href="'+data.idrol+'" onclick="(Gestion.elim(this))"><span class="zmdi zmdi-delete"></span> Eliminar</button>');
+                        }else{
+                            $('td',row).eq(3).append('<button id="btn-elim" class="btn btn-danger btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-delete"></span> Eliminar</button>');  
+                        }
+                    }else{
+                        if(ExisteOpcion('habilitar')){
+                            $('td',row).eq(3).append('<button id="btn-hab" class="btn btn-success btn-sm waves-effect btn-espacio" accesskey="'+data.idrol+'" data-href="'+data.idrol+'" onclick="(Gestion.hab(this))"><span class="zmdi zmdi-time-restore-setting"></span> Habilitar</button>');
+                        }else{
+                            $('td',row).eq(3).append('<button id="btn-hab" class="btn btn-success btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-time-restore-setting"></span> Habilitar</button>');   
+                        }                       
+                    }
+
+                } 
+            
+                ,
+                "fnDrawCallback":function(oSetttings){
+                    destruir(DTable);
+                }
+            });
+        }
+
+        function destruir(dt){
+            // alert('destroy')
+            dt.destroy();
+            DTable=$('#table').DataTable({
+                "oLanguage": { 
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                "dom":'rt<button>ip',
+                "pageLength":5,
+                 responsive:true
+            })
+        }
+            // $(function () {
+        var Gestion={
+            add:function(){
+ 
+                $.ajax({
+                    url:'../Roles/modal-add',
+                    type:'post',
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+                        $('#modal-add').modal('show')
+                        var respCi="";
+                        $('#formulario-add').formValidation()
+                        .on('success.form.fv', function(e){
+                           e.preventDefault();
+                           
+                           Registrar();
+                        })
+                        function Registrar(){
+                            swal({   
+                                title: "Seguro de registrar Rol?",   
+                                text: "Usted registrara nuevo Rol",   
+                                type: "warning",   
+                                showCancelButton: true,   
+                                confirmButtonColor: "#DD6B55",   
+                                confirmButtonText: "Si, Continuar!",   
+                                cancelButtonText: "No, Cancelar!",   
+                                closeOnConfirm: false,   
+                                closeOnCancel: false 
+                                }, function(isConfirm){   
+                                    if (isConfirm) {     
+                                        $('#formulario-add').ajaxSubmit({
+                                            success:function(res){
+                                                console.log('registrado',res)
+                                                if(res.estado){
+                                                    $.ajax({
+                                                        url:"../Roles/Gestion",
+                                                        success:function(gestion){
+                                                            $('#contenedor-gestion').html(gestion); 
+                                                            swal({
+                                                                title:"Registrado",
+                                                                text:"Se ha registrado Rol exitosamente",
+                                                                type:"success",
+                                                                timer: 2000,   
+                                                                showConfirmButton: false 
+                                                            });
+                                                            $('#modal-add').modal('hide')
+                                                        }
+                                                    })      
+                                                }
+                                            }
+                                        })
+
+                                    } else {     
+                                        swal({
+                                            title:"Cancelado",
+                                            text:"Se ha cancelado operacion",
+                                            type:"error",
+                                            timer:2000,
+                                            showCancelButton:false,
+                                            showConfirmButton:false
+
+                                        })
+                                        $('#modal-add').modal('hide')
+                                    } 
+                                });
+
+                        }
+                    },  
+                    error:function(err){
+                        alert('sin respuesta del servidor')
+                        location.href="../principal/index"
+                    }
+                })
+            },
+            mod:function(a){
+                var idrol=$(a).attr('accesskey');
+                $.ajax({
+                    url:'../Roles/modal-mod',
+                    type:'post',
+                    data:{
+                        idrol:idrol
+                    },
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+                        $.post('../RestRoles/datos-mod',{idrol:idrol},function(resp){
+                            console.log('respuesta: ',resp)
+                            $('input[name="nombre"]').val(resp.nombre)
+                            $('#modal-mod').modal('show')
+                        },'json')
+
+                        $('#formulario-mod').formValidation()
+                        .on('success.form.fv', function(e){
+                           e.preventDefault();
+                           Modificar();
+                        })
+                        function Modificar(){
+                            swal({   
+                                title: "Seguro de modificar Rol?",   
+                                text: "Usted modificara los datos del Rol",   
+                                type: "warning",   
+                                showCancelButton: true,   
+                                confirmButtonColor: "#DD6B55",   
+                                confirmButtonText: "Si, Continuar!",   
+                                cancelButtonText: "No, Cancelar!",   
+                                closeOnConfirm: false,   
+                                closeOnCancel: false 
+                                }, function(isConfirm){  
+                                    $('.doc-mod').removeAttr('disabled') 
+                                    if (isConfirm) {
+                                        $('#formulario-mod').ajaxSubmit({
+                                            data:{
+                                            	idrol:idrol
+                                            },
+                                        	success:function(res){
+                                                console.log('modificado',res)
+                                                if(res.estado){
+                                                    $.ajax({
+                                                        url:"../Roles/Gestion",
+                                                        success:function(gestion){
+                                                            $('#contenedor-gestion').html(gestion); 
+                                                            swal({
+                                                                title:"Modificado",
+                                                                text:"Se ha modificado Rol exitosamente",
+                                                                type:"success",
+                                                                timer: 2000,   
+                                                                showConfirmButton: false 
+                                                            });
+                                                            $('#modal-mod').modal('hide')
+                                                        }
+                                                    })      
+                                                }
+                                            }
+                                        })
+
+                                    } else {     
+                                        // swal("Cancelled", "Your imaginary file is safe :)", "error");   
+                                        swal({
+                                            title:"Cancelado",
+                                            text:"Se ha cancelado operacion",
+                                            type:"error",
+                                            timer:2000,
+                                            showCancelButton:false,
+                                            showConfirmButton:false
+
+                                        })
+                                        $('#modal-mod').modal('hide')
+                                    } 
+                            });
+                        }
+
+                    },
+                    error:function(err){
+                        alert('sin respuesta del servidor')
+                    }
+                })    
+            },
+            elim:function(a){
+                var idrol=$(a).attr('accesskey')
+                // alert('id: '+idrol)
+                swal({   
+                    title: "Seguro de Eliminar Rol?",   
+                    text: "Usted eliminará al Rol",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Si, Continuar!",   
+                    cancelButtonText: "No, Cancelar!",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                    }, function(isConfirm){
+                    if (isConfirm) {
+                        $.post('/RestRoles/eliminar',{idrol:idrol},function(resp){
+                        	console.log(resp)
+                            if (resp.estado) {
+                                     $.ajax({
+                                        url:"/Roles/Gestion",
+                                        success:function(gestion){
+                                            $('#contenedor-gestion').html(gestion); 
+                                                swal({
+                                                    title:"Eliminado",
+                                                    text:"Se ha Eliminado al Rol exitosamente",
+                                                    type:"success",
+                                                    timer: 2000,   
+                                                    showConfirmButton: false 
+                                                });
+                                        }
+                                    })  
+                           
+                            } else {
+                                aler('Sin respuesta del Servidor')
+                            }	
+                        })
+                    } else {
+                        swal({
+                            title:"Cancelado",
+                            text:"Se ha cancelado operacion",
+                            type:"error",
+                            timer:2000,
+                            showCancelButton:false,
+                            showConfirmButton:false
+
+                        })
+                    } 
+                }); 
+
+            },
+            hab:function(a){
+                var idrol=$(a).attr('accesskey')
+                                swal({   
+                    title: "Seguro de Habilitar Rol?",   
+                    text: "Usted habilitará al Rol",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Si, Continuar!",   
+                    cancelButtonText: "No, Cancelar!",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                    }, function(isConfirm){
+                        if (isConfirm) {
+                            $.post('/RestRoles/habilitar',{idrol:idrol},function(resp){
+                                console.log(resp)
+                                if (resp.estado) {
+                                    $.ajax({
+                                        url:"/Roles/Gestion",
+                                        success:function(gestion){
+                                            $('#contenedor-gestion').html(gestion); 
+                                                swal({
+                                                    title:"Habilitado",
+                                                    text:"Se ha Habilitado al Rol exitosamente",
+                                                    type:"success",
+                                                    timer: 2000,   
+                                                    showConfirmButton: false 
+                                                });
+                                        }
+                                    }) 
+                                } else {
+                                    aler('Sin respuesta del Servidor')
+                                }   
+                            })  
+                        } else {
+                            swal({
+                                title:"Cancelado",
+                                text:"Se ha cancelado operacion",
+                                type:"error",
+                                timer:2000,
+                                showCancelButton:false,
+                                showConfirmButton:false
+
+                            })
+                        } 
+                }); 
+            }
+
+
+        }
+
+        function resetearFormulario(form){
+            $(form).data('formValidation').resetForm(true)
+        }
+        
+        $('#generarR').click(function(){ 
+  			$("#frameReportes").attr("src",'../Roles/listaReporte');
+			$("#reportes").modal('show');
+  		});
+        
+        
+    // })
+        
+    </script>
+</body>
+</html>

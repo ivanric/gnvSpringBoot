@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title></title>
+</head> 
+<body>
+<form id="formulario-add" action="../RestBeneficiarios/adicionar" method="post" 
+    data-fv-excluded="disabled">
+
+    <div class="modal fade" id="modal-add" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="display: none;padding-left: 0">
+       <div class="modal-dialog modal-md" role="document">
+         <div class="modal-content">
+            <div class="card">
+                <div class="card-header my-card-padding">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2>Adicionar Beneficiario<small>Complete el formulario por favor</small></h2>
+                </div>
+                <div class="modal-body">                      
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group fg-float">
+                                <div class="fg-line">
+                                    <input class="form-control fg-input" minlength="7" maxlength="8" data-fv-stringlength-message="La Cedula debe ser entre 7 u 8 caracteres" id="cedula" name="ci" type="text"  data-fv-notempty="true" data-fv-message="Requiere Cedula" data-fv-integer="true" data-fv-integer-message="El valor de este campo debe ser numerico y sin espacios en blanco">
+                                </div>
+                                <label class="fg-label">Cedula</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="fg-line">
+                                    <select data-placeholder="n" name="ciCod" class="form-control" data-fv-notempty='true' data-fv-message="Requiere Ciudadania" id="ciCod">
+                                        <option value="TJ">TJ</option>
+                                        <option value="PT">PT</option>
+                                        <option value="PA">PA</option>
+                                        <option value="LP">LP</option>
+                                        <option value="OR">OR</option>
+                                        <option value="CB">CB</option>
+                                        <option value="BN">BN</option>
+                                        <option value="CH">CH</option>
+                                        <option value="SC">SC</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group fg-float">
+                                <div class="fg-line">
+                                    <input class="form-control fg-input" name="nombres" type="text" data-fv-notempty="true" data-fv-message="Requiere Nombres"  maxlength="12" data-fv-stringlength-message="Solo 12 caracteres">
+                                </div>
+                                <label class="fg-label">Nombres</label>
+                            </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group fg-float">
+                                <div class="fg-line">
+                                    <input class="form-control fg-input" maxlength="12" name="ap" type="text" data-fv-notempty="true" data-fv-message="Requiere Apellido Paterno" data-fv-stringlength-message="Solo 12 caracteres">
+                                </div>
+                                <label class="fg-label">Apellido Paterno</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group fg-float">
+                                <div class="fg-line">
+                                    <input class="form-control fg-input" maxlength="12" name="am" type="text"  data-fv-stringlength-message="Solo 12 caracteres">
+                                </div>
+                                <label class="fg-label">Apellido Materno</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="fg-line">
+                                    <select data-placeholder="n" name="genero" class="form-control" data-fv-notempty='true' data-fv-message="Requiere Género" id="select-genero">
+                                        <option value="">Seleccione Género</option>
+                                        <option value="m">Masculino</option>
+                                        <option value="f">Femenino</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group fg-float">
+                                <div class="fg-line">
+                                    <input class="form-control fg-input"  name="direccion" type="text" data-fv-notempty="true" data-fv-message="Requiere Dirección" maxlength="40">
+                                </div>
+                                <label class="fg-label">Dirección</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+	                    <div class="form-group">
+	                        <div class="col-md-6">
+	                            <div class="form-group fg-float">
+	                                <div class="fg-line">
+	                                    <input class="form-control fg-input"  name="email" type="email" maxlength='40'>
+	                                </div>
+	                                <label class="fg-label">Correo</label>
+	                            </div>    
+	                        </div>
+	                        <div class="col-md-6">
+	                            <div class="form-group fg-float">
+	                                <div class="fg-line">
+	                                    <input class="form-control fg-input"  name="institucion" type="institucion" maxlength='40' data-fv-stringlength-message='Maximo 40 caracteres'>
+	                                </div>
+	                                <label class="fg-label">Institucion</label>
+	                            </div>    
+	                        </div>
+	                        <div class="col-md-12">
+	                            <div class="form-group fg-float">
+	                                <div class="fg-line">
+	                                    <textarea  class="form-control fg-input" id="text-desc" name="descripcion" type="institucion" maxlength="100">                                    
+	                                    </textarea>
+	                                </div>
+	                                <label class="fg-label">Descripcion</label>
+	                            </div>    
+	                        </div>
+	                    </div>
+	                     <div class="form-group">
+					        <label class="col-xs-3 control-label">Telefonos/Celulares</label>
+					        <div class="col-xs-5">
+					            <input type="text"  class="form-control" name="telefono[]" placeholder="Ingrese número" maxlength="10" data-fv-integer="true" data-fv-integer-message="El campo debe ser numerico"/>
+					        </div>
+					        <div class="col-xs-4">
+					            <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+					        </div>
+					    </div>
+					
+					    <div class="form-group hide" id="optionTemplate" >
+					        <div class="col-xs-offset-3 col-xs-5">
+					            <input class="form-control" type="text" name="" placeholder="Ingrese número" maxlength="10" data-fv-integer="true" data-fv-integer-message="El campo debe ser numerico"/>
+					        </div>
+					        <div class="col-xs-4">
+					            <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+					        </div>
+					    </div>
+                    </div>
+					<br><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                            	<label class="col-md-5 control-label">Documentos Presentados</label>
+                            	<div class="col-md-7" id="js_doc">
+    
+                            	</div>                        
+                            </div>
+
+                        </div>
+                    </div>   
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"  id="btnAdicionarConfirmacion" class="btn btn-primary waves-effect"> Guardar</button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"> Cancelar</button>
+                </div>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>  
+
+<script type="" src="../bower_components/jquery.nicescroll/dist/jquery.nicescroll.js"></script>
+<script type="" src="../bower_components/autosize/dist/autosize.js"></script>    
+<script type="" src="../js/tema/js/functions.js"></script>
+<script type="text/javascript"> 
+
+</script> 
+</body>
+</html> 

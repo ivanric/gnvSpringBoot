@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.2.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="blanco" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf1811a7-c8a4-4260-9a0c-1a06c1056de1">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="ZGJvLmFwcm9iYWNpb24gQVMgLDYyLDYxLGI4Y2MwOGIzLWVlMGItNGM1OS1hOTA0LTBkYWFkM2Q4&#xA;MzU3ZDs=&#xA;"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conect"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT dbo.aprobacion.idsolt
+FROM dbo.aprobacion]]>
+	</queryString>
+	<field name="idsolt" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idsolt"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

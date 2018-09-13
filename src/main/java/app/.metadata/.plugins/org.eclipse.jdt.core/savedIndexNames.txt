@@ -1,0 +1,1 @@
+INDEX VERSION 1.130+F:\Gestion2017\taller_boot\src\main\java\Service\.metadata\.plugins\org.eclipse.jdt.core

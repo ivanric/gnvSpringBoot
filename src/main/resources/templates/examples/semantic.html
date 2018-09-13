@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> -->
+    <title>Document</title>
+    <style type="text/css">
+        .column{
+/*             background: blue; */
+            border:4px 4px 0 0;
+            border-color: fuchsia;
+/*             margin: 2px; */
+        }
+        
+    </style>
+</head>
+<link rel="stylesheet" href="resources/bower_components/semantic/dist/semantic.css">
+<body>
+
+    <!-- MENú -->
+    <div class="ui inverted menu">
+      <a class="active item">
+        GNV
+      </a>
+      <a class="item">
+        Mensajes
+      </a>
+      <a class="item">
+        Informes
+      </a>
+    </div>
+
+    <div class="ui grid">
+        <div class="row">
+            <div class="six wide column"></div>         
+            <div class="four wide column ">
+                <div class="ui card">
+                  <div class="image">
+                    <img src="resources/images/3.jpg">
+                  </div>
+                  <div class="content">
+                    <a class="header">Autentificaci&oacute;n</a>
+                    <div class="meta">
+                      <span class="date">Joined in 2013</span>
+                    </div>
+                    <div class="description">
+                        <form class="ui form" method="post">
+                          <div class="field">
+                            <label>Usuario</label>
+                            <input type="text" name="first-name" placeholder="First Name">
+                          </div>
+                          <div class="field">
+                            <label>Constraseña</label>
+                            <input type="text" name="last-name" placeholder="Last Name">
+                          </div>
+                          <button class="ui button" type="submit">Submit</button>
+                        </form>
+                    </div>
+                  </div>
+                  <div class="extra content">
+                    <a>
+                      <i class="user icon"></i>
+                      Ingrese su datos de acceso
+                    </a>
+                  </div>
+                </div>
+
+            </div>         
+            <div class="six wide column "></div> 
+        </div>
+                
+    </div>
+ 	<p class="" style="text-align: center;">$Hello</p>
+<!--     <a href="#" id="levante" type="button" class="ui red basic button">ya</a> -->
+     
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Profile Picture
+        </div>
+        <div class="image content">
+            <div class="ui medium image">
+            <!--<img src="/images/avatar/large/chris.jpg">-->
+            </div>
+            <div class="description">
+            <div class="ui header">We've auto-chosen a profile image for you.</div>
+            <!--<p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>-->
+            <p>Is it okay to use this photo?</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+            Nope
+            </div>
+            <div class="ui positive right labeled icon button">
+            Yep, that's me
+            <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+   
+
+    <script type="" src="resources/bower_components/jquery/dist/jquery.js"></script>
+    <script type="" src="resources/bower_components/semantic/dist/semantic.js"></script>    
+    <script>
+        (function(){
+            $('#levante').on('click',function(){
+//              alert('modal')
+             $('.ui.modal').modal('show');
+         })    		
+    	})();
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/> 
+	<title>inicio</title>
+		<link rel="stylesheet" href="../../static/bower_components/bootstrap/dist/css/bootstrap.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.css}"/>
+        <!-- <link rel="stylesheet" href="../css/tema/materialize.css"/> -->
+        <!-- <link rel="stylesheet" href="../css/tema/style.css"/> -->
+        <!-- <link rel="stylesheet" href="../css/tema/themes/all-themes.css"/> -->
+        <link rel="stylesheet" href="../../static/bower_components/animate.css/animate.css" th:href="@{/bower_components/animate.css/animate.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/Waves/dist/waves.css" th:href="@{/bower_components/Waves/dist/waves.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/form.validation/dist/css/formValidation.css" th:href="@{/bower_components/form.validation/dist/css/formValidation.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css" th:href="@{/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/font-awesome/css/font-awesome.css" th:href="@{/bower_components/font-awesome/css/font-awesome.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/datatables.net-bs/css/dataTables.bootstrap.css" th:href="@{/bower_components/datatables.net-bs/css/dataTables.bootstrap.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.css" th:href="@{/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/chosen/chosen.min.css" th:href="@{/bower_components/chosen/chosen.min.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/bootstrap4c-chosen/dist/css/component-chosen.css" th:href="@{/bower_components/bootstrap4c-chosen/dist/css/component-chosen.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/bootstrap-select/dist/css/bootstrap-select.css" th:href="@{/bower_components/bootstrap-select/dist/css/bootstrap-select.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/bootstrap-sweetalert/dist/sweetalert.css" th:href="@{/bower_components/bootstrap-sweetalert/dist/sweetalert.css}"/>
+        <link rel="stylesheet" href="../../static/bower_components/growl/stylesheets/jquery.growl.css" th:href="@{/bower_components/growl/stylesheets/jquery.growl.css}"/>
+
+        <link rel="stylesheet" href="../../static/bower_components/bootstrap-fileinput/css/fileinput.css" th:href="@{/bower_components/bootstrap-fileinput/css/fileinput.css}"/>
+
+
+
+       
+		<link rel="stylesheet" href="../../static/css/styles.css" th:href="@{/css/styles.css}"/>
+		<link rel="stylesheet" href="../../static/css/reloj.css" th:href="@{/css/reloj.css}"/>
+        <link rel="stylesheet" href="../../static/css/tema/app.min.1.css" th:href="@{/css/tema/app.min.1.css}"/>
+        <link rel="stylesheet" href="../../static/css/tema/app.min.2.css" th:href="@{/css/tema/app.min.2.css}"/>
+
+</head>
+ <body class="" onload="mueveReloj()"> 
+ 	<div class="baner">
+	</div>	 
+    <div id="wrapper" >
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse "  style="margin-bottom: 0">
+
+				<div class="row" style="margin-right: 0px;">
+					<div class="col-md-4">
+						<div class="navbar-header">
+							<!-- AQUI EMPUEZA CUANDO SE OCULTA LA IMAGEN-->
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			                    <span class="sr-only">Toggle navigation</span>
+			                    <span class="icon-bar"></span>
+			                    <span class="icon-bar"></span>
+			                    <span class="icon-bar"></span>
+			                </button>
+		                	<a class="navbar-brand" href="index.html">PROGRAMA-GNV11</a>
+
+							<!-- <div class="text-center"  style="width: 461px;">
+								<img src="img/logo.png"
+									style="width: 60%; height: 45px; margin-left: 3.5em; margin-top: 0.5em"
+									alt="Responsive-image">
+							</div> -->
+							<!--FIN DEL LOGO-->
+						</div>
+					</div>
+					<div class="col-xs-12 col-md-5 text-center fecha">
+						<h3 style="color: orange;font-size: 15px;">
+							
+						</h3>
+					</div>
+					<div class="col-xs-12 col-md-3">
+						<!--inicio de usuario y seleccion-->
+						<div class="row">
+							<div class="col-xs-6 col-md-6" style="margin-top: 8px;">
+								<div class="row">
+									<div class="col-md-12 text-center" style="margin-left:5px;">
+										<div data-id="${rolPrincipal.getIdrol()}" id="idRolPrincipal"></div>
+										<form class=" " role="search">
+											<select class="tipe form-control" name="roles" id="select-Roles" onchange="GetMenus(this)">	
+											</select>
+										</form>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-xs-4 col-md-4 text-center" style="margin-top:12px;"><h6 style="color: orange;">Conectado</h6></div>	
+							<div class="col-xs-2 col-md-2 text-center" style="">
+								<div class="row">
+									<div class="">
+										<input value="$usuario.codper" type="hidden" id="cp"/>
+										<a href="#" class="dropdown-toggle pull-right" style="padding: 0" data-toggle="dropdown" role="button" aria-expanded="false" id="activar">
+											<img src="../img/contacts/7.jpg" class="img-responsive img-circle pull-left" style="width: 50px;"> </img>
+										</a>
+										<ul class="dropdown-menu user outDisplay" style="margin-top: 3px;">
+											<li><span class="triangle fa fa-caret-up fa-2x"></span></li>
+											<li>
+												<div class="col-lg-12">
+													<a href="#ventana1" class="img-responsive pull-left img-circle" data-toggle="modal"> 
+														<img src="../img/contacts/7.jpg" class="img-responsive c_foto pull-left img-circle" style="width: 100px;"/>
+													</a> 
+													<span class="pull-left" style="padding: 30px 5px 5px 20px;">
+														<strong style="color: white;">${usuario.nombres} ${usuario.ap}	${usuario.am}</strong>
+													</span>
+												</div>
+													<div class="clearfix"></div>
+													<div class="col-md-12 text-center" style="margin-bottom: 12px;">
+														<button type="submit" class="btn bgm-lightblue btn-sm  waves-effect" id="btn-desc">Desconectar</button>
+													</div>
+											</li>
+										</ul>
+									</div>
+								</div>	
+							
+							</div>
+							<!--fin de usuario y de selecion-->
+						</div>
+					</div>
+				</div>
+	        <div class="navbar-default sidebar" role="navigation">
+	            <div class="sidebar-nav collapse navbar-collapse" id="menuPrincipal">
+				     <div class="sidebar-inner c-overflow" style="overflow: hidden;" tabindex="12">
+	                    <ul class="lista-menu main-menu" id="side-menu">
+	                       
+	                    </ul>                    	
+	                </div>
+	            </div>
+	        </div>	
+        </nav>
+		
+        <div id="page-wrapper">
+			<!--aqui habia un row el cual daba un espacion -->
+            <div class="">
+                <div class="col-md-12" id="contenedor-gestion" style="margin-top: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 5em;">
+                    
+                    contenido
+    				<a class="btn btn-danger  waves-effect" id="" >Danger</a> 
+    				<button class="btn btn-default waves-effect" >Default</button>               
+    				<button class="btn btn-danger waves-effect"  type="submit">Denger</button>
+    				         
+                </div>
+            </div>
+        </div>
+
+		
+    </div>
+	
+
+	<div id="cont-modales"></div>
+	
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="reportes" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" style="width: 90%">
+	    <div class="modal-content" >
+	      <iframe id="frameReportes" width="100%" height="600px"></iframe>
+	    </div>
+	  </div>
+	</div>
+	
+    <footer class="pie_pag">
+    	<div id="clock">
+		    <p class="date" id="date" ></p>
+		    <strong><p class="time" id="time"></p></strong>
+<!-- 		    <p class="text">RELOJ DIGIAL</p> -->
+		</div>
+    </footer>
+    
+    
+
+    
+    
+    <script type="" src="../../static/bower_components/jquery/dist/jquery.js" th:src="@{/bower_components/jquery/dist/jquery.js}"></script>
+    <script type="" src="../../static/bower_components/bootstrap/dist/js/bootstrap.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.js}"></script>
+    <!-- <script type="" src="../bower_components/jquery.nicescroll/dist/jquery.nicescroll.js"></script> -->
+    <!-- <script type="" src="../bower_components/autosize/dist/autosize.js"></script> -->
+    <script type="" src="../../static/bower_components/Waves/dist/waves.js" th:src="@{/bower_components/Waves/dist/waves.js}"></script>
+    <script type="" src="../../static/bower_components/jquery-form/dist/jquery.form.min.js" th:src="@{/bower_components/jquery-form/dist/jquery.form.min.js}"></script>
+    <script type="" src="../../static/bower_components/form.validation/dist/js/formValidation.js" th:src="@{/bower_components/form.validation/dist/js/formValidation.js}"></script>
+    <script type="" src="../../static/bower_components/form.validation/dist/js/framework/bootstrap.js" th:src="@{/bower_components/form.validation/dist/js/framework/bootstrap.js}"></script>
+    <script type="" src="../../static/bower_components/form.validation/dist/js/language/es_ES.js" th:src="@{/bower_components/form.validation/dist/js/language/es_ES.js}"></script>
+    <script type="" src="../../static/bower_components/datatables.net/js/jquery.dataTables.js" th:src="@{/bower_components/datatables.net/js/jquery.dataTables.js}"></script>
+    <script type="" src="../../static/bower_components/datatables.net-bs/js/dataTables.bootstrap.js" th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.js}"></script>
+    <script type="" src="../../static/bower_components/datatables.net-responsive/js/dataTables.responsive.js" th:src="@{/bower_components/datatables.net-responsive/js/dataTables.responsive.js}"></script>
+    <script type="" src="../../static/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js" th:src="@{/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+    <script type="" src="../../static/bower_components/chosen/chosen.jquery.min.js" th:src="@{/bower_components/chosen/chosen.jquery.min.js}"></script>
+    <script type="" src="../../static/bower_components/bootstrap-select/dist/js/bootstrap-select.js" th:src="@{/bower_components/bootstrap-select/dist/js/bootstrap-select.js}"></script>
+    <script type="" src="../../static/bower_components/bootstrap-select/dist/js/i18n/defaults-es_ES.js" th:src="@{/bower_components/bootstrap-select/dist/js/i18n/defaults-es_ES.js}"></script>
+    <script type="" src="../../static/bower_components/bootstrap-sweetalert/dist/sweetalert.js" th:src="@{/bower_components/bootstrap-sweetalert/dist/sweetalert.js}"></script>
+    <script src="../../static/bower_components/growl/javascripts/jquery.growl.js" th:src="@{/bower_components/growl/javascripts/jquery.growl.js}"></script>
+    <script src="../../static/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js" th:src="@{/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js}"></script>
+    <script type="" src="../../static/bower_components/jquery-load-json/dist/jquery.loadJSON.min.js" th:src="@{/bower_components/jquery-load-json/dist/jquery.loadJSON.min.js}"></script> 
+
+    <script type="" src="../../static/bower_components/bootstrap-fileinput/js/fileinput.js" th:src="@{/bower_components/bootstrap-fileinput/js/fileinput.js}"></script> 
+	<script type="" src="../../static/bower_components/bootstrap-fileinput/js/locales/es.js" th:src="@{/bower_components/bootstrap-fileinput/js/locales/es.js}"></script> 
+
+    <script type="" src="../../static/js/tema/js/functions.js" th:src="@{/js/tema/js/functions.js}"></script>
+    <script type="" src="../../static/js/fileinput/fileinput.min.js" th:src="@{/js/fileinput/fileinput.min.js}"></script>
+    <script type="" src="../../static/js/ajax/GBeneficiarios.js" th:src="@{/js/ajax/GBeneficiarios.js}"></script>
+    
+    <script type="text/javascript">
+    	var urlServer='http://localhost:8080';
+	
+	// $(function () {
+	    Waves.attach('.btn',['waves-button']);
+	    Waves.init();
+	    ObtenerRoles();
+	   	var idrol_init=0;
+		function ObtenerRoles() {
+			var idrol1;
+			$('#select-Roles').empty();
+			$.ajax({
+				url:urlServer+"/RestUsuario/obtenerRoles",
+				dataType:"json",
+				cache: false,
+				success:function(resp){
+					console.log('Roles: ',resp)
+					idrol1=resp[0].idrol;
+					// return idrol1;
+					// console.log('idrol_Ajax: ',idrol1)
+					var selecion='';
+					$('#select-Roles').append('<option value="-1" >Selecione Rol</option>')
+					$(resp).each(function(index,array) {
+						
+						// console.log('array_idrol: ',array.idrol)
+						if(idrol1==array.idrol){
+							seleccion='selected'
+							// console.log('entro igual',seleccion)	
+						}else{
+							seleccion=''
+							// console.log('entro impar',seleccion)	
+						}
+						// $('#select-Roles').append(
+						// 		`<option value="${array.idrol}" accesskey="${array.idrol}" ${seleccion}/>'
+						// 		<a href="">${array.nombre}+'</a>
+						// 		'</option>`);
+						$('#select-Roles').append(
+								'<option value="'+array.idrol+'" accesskey="'+array.idrol+'" '+seleccion+'>'+
+								'<a href="">'+array.nombre+'</a>'+
+								'</option>');
+						var selecion='';
+					})
+					$('#select-Roles').chosen();
+					enviarIdrol(idrol1);	
+				},
+				error:function(err){
+					alert('Sin respuesta del servidor obtener Roles')
+					// console.log(err)
+				}
+				
+			})	
+		}
+		var idrol_select;
+		function enviarIdrol(id_rol){
+			GetMenus(id_rol);
+			idrol_select=id_rol;
+		}
+		var ListaMenus;
+		function GetMenus(rol){
+			var valor;
+			//$('#select-Roles').on('change',function(){
+			if(isNaN(rol)){
+				valor = $(rol).val();
+				
+			}else{
+				valor=rol;
+				// console.log('es numero')
+			}
+			var idr=valor;
+			idrol_select=valor;
+			$('#contenedor-gestion').html('');
+			$.ajax({
+				url:'../RestUsuario/MenuRol',
+				type:'post',
+				dataType:"json",
+				data:{
+					idrol:valor
+				},
+				success:function(resp){
+					// $('#menuPrincipal').remove();
+					//$('#menuPrincipal').html(resp);
+					// ListaMenus=resp;
+					console.log('respActual: ',resp);
+					var name="";
+					$('.lista-menu').empty();//remove igual borra todos los li dentro
+					$(resp).each(function(index,item){
+						var proc=item;
+						$('.lista-menu').append(
+								'<li class="sub-menu">'+
+								'<a href="#" id="mod" data-id="'+item.idmod+'"><i class="'+item.icono+'"></i>'+
+		                    	'<span class="" style="padding-left:15px;">'+item.nombre+'</span>'+
+		                    	'<i class="fa arrow"></i></a>'+
+		                    	'<ul class="list-procesos'+(index+1)+'" data-id="'+item.idmod+'" >'+
+		                		'</ul>'+
+		                    	'</li>'	
+		                );
+		  	          	$(resp[index].procesos).each(function (index1,item1){
+							//	console.log('item1_',index1,' valor:',item1.nombre);
+							//	console.log('item1_');
+							//  var idm=$('.list-procesos').attr('data-id');
+							//	console.log('codmod: '+idm);
+							//	if(idm==item.idmod){}
+		            		// console.log('Modulo',(index+1),'\nProceso',(index1+1),item1.nombre)
+		            		var idlist='.list-procesos'+(index+1);
+							//  console.log('idlist',idlist);
+		            		$(idlist).append('<li class="sub-proceso"><a href="#" data-href="'+item1.enlace+'" data-id="'+item1.idproc+'" accesskey="'+item.idmod+'" data-idrol="'+idr+'" class="enlace-proc enl-gestion" onclick=(getGestion(this))>'+item1.nombre+'</a></li>')
+		            		// $(idlist).append('<li class="sub-proceso"><a href="#" data-href="'+item1.enlace+'" data-id="'+item1.idproc+'" accesskey="'+item.idmod+'" data-idrol="'+idr+'" class="enlace-proc enl-gestion">'+item1.nombre+'</a></li>')
+							//  $('.list-procesos').removeClass('.list-procesos');
+		            		$(item1.opciones).each(function(index2,item2) {
+								// console.log('opciones: ',item2.nombre);
+							})
+		            	});
+		           		$('#contenedor-gestion').html('');
+					})
+					ObtenerMenus(resp);
+				}
+			})
+		} 
+		function ObtenerMenus(Menus){
+			ListaMenus=Menus;
+		}
+
+		
+		function getGestion(link_gest){	
+			//alert('inicio gestiones')
+			// var idrol=idrol_select;
+			var idrol=$(link_gest).attr('data-idrol')
+			var idmod=$(link_gest).attr('accesskey')
+			var idproc=$(link_gest).data('id');
+			// console.log('listaMenus_gestion:',ListaMenus);      
+			// console.log('idrol: ',idrol,'idmod: ',idmod,'idproc: ',idproc)
+			var enlace=$(link_gest).data('href');
+			// console.log(enlace)
+			$.post(enlace,function(resp){
+				$('#contenedor-gestion').html(resp);
+			})
+			$('#opcionesRol').html('');
+			var OpcionesSistema=new Object();
+			$(ListaMenus).each(function(index,menus){
+					if(menus.idmod==idmod){
+						// console.log('entro menu')
+						$(ListaMenus[index].procesos).each(function(index1,procesos){
+							if(procesos.idproc==idproc){
+								// console.log('entro procesos')
+									OpcionesSistema.AccionesUser=new Array();	
+									$(procesos.opciones).each(function(index2,opciones){
+										// console.log('entro acciones')	
+										// console.log('Acciones',opciones.idopc,': ',opciones.nombre);									
+										$('#opcionesRol').append('<button class="btn btn-primary waves-effect" name="">'+opciones.nombre+'</button>')
+										// OpcionesSistema.AccionesUser[index2]=opciones.nombre;
+										OpcionesSistema.AccionesUser[index2]=opciones;
+									})
+								Get_Opciones(OpcionesSistema);	
+							}
+						})
+					}
+			})
+		}
+		var OpcionesSistema;
+		function Get_Opciones(opc){
+			var resp;
+			if(opc==null){		
+				// console.log('entre-if')
+				resp=OpcionesSistema;
+				// console.log('con nulos_',resp)
+			}else{
+				OpcionesSistema=opc;
+				resp=opc;
+				// console.log('sin nulos_',resp);
+			}
+			return resp;
+		}
+
+
+		$('#btn-desc').on('click',function(){
+			alert('ss')
+			$.ajax({
+				url:'../alerta',
+				type:'post',
+				success:function(resp){
+					$('#cont-modales').html(resp);
+					$('#md-mje').modal('show');
+
+					$('#btn-salir').on('click',function(){
+						window.location.href="../desconectar"
+						$('#md-mje').modal('hide');
+					})
+				},		
+				error:function(error){
+					alert('sin respuesta del servidor')
+				}
+			})
+		})
+
+
+		$('.enl-gestion').on('click',function(){
+			var idrol=$(this).attr('data-idrol')
+			var idmod=$(this).attr('accesskey')
+			var idproc=$(this).data('id');
+			// console.log('listaMenus_gestion:',ListaMenus);      
+			// console.log('idrol: ',idrol,'idmod: ',idmod,'idproc: ',idproc)
+			var enlace=$(this).data('href');
+			// console.log(enlace)
+			$.post(enlace,function(resp){
+				$('#contenedor-gestion').html(resp);
+			})
+
+			$('#opcionesRol').html('');
+			var OpcionesSistema=new Object();
+			$(ListaMenus).each(function(index,menus){
+					if(menus.idmod==idmod){
+						// console.log('entro menu')
+						$(ListaMenus[index].procesos).each(function(index1,procesos){
+							if(procesos.idproc==idproc){
+								// console.log('entro procesos')
+									OpcionesSistema.AccionesUser=new Array();	
+									$(procesos.opciones).each(function(index2,opciones){
+										// console.log('entro acciones')	
+										// console.log('Acciones',opciones.idopc,': ',opciones.nombre);									
+										$('#opcionesRol').append('<button class="btn btn-primary waves-effect" name="">'+opciones.nombre+'</button>')
+										// OpcionesSistema.AccionesUser[index2]=opciones.nombre;
+										OpcionesSistema.AccionesUser[index2]=opciones;
+									})
+								Get_Opciones(OpcionesSistema);	
+							}
+						})
+					}
+			})
+		})
+		// $(function(){
+		// })
+
+		
+	// })
+    </script>
+	<script>
+	$(function() {
+		
+		// var meses = new Array("Enero", "Febrero", "Marzo","Abril", "Mayo", "Junio", "Julio","Agosto", "Septiembre", "Octubre",
+		var meses = new Array("01", "02", "03","04", "05", "06", "07","08", "09", "10","11", "12");
+		var f = new Date();
+		// document.write(f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+		var fecha= f.getFullYear()+ "-" + meses[f.getMonth()] + "-" +f.getDate();
+		$("#date").html(fecha);
+		// var hora=f.getHours()+":"+f.getMinutes()+":"+f.getSeconds()+":"+f.getMilliseconds()
+		// $("#time").html(hora);
+
+	})
+
+	function mueveReloj(){
+	    momentoActual = new Date()
+	    hora = momentoActual.getHours()
+	    minuto = momentoActual.getMinutes()
+	    segundo = momentoActual.getSeconds()
+
+	    horaImprimible = hora + ":" + minuto + ":" + segundo
+		$("#time").html(horaImprimible);
+	    // document.form_reloj.reloj.value = horaImprimible
+
+	    setTimeout("mueveReloj()",1000)
+	} 
+	</script>
+	
+    </body> 	
+
+</html>

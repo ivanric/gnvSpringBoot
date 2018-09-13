@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="getTelefono" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f54d2229-0b2a-42fd-8d44-fcb08de5a0a2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Connet1"/>
+	<subDataset name="Lista1" uuid="8acb6fa2-d04b-460d-8341-5b3521180ff3">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Connet1"/>
+		<parameter name="idben_param" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[new Integer(1)]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[SELECT db.nombre, 'SI' as OK  
+FROM  dbo.beneficiario b,dbo.docBeneficiario db,dbo.solicitud s,dbo.benveh bv,bendoc bd 
+WHERE s.idben=bv.idben AND bv.idben=b.idben AND b.idben=bd.idben AND bd.iddocb=db.iddocb AND s.idben=$P{idben_param}]]>
+		</queryString>
+		<field name="nombre" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		</field>
+		<field name="OK" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="OK"/>
+		</field>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT b.idben
+FROM dbo.beneficiario b]]>
+	</queryString>
+	<field name="idben" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idben"/>
+	</field>
+	<background>
+		<band height="40" splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="240" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="cb096b91-9c7d-4396-8b53-093ef8941fa6"/>
+				<text><![CDATA[IDBEN]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="0" y="75" width="200" height="20" uuid="bde65019-d7ec-4cc7-879b-f6893d28b104"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Lista1" uuid="5b50662b-2dbc-4970-b8cf-ad53373702bf">
+						<datasetParameter name="idben_param">
+							<datasetParameterExpression><![CDATA[$F{idben}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="20" width="200">
+						<textField>
+							<reportElement x="0" y="0" width="100" height="20" uuid="3d57df9b-43d4-4e1f-895a-7e5e8793018f"/>
+							<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="100" y="0" width="100" height="20" uuid="8d502a4b-3fe4-46b9-8e38-59d996b6a59c"/>
+							<textFieldExpression><![CDATA[$F{OK}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement x="0" y="20" width="100" height="20" uuid="9b690f26-19f9-4e9b-ba15-4e3a3ec2dda3"/>
+				<textFieldExpression><![CDATA[$F{idben}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

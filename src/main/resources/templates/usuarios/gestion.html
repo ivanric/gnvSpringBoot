@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>gestion</title>
+</head>
+<body>
+ 
+	<div class="card z-depth-2">
+		<div class="card-header">
+			<h2 class="panel-title">
+				GESTION USUARIOS <small>Administre usuarios
+					registrados en el Sistema</small>
+			</h2>
+		</div>
+		<div class="panel-body" style="margin-top: -30px"> 
+			<div class="row">
+				<div class="col-md-12" style="text-align: right;margin-bottom: 15px">			
+					<button id="btn-add" class="btn btn-default waves-effect" disabled="disabled">NUEVO USUARIO</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-3 col-xs-12" style="margin-bottom: 10px;">
+							<input type="text" id="filt-ben" name=""
+								class="form-control_filtro unput-sm"
+								placeholder=" Buscar Apellidos nombres o cedula..">
+						</div>
+						<div class="col-md-6 col-xs-12 navbar-right" style="text-align: right; margin-top: 10px">
+							<label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="activos" value="1"> <i
+								class="input-helper"></i>activos
+							</label> <label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="bajas" value="0"> <i
+								class="input-helper"></i>bajas
+							</label> <label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="todos" value="-1"
+								checked="checked"> <i class="input-helper"></i>todos
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<table id="table" class="table table-vmiddle nowrap" style="width:100%">
+						<thead>
+							<tr>
+                                <th class="text-center">#</th>
+								<th class="text-center">Imagen</th>
+								<th class="text-center">Usuario</th>
+                                <th class="text-center">ci</th>
+								<th class="text-center">direccion</th>
+                                <th class="text-center">Login</th>
+								<th class="text-center">Estado</th>
+								<th class="text-center">Opciones</th>
+
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+        var result=Get_Opciones(null);
+        if(ExisteOpcion('adicionar')){
+            $('#btn-add').attr({
+                onclick:"(Gestion.add())",
+                })
+            $('#btn-add').removeAttr("disabled ").focus().val("Ahora si lo puedes utilizar")
+        }
+
+        function ExisteOpcion(opc){
+            var resultado=false;
+            for (var i = 0; i < result.AccionesUser.length; i++) {
+                console.log('for_: ',result.AccionesUser[i]);
+                if(result.AccionesUser[i].codigo==opc){
+                    resultado=true;         
+                }
+            }
+            return resultado;
+        }
+
+        var filtro=$('#filt-ben').val();
+        var estado=$('input[name="iestado"]:checked').val();
+        listar();
+
+        $('#filt-ben').on('keyup',function(){
+            filtro=$(this).val();
+            listar();
+        })
+
+        $('input[name="iestado"]').on('change',function(){
+            estado=$(this).val();
+            listar();
+        })
+        var DTUsuario='';
+        function listar(){
+            $.ajax({
+                url:'../RestUser',
+                type:'get',
+                dataType:'json',
+                data:{
+                    filtro:filtro,
+                    estado:estado,
+                },
+                success:function(resp){
+                    console.log('icont_')
+                    if ($.fn.DataTable.isDataTable('#table')) {
+                        DTUsuario.destroy();
+                        iniciarDatable(resp);       
+                    } else {
+                        iniciarDatable(resp);
+                    }   
+                },
+                error:function(err){
+                    alert('sin respuesta del servidor')
+                }
+            })
+        }
+      
+        function iniciarDatable(lista){
+            console.log('respuestaAjax: ',lista);
+            DTUsuario=$('#table').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                responsive:true,
+                "dom":'rt<button>ip',
+                // "ordering":false,
+                "pageLength":5,
+                data:lista,
+                columns:[
+                    {data:'ci'},
+                    {data:'ci'},
+                    {data:'ci'},
+                    {data:'ci'},
+                    {data:'ci'},
+                    {data:'ci'},
+                    {data:'estado'},
+                    {data:'ci'},
+                ]
+                ,
+                "createdRow":function(row,data,index){
+                    $('td',row).eq(0).html(index+1).addClass('text-center');
+                    $('td',row).eq(1).html(`<img src="../archivos/fotos/${data.foto}" width="32px;"></img>`)
+                    $('td',row).eq(2).html(data.ap+' '+data.am+' '+data.nombres)
+                    $('td',row).eq(3).html(data.ciDesencriptado+' '+data.ciCod)
+                    $('td',row).eq(4).html(data.direccion)
+                    $('td',row).eq(5).html(data.usuario.login)
+                    if(data.estado==1){
+                        $('td',row).eq(6).html('<button type="button" class="btn btn-success waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-up"></i></button>').addClass('text-center').addClass('text-center');
+                    }else{
+                        $('td',row).eq(6).html('<button type="button" class="btn btn-danger waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-down"></i></button>').addClass('text-center').addClass('text-center');
+                    }
+                    if(ExisteOpcion('modificar')){
+                        $('td',row).eq(7).html('<button id="btn-mod" class="btn btn-info btn-sm waves-effect btn-espacio" accesskey="'+data.idper+'" data-href="'+data.idper+'" onclick="(Gestion.mod(this))"><span class="zmdi zmdi-edit"></span> Modificar</button>')
+                        // $('td',row).eq(7).append('<button>hola</button>')
+                    }else{
+                        $('td',row).eq(7).html('<button id="btn-mod" class="btn btn-info btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-edit"></span> Modificar</button>') 
+                    }
+                    if(data.estado==1){
+                        if(ExisteOpcion('eliminar')  ){
+                            // if()
+                            $('td',row).eq(7).append('<button id="btn-elim" class="btn btn-danger btn-sm waves-effect btn-espacio" accesskey="'+data.idper+'" data-href="'+data.estado+'" onclick="(Gestion.elim(this))"><span class="zmdi zmdi-delete"></span> Eliminar</button>');
+                        }else{
+                            $('td',row).eq(7).append('<button id="btn-elim" class="btn btn-danger btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-delete"></span> Eliminar</button>');  
+                        }
+                    }else{
+                        if(ExisteOpcion('habilitar')){
+                            $('td',row).eq(7).append('<button id="btn-hab" class="btn btn-success btn-sm waves-effect btn-espacio" accesskey="'+data.idper+'" data-href="'+data.estado+'" onclick="(Gestion.hab(this))"><span class="zmdi zmdi-time-restore-setting"></span> Habilitar</button>');
+                        }else{
+                            $('td',row).eq(7).append('<button id="btn-hab" class="btn btn-success btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-time-restore-setting"></span> Habilitar</button>');   
+                        }                       
+                    }
+                    if(ExisteOpcion('asigRol')){
+                        $('td',row).eq(7).append('<button id="btn-mod" class="btn btn-info btn-sm waves-effect btn-espacio" accesskey="'+data.idper+'" data-href="'+data.idper+'" onclick="(Gestion.asignarRoles(this))"><span class="zmdi zmdi-edit"></span> Asignar Roles</button>')
+                        // $('td',row).eq(7).append('<button>hola</button>')
+                    }else{
+                        $('td',row).eq(7).append('<button id="btn-mod" class="btn btn-info btn-sm waves-effect btn-espacio" disabled="disabled"><span class="zmdi zmdi-edit"></span> Asignar Roles</button>') 
+                    }
+
+                }
+                ,
+                "fnDrawCallback":function(oSetttings){
+                    destruir(DTUsuario);
+                }
+            });
+        }
+
+        function destruir(dt){
+            console.log('destroy')
+            dt.destroy();
+            DTUsuario=$('#table').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                "dom":'rt<button>ip',
+                "pageLength":5,
+                responsive:true
+            })
+        }
+            // $(function () {
+      	var MAX_TELEFONOS = 2;
+        var Gestion={
+            add:function(){ 
+                $.ajax({
+                    url:'../Usuarios/modal-add',
+                    type:'post',
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+                        $('#select-genero').chosen()
+                        $('#ciCod').chosen()
+
+                        $('#modal-add').modal('show')
+
+                        var respCi="";
+
+
+                        $('#formulario-add').formValidation({
+                            fields:{
+                            	ci:{
+                            		validators:{
+                            			callback:{
+                            				message:'callback cedula existente',
+                            				callback:function(value,validator,$field){
+                            					console.log('valor de cedula: ',value)
+                            					$.ajax({
+	                                                url:"../RestUsuarios/existeCi",
+	                                                data:{
+	                                                    ci:value
+	                                                },
+	                                                type:"post",
+	                                                dataType:"json",
+	                                                async:false,
+	                                                cache:false,
+	                                                success:function(resp){
+	                                                    respCi=resp.estado
+	                                                },  
+	                                                error:function(err){
+	                                                   // alert('sin respuesta del servidor para verificar ci')
+	                                                }
+	
+	                                            })
+                            					if(respCi){
+                            					     return {
+                                                         valid:false,
+                                                         message:'esta cedula ya esta registrada'
+                                                     } 
+                            					}else{
+                            						return true;	
+                            					}
+                            					
+                            				}
+                            			}
+                            		}
+                            	},
+                                nombres:{
+                                    validators:{
+                                        callback:{
+                                            message:"Call",
+                                            callback:function(value,validators,$field){
+                                                var Patron=/^[a-zA-Z]*$/;
+                                                if (!value.search(Patron)) {
+                                                    return true
+                                                } else {
+                                                    return {
+                                                         valid:false,
+                                                         message:'Este campo solo acepta letras'
+                                                     } 
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                ap:{
+                                    validators:{
+                                        callback:{
+                                            message:"Call",
+                                            callback:function(value,validators,$field){
+                                                var Patron=/^[a-zA-Z]*$/;
+                                                if (!value.search(Patron)) {
+                                                    return true
+                                                } else {
+                                                    return {
+                                                         valid:false,
+                                                         message:'Este campo solo acepta letras'
+                                                     } 
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                am:{
+                                    validators:{
+                                        callback:{
+                                            message:"Call",
+                                            callback:function(value,validators,$field){
+                                                var Patron=/^[a-zA-Z]*$/;
+                                                if (!value.search(Patron)) {
+                                                    return true
+                                                } else {
+                                                    return {
+                                                         valid:false,
+                                                         message:'Este campo solo acepta letras'
+                                                     } 
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                password:{
+                                    validators:{
+                                        notEmpty:{
+                                            message:'Ingrese una contrasenia'
+                                        },
+                                        // identical:{
+                                        //     field:'repassword',
+                                        //     message:'La contrasenia deve ser identica'
+                                        // }
+                                    }
+                                },
+                                repassword:{
+                                    validators:{
+                                        notEmpty:{
+                                            message:'Repita la contrasenia para confirmar'
+                                        }
+                                        ,
+                                        identical:{
+                                            field:'password',
+                                            message:'La contrasenia no es identica a la anterior'
+                                        }
+
+                                    }
+                                }
+                            }
+                        })
+                        .on('click', '.addButton', function() {
+				            var $template = $('#optionTemplate');
+				            var   $clone    = $template
+				                                .clone()
+				                                .removeClass('hide')
+				                                .removeAttr('id')
+				                                .insertBefore($template);
+				            $clone.find('.form-control').attr('name','telefono[]');
+				            var   $option   = $clone.find('[name="telefono[]"]');
+				            $('#formulario-add').formValidation('addField', $option);
+				        })
+				        .on('click', '.removeButton', function() {
+				            var $row    = $(this).parents('.form-group'),
+				                $option = $row.find('[name="telefono[]"]');
+							console.log('padre: ',$row)
+				            // Remove element containing the option
+				            $row.remove();
+				
+				            // Remove field
+				            $('#formulario-add').formValidation('removeField', $option);
+				        })
+				        .on('added.field.fv', function(e, data) {
+				            if (data.field === 'telefono[]') {
+				                if ($('#formulario-add').find(':visible[name="telefono[]"]').length >= MAX_TELEFONOS) {
+				                    $('#formulario-add').find('.addButton').attr('disabled', 'disabled');
+				                }
+				            }
+				        })
+				        .on('removed.field.fv', function(e, data) {
+				           if (data.field === 'telefono[]') {
+				                if ($('#formulario-add').find(':visible[name="telefono[]"]').length < MAX_TELEFONOS) {
+				                    $('#formulario-add').find('.addButton').removeAttr('disabled');
+				                }
+				            }
+				        })
+                        .on('success.form.fv', function(e){
+                           e.preventDefault();
+                           
+                           Registrar();
+                        })
+                        function Registrar(){
+                            // $('#modal-add').modal('hide')
+                            swal({   
+                                title: "Seguro de registrar Usuario?",   
+                                text: "Usted registrara nuevo Usuario",   
+                                type: "warning",   
+                                showCancelButton: true,   
+                                confirmButtonColor: "#DD6B55",   
+                                confirmButtonText: "Si, Continuar!",   
+                                cancelButtonText: "No, Cancelar!",   
+                                closeOnConfirm: false,   
+                                closeOnCancel: false 
+                                }, function(isConfirm){   
+                                    if (isConfirm) {     
+                                        $('#formulario-add').ajaxSubmit({
+                                            success:function(res){
+                                                console.log('registrado',res)
+                                                if(res.estado){
+                                                    $.ajax({
+                                                        url:"../Usuarios/Gestion",
+                                                        success:function(gestion){
+                                                            $('#contenedor-gestion').html(gestion); 
+                                                            swal({
+                                                                title:"Registrado",
+                                                                text:"Se ha registrado Usuario exitosamente",
+                                                                type:"success",
+                                                                timer: 2000,   
+                                                                showConfirmButton: false 
+                                                            });
+                                                            $('#modal-add').modal('hide')
+                                                        }
+                                                    })      
+                                                }
+                                            }
+                                        })
+
+                                    } else {     
+                                        // swal("Cancelled", "Your imaginary file is safe :)", "error");   
+                                        swal({
+                                            title:"Cancelado",
+                                            text:"Se ha cancelado operacion",
+                                            type:"error",
+                                            timer:2000,
+                                            showCancelButton:false,
+                                            showConfirmButton:false
+
+                                        })
+                                        $('#modal-add').modal('hide')
+                                    } 
+                                });
+
+                        }
+                        // function CargarDatosAdd(){
+                        // }
+                        // CargarDatosAdd(function(){
+                        // })
+                    },  
+                    error:function(err){
+                        alert('sin respuesta del servido1r')
+                        location.href="../principal/index"
+                    }
+                })
+            },
+            mod:function(a){
+                var GImg;
+                var idper=$(a).attr('accesskey');
+                $.ajax({
+                    url:'../Usuarios/modal-mod',
+                    type:'post',
+
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+                        $.post('../RestUser/dataModify/'+idper,function(resp){
+                            console.log('respuestaDatosModificarPost: ',resp)
+                            GImg=resp[0].foto;
+                            
+                            var tipos = ['jpg','png','jpeg'];
+                            iniciarFileInput();
+                            function iniciarFileInput(){
+                                $('#formulario-mod').find('#fotografia').fileinput({
+                                    language:'es',
+                                    showUpload: false,
+                                    showCaption: false,
+                                    showCancel: false,
+                                    allowedFileExtensions : tipos,
+                                    initialPreview: [
+                                        `<img src="../archivos/fotos/${GImg}" class="file-preview-image" alt="USER" title="USUARIO" width="200px;">`,
+                                    ],
+                                    previewFileType: "image",
+                                    // browseLabel: "Buscar",
+                                    browseClass: "btn btn-success",
+                                    browseLabel: "Cambiar Foto",
+                                    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                    // removeLabel: "Quitar Imagen",
+                                    removeClass: "btn btn-danger",
+                                    removeLabel: "Restablecer Foto",
+                                    removeIcon: "<i class=\"glyphicon glyphicon-refresh\"></i> ",
+                                    uploadClass: "btn btn-info",
+
+                                })
+                            }
+                            $('#formulario-mod').find('#fotografia').on('fileclear', function(event) {
+                                console.log("fileclear");
+                                $('#fotografia').fileinput('destroy');
+                                iniciarFileInput();
+                            });
+                            // $('#modal-mod').modal('show')
+                            $('#formulario-mod').find('.fg-line').addClass('fg-toggled'); 
+                            $('#formulario-mod').loadJSON(resp[0])
+                            $('#formulario-mod').find('input[name="ci"]').val(resp[0].ciDesencriptado)
+                            $('#formulario-mod').find('input[name="usuario"]').val(resp[0].usuario.login)
+                            $('#formulario-mod').find('input[name="password"]').val(resp[0].usuario.password)
+                            $('#ciCod').chosen()
+                            $('#select-genero').chosen()
+                            $('#modal-mod').modal('show')
+                            var telSC;
+                            if(resp[0].listaTelf.length!=0){
+                            var bloqueo;
+                            if(resp[0].listaTelf.length==MAX_TELEFONOS){
+                                    bloqueo="disabled"
+                            }else{
+                                    bloqueo=''
+                            } 
+                            $(resp[0].listaTelf).each(function(index,item){
+                                console.log('index: ',index)
+                                if(index==0){
+                                    telSC=`<div class="form-group" id="ExisteTelOr">
+                                            <label class="col-xs-3 control-label">Teléfonos/Celulares</label>
+                                            <div class="col-xs-5">
+                                                <input type="text" class="form-control" name="telefono[]" value="${item.numero}" placeholder="Ingrese número" maxlength="10" data-fv-integer="true" data-fv-integer-message="El campo debe ser numerico"/>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <button type="button" class="btn btn-default addButton" ${bloqueo}><i class="fa fa-plus"></i></button>
+                                            </div>
+                                    </div>`
+                                    $('#contenido-tel').append(telSC);
+                                    var   $option   = $('#ExisteTelOr').find('[name="telefono[]"]');
+                                    $('#formulario-mod').formValidation('addField', $option);
+                                }else{
+                                        telSC=`<div class="form-group ClassExisteTel">
+                                                <div class="col-xs-offset-3 col-xs-5">
+                                                    <input class="form-control" type="text" name="telefono[]" value="${item.numero}" placeholder="Ingrese número" maxlength="10"/>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+                                                </div>
+                                            </div>`
+                                        $('#contenido-tel').append(telSC);
+                                        var   $option   = $('.ClassExisteTel').find('[name="telefono[]"]');
+                                        $('#formulario-mod').formValidation('addField', $option);      
+                                }	       
+                                
+                            })	   
+                            }else{
+                            telSC=`<div class="form-group" id="origenT">
+                                        <label class="col-xs-3 control-label">Telefonos/Celulares</label>
+                                        <div class="col-xs-5">
+                                            <input type="text" class="form-control" name="telefono[]" placeholder="Ingrese número" maxlength="10"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                </div>`
+                                $('#contenido-tel').html(telSC);
+                                var   $option   = $('#origenT').find('[name="telefono[]"]');
+                                $('#formulario-mod').formValidation('addField', $option);	  
+                            }
+                        
+
+                                
+
+                        },'json')
+
+                        $('#formulario-mod').formValidation({  
+                        fields:{
+                                nombres:{
+                                    validators:{
+                                        callback:{
+                                            message:"Call",
+                                            callback:function(value,validators,$field){
+                                                var Patron=/^[a-zA-Z]*$/;
+                                                if (!value.search(Patron)) {
+                                                    return true
+                                                } else {
+                                                    return {
+                                                         valid:false,
+                                                         message:'Este campo solo acepta letras'
+                                                     } 
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                ap:{
+                                    validators:{
+                                        callback:{
+                                            message:"Call",
+                                            callback:function(value,validators,$field){
+                                                var Patron=/^[a-zA-Z]*$/;
+                                                if (!value.search(Patron)) {
+                                                    return true
+                                                } else {
+                                                    return {
+                                                         valid:false,
+                                                         message:'Este campo solo acepta letras'
+                                                     } 
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                am:{
+                                    validators:{
+                                        callback:{
+                                            message:"Call",
+                                            callback:function(value,validators,$field){
+                                                var Patron=/^[a-zA-Z]*$/;
+                                                if (!value.search(Patron)) {
+                                                    return true
+                                                } else {
+                                                    return {
+                                                         valid:false,
+                                                         message:'Este campo solo acepta letras'
+                                                     } 
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                'telefono[]': {
+                                    validators: {
+                                        stringLength: {
+                                            max: 10,
+                                            message: 'El tamanio debe ser maximo hasta 10 caracteres'
+                                        }
+                                    }
+                                }
+                            }                          
+                        })
+						 .on('click', '.addButton', function() {
+				            var $template = $('#optionTemplate');
+				            var   $clone    = $template
+				                                .clone()
+				                                .removeClass('hide')
+				                                .removeAttr('id')
+				                                .insertBefore($template);
+				            $clone.find('.form-control').attr('name','telefono[]');
+				            var   $option   = $clone.find('[name="telefono[]"]');
+				            $('#formulario-mod').formValidation('addField', $option);
+				        })
+				        .on('click', '.removeButton', function() {
+				            var $row    = $(this).parents('.form-group'),
+				                $option = $row.find('[name="telefono[]"]');
+							console.log('padre: ',$row)
+				            $row.remove();
+				            $('#formulario-mod').formValidation('removeField', $option);
+				        })
+				        .on('added.field.fv', function(e, data) {
+				            if (data.field === 'telefono[]') {
+				                if ($('#formulario-mod').find(':visible[name="telefono[]"]').length >= MAX_TELEFONOS) {
+				                    $('#formulario-mod').find('.addButton').attr('disabled', 'disabled');
+				                }
+				            }
+				        })
+				        .on('removed.field.fv', function(e, data) {
+				           if (data.field === 'telefono[]') {
+				                if ($('#formulario-mod').find(':visible[name="telefono[]"]').length < MAX_TELEFONOS) {
+				                    $('#formulario-mod').find('.addButton').removeAttr('disabled');
+				                }
+				            }
+				        })
+                        .on('success.form.fv', function(e){
+                           e.preventDefault();
+                           Modificar();
+                        })
+                        function Modificar(){
+                            swal({   
+                                title: "Seguro de modificar Usuario?",   
+                                text: "Usted modificara los datos del Usuario",   
+                                type: "warning",   
+                                showCancelButton: true,   
+                                confirmButtonColor: "#DD6B55",   
+                                confirmButtonText: "Si, Continuar!",   
+                                cancelButtonText: "No, Cancelar!",   
+                                closeOnConfirm: false,   
+                                closeOnCancel: false 
+                                }, function(isConfirm){  
+                                    $('.doc-mod').removeAttr('disabled') 
+                                    if (isConfirm) {
+                                    	$('#formulario-mod').find('input[name=ci]').removeAttr("disabled")
+                                    	$('#formulario-mod').find('#ciCod').removeAttr("disabled")
+                                        $('#formulario-mod').ajaxSubmit({
+                                            data:{
+                                            	idper:idper
+                                            },
+                                        	success:function(res){
+                                                console.log('modificado',res)
+                                                if(res.estado){
+                                                    $.ajax({
+                                                        url:"../Usuarios/Gestion",
+                                                        success:function(gestion){
+                                                            $('#contenedor-gestion').html(gestion); 
+                                                            swal({
+                                                                title:"Modificado",
+                                                                text:"Se ha modificado Usuario exitosamente",
+                                                                type:"success",
+                                                                timer: 2000,   
+                                                                showConfirmButton: false 
+                                                            });
+                                                            $('#modal-mod').modal('hide')
+                                                        }
+                                                    })      
+                                                }
+                                            }
+                                        })
+
+                                    } else {     
+                                        swal({
+                                            title:"Cancelado",
+                                            text:"Se ha cancelado operacion",
+                                            type:"error",
+                                            timer:2000,
+                                            showCancelButton:false,
+                                            showConfirmButton:false
+
+                                        })
+                                        $('#modal-mod').modal('hide')
+                                    } 
+                            });
+                        }
+                    },
+                    error:function(err){
+                        alert('sin respuesta del servidor')
+                    }
+                })    
+            },
+            elim:function(a){
+                var idper=$(a).attr('accesskey')
+                var estado=$(a).data('href')
+                // alert('id: '+idper)
+                swal({   
+                    title: "Seguro de Eliminar Usuario?",   
+                    text: "Usted eliminará al Usuario",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Si, Continuar!",   
+                    cancelButtonText: "No, Cancelar!",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                    }, function(isConfirm){
+                    if (isConfirm) {
+                        $.post('/RestUser/changeStatus',{idper:idper,estado:estado},function(resp){
+                        	console.log(resp)
+                            if (resp.estado) {
+                                     $.ajax({
+                                        url:"/Usuarios/Gestion",
+                                        success:function(gestion){
+                                            $('#contenedor-gestion').html(gestion); 
+                                                swal({
+                                                    title:"Eliminado",
+                                                    text:"Se ha Eliminado al Usuario exitosamente",
+                                                    type:"success",
+                                                    timer: 2000,   
+                                                    showConfirmButton: false 
+                                                });
+                                        }
+                                    })  
+                                    // $('#table').dataTable().fnDraw('page');
+                           
+                            } else {
+                                aler('Sin respuesta del Servidor')
+                            }	
+                        })
+                    } else {
+                        swal({
+                            title:"Cancelado",
+                            text:"Se ha cancelado operacion",
+                            type:"error",
+                            timer:2000,
+                            showCancelButton:false,
+                            showConfirmButton:false
+
+                        })
+                    } 
+                }); 
+
+            },
+            hab:function(a){
+                var idper=$(a).attr('accesskey')
+                var estado=$(a).data('href')
+                swal({   
+                    title: "Seguro de Habilitar Usuario?",   
+                    text: "Usted habilitará al Usuario",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Si, Continuar!",   
+                    cancelButtonText: "No, Cancelar!",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                    }, function(isConfirm){
+                        if (isConfirm) {
+                            $.post('/RestUser/changeStatus',{idper:idper,estado:estado},function(resp){
+                                console.log(resp)
+                                if (resp.estado) {
+                                    $.ajax({
+                                        url:"/Usuarios/Gestion",
+                                        success:function(gestion){
+                                            $('#contenedor-gestion').html(gestion); 
+                                                swal({
+                                                    title:"Habilitado",
+                                                    text:"Se ha Habilitado al Usuario exitosamente",
+                                                    type:"success",
+                                                    timer: 2000,   
+                                                    showConfirmButton: false 
+                                                });
+                                        }
+                                    }) 
+                                    // $('#table').dataTable().fnDraw('page');
+                               
+                                } else {
+                                    aler('Sin respuesta del Servidor')
+                                }   
+                            })  
+                        } else {
+                            swal({
+                                title:"Cancelado",
+                                text:"Se ha cancelado operacion",
+                                type:"error",
+                                timer:2000,
+                                showCancelButton:false,
+                                showConfirmButton:false
+
+                            })
+                        } 
+                }); 
+            },
+            asignarRoles:function(a){
+                var idper=$(a).attr('accesskey');
+                // alert(idper)
+                $.ajax({
+                    url:'../Usuarios/modal-addRoles',
+                    type:'post',
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+                        // $('#formAddRol').data('formValidation').resetForm();
+                        // $('#formAddRol')[0].reset();
+                        var asignar = $('select[name="roles[]"]').bootstrapDualListbox({
+                            nonSelectedListLabel: 'Roles disponibles',
+                            selectedListLabel: 'Roles adquiridos',
+                            preserveSelectionOnMove: 'movido',
+                            moveOnSelect: false,
+                            showFilterInputs:false
+                        });
+                        $.post('../RestRoles/getRoles/'+idper, function(result) {
+                            console.log(result)
+                            // $('#formAddRol').loadJSON(result.data);
+                            $('#nameUser').html(result[0]);
+                            $.each(result[1],function(index,valor){
+                                var sel="";
+                                $.each(result[2],function(index,item){
+                                   if (valor.idrol==item.idrol) {
+                                       sel="selected";
+                                   }     
+                                })
+                                var option=$(`<option value="${valor.idrol}" ${sel}>${valor.nombre}</option>`);
+                                // $(option).html(valor['nombre'])
+                                $(option).appendTo('#js_roles_users');
+                                var sel="";
+                            });
+                            asignar.bootstrapDualListbox('refresh');
+                            $('#modalAddRol').modal('show')
+                        }, 'json');
+                        $('#formAddRol').formValidation({
+                        })
+                        .on('success.form.fv', function(e){
+                           e.preventDefault();
+                           
+                           reg();
+                        })
+                        function reg(){
+                            $('#formAddRol').ajaxSubmit({
+                                data:{idper:idper},
+                                success:function(res){
+                                    console.log('registrado',res)
+                                    $.ajax({
+                                        url:"../Usuarios/Gestion",
+                                        success:function(gestion){
+                                            $('#contenedor-gestion').html(gestion); 
+                                            swal({
+                                                title:"Registrado",
+                                                text:"Se ha registrado Roles exitosamente",
+                                                type:"success",
+                                                timer: 2000,   
+                                                showConfirmButton: false 
+                                            });
+                                            $('#modalAddRol').modal('hide')
+                                        }
+                                    })      
+                                    if(res.estado){
+                                    }else{
+                                        
+                                    }
+                                }
+                            })    
+
+                        }
+                    },  
+                    error:function(err){
+                        alert('sin respuesta del servido1r')
+                        location.href="../principal/index"
+                    }
+                })
+            }
+
+
+        }
+
+        function resetearFormulario(form){
+            $(form).data('formValidation').resetForm(true)
+        }
+        
+        
+    // })
+        
+    </script>
+</body>
+</html>

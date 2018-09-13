@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head> 
+<body>
+	<h2>PERMISOS DEL SISTEMA</h2>
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<h2>Roles del Sistema</h2>	
+			<select id="js_selectRol" class="form-control">
+				<option value="-1">Seleccione Rol</option>
+			</select>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="col-md-12">
+				<h3><b>Menús del Sistema</b></h3>
+				<table class="table table-menus">
+					<thead>
+						<tr>
+							<th><b>#</b></th>
+							<th><b>	Nombre</b></th>
+							<th><b>Selección</b></th>
+						</tr>
+					</thead>
+					<tbody></tbody>	
+				</table>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="col-md-12">
+				<h3><b>SubMenús del Sistema</b></h3>
+				<table class="table table-procesos">
+					<thead>
+						<tr>
+							<th><b>#</b></th>
+							<th><b>Nombre</b></th>
+							<th><b>Selección</b></th>
+						</tr>
+					</thead>
+					<tbody></tbody>	
+				</table>
+			</div>
+	
+		</div>
+		<div class="col-md-4">
+			<div class="col-md-12">
+				<h3><b>Opciones del Sistema</b></h3>
+				<table class="table table-opciones">
+					<thead>
+						<tr>
+							<th><b>#</b></th>
+							<th><b>Nombre</b></th>
+							<th><b>Selección</b></th>
+						</tr>
+					</thead>
+					<tbody></tbody>	
+				</table>
+			</div>
+		</div>
+	</div>
+<!-- 	<div class="row">
+		<div class="col-md-12 text-center">
+				<button id="obtener" class="btn">Obtener</button>
+		</div>
+	</div>	 -->
+	<div class="alert" style="color: red;"></div>
+	<div class="result" style=""></div>
+	<script>
+		// var DTMenus,DTProcesos,DTOpciones;
+		// $('.table-menus').DataTable({
+		// 	"dom":'rt<button>ip'
+		// })
+		// $('.table-procesos').DataTable({
+		// 	"dom":'rt<button>ip'
+		// })
+		// $('.table-opciones').DataTable({
+		// 	"dom":'rt<button>ip'
+		// })
+		$('select').chosen();
+
+		var idRol=-1,idMod=-1,idProc=-1,idOpc=-1;
+		var disabledProc="",disabledOpc="";
+		$(function(){
+
+			init();
+			function init(){
+				$('.table-menus tbody').html('') 
+				$('.table-procesos tbody').html('') 
+				$('.table-opciones tbody').html('') 
+				// $('#js_selectRol').html('')	
+				$.getJSON("../RestPermisos/dataPermise",function(data) {
+					console.log("data: ",data)
+					$(data[0]).each(function(i,item){
+						console.log(item.nombre)
+						$('#js_selectRol').append(`
+							<option value="${item.idrol}">${item.nombre}</option>
+						`)		
+					})
+					$('#js_selectRol').trigger('chosen:updated');
+				})	
+			}
+
+			$('#js_selectRol').on('change',function(){
+				$('.table-menus tbody').html('')
+				var codRol=$(this).val();
+				// alert('codR: '+codRol)
+				if(codRol==-1){
+					idRol=-1;
+					init()
+				}else{
+					$('.table-procesos tbody').html('') 
+					$('.table-opciones tbody').html('') 
+					idRol=codRol;
+					$.getJSON('../RestPermisos/dataMenus',{idrol:codRol},function(resp){
+						console.log('respMenus: ',resp);
+
+						$(resp[0]).each(function(i,m){
+							var check="";
+							// alert('check: '+check);
+							$(resp[1]).each(function(j,mr){
+								if(m.idmod==mr.idmod){
+									check="checked";
+								}
+							})
+							$('.table-menus tbody').append(`
+		                        <tr>
+		                            <td>${m.idmod}</td>
+		                            <td>${m.nombre}</td>
+		                            <td>
+		                            <input type="checkbox" id="check_mod" class="check_mod" name="idmodulo${m.idmod}" value="${m.idmod}" ${check}>
+		                            </td>
+		                        </tr>          
+		                    `) 
+						})
+
+					})
+					
+				}
+			})
+/*
+			function iniciarDatableMenu(lista,ListaMenuRol){
+				var check="";
+
+ 				DTMenus=$('.table-menus').DataTable({
+	                "oLanguage": {
+	                    "sUrl": "/js/dataTables/Spanish.lang"
+	                },
+	                responsive:true,
+	                "dom":'rt<button>p',
+	                // "ordering":false,
+	                // "scrollCollapse":true,
+                	// "paging":false,
+	                "pageLength":5,
+	                // "scrollY": "200px",
+	                data:lista,
+	                columns:[
+	                    {data:'idmod'},
+	                    {data:'idmod'},
+	                    {data:'idmod'},
+	                ]
+	                ,
+                	"createdRow":function(row,data,index){
+                		$('td',row).eq(1).html(data.nombre)
+						$(ListaMenuRol).each(function(j,mr){
+							check="";
+							if(data.idmod==mr.idmod){
+								check="checked";
+							}
+						})
+                    	$('td',row).eq(2).html(`<input type="checkbox" name="" value="${data.idmod}" ${check}>`).addClass('text-center')
+                	}	
+            	})
+			}
+
+			function iniciarDatableProceso(lista,ListaProcMod){
+				var check="";
+
+ 				DTProcesos=$('.table-procesos').DataTable({
+	                "oLanguage": {
+	                    "sUrl": "/js/dataTables/Spanish.lang"
+	                },
+	                responsive:true,
+	                "dom":'rt<button>p',
+	                // "ordering":false,
+	                // "scrollCollapse":true,
+                	// "paging":false,
+	                "pageLength":5,
+	                // "scrollY": "200px",
+	                data:lista,
+	                columns:[
+	                    {data:'idproc'},
+	                    {data:'idproc'},
+	                    {data:'idproc'},
+	                ]
+	                ,
+                	"createdRow":function(row,data,index){
+                		$('td',row).eq(1).html(data.nombre)
+						$(ListaProcMod).each(function(j,mr){
+							check="";
+							if(data.idproc==mr.idproc){
+								check="checked";
+							}
+						})
+                    	$('td',row).eq(2).html(`<input type="checkbox" name="" value="${data.idproc}" ${check}>`).addClass('text-center')
+                	}	
+            	})
+			}
+*/
+
+			$('.table-menus tbody').on('click','tr',function(e){
+	    		// alert('click')
+	    		console.log('TARGET: ',e.target.id)
+	    		console.log('TARGET__: ',e.target.id=="",e.target.id==null)
+				if(e.target.id==""){
+		    		dato=$(this).find("td:eq(0)").text();
+		    		console.log(dato);
+
+		    		if ($(this).hasClass('selected')){
+		    			$('.table-procesos tbody').html('') 
+						$('.table-opciones tbody').html('') 
+		            	$(this).removeClass('selected');
+			        } 
+			        else {
+			            $('.table-menus tr.selected').removeClass('selected');
+			            $(this).addClass('selected');
+			            disabledProc="";
+			            if(!$(`input[name="idmodulo${dato}"]`).is(':checked')){
+			            	disabledProc="disabled";
+			            	idMod=-1;
+			            }else{
+			            	disabledProc="";
+			            	idMod=dato;
+			            }
+			            getSubMenus(idRol,dato)
+			        }
+				}
+
+	    	})
+	    	$('.table-procesos tbody').on('click','tr',function(e){
+	    		// alert('click')
+	    		// console.log(dato);
+	    		if(e.target.id==""){
+	    			dato=$(this).find("td:eq(0)").text();
+		    		if ($(this).hasClass('selected')){
+		            	$(this).removeClass('selected');
+						$('.table-opciones tbody').html('') 
+			        } 
+			        else {
+			            $('.table-procesos tr.selected').removeClass('selected');
+			            $(this).addClass('selected');
+			            disabledOpc="";
+			            if(!$(`input[name="idproceso${dato}"]`).is(':checked')){
+			            	disabledOpc="disabled";
+			            	idProc=-1
+			            }else{
+			            	disabledOpc="";
+			            	idProc=dato;
+			            }
+
+			            getOpciones(idRol,idMod,dato)
+			        	// $('.alert').html('')
+			            // $('.alert').html('Debe completar los SubMenús y Opciones para este Menú del Sistema')
+			        }
+	    			// $('.result').html(dato)
+	    		}
+	    	})
+			function getSubMenus(idRol,idMod){
+				$('.table-procesos tbody').html('') 
+				$('.table-opciones tbody').html('') 
+				// $('.table-opciones tbody').html('')
+				$.getJSON('../RestPermisos/dataSubMenus',{idRol:idRol,idMod:idMod},function(resp){
+					console.log('respSubMenus: ',resp);
+					// if ($.fn.DataTable.isDataTable('.table-procesos')) {
+				    //                 DTProcesos.destroy();
+				    //                 iniciarDatableProceso(resp[0],resp[1]);       
+				    //             } else {
+				    //                 iniciarDatableProceso(resp[0],resp[1]);
+				    //             } 
+					$(resp[0]).each(function(i,m){
+						var check="";
+						// alert('check: '+check);
+						$(resp[1]).each(function(j,mr){
+							if(m.idproc==mr.idproc){
+								check="checked";
+							}
+						})
+						$('.table-procesos tbody').append(`
+	                        <tr>
+	                            <td>${m.idproc}</td>
+	                            <td>${m.nombre}</td>
+	                            <td><input type="checkbox" class="check_proc" id="check_proc" name="idproceso${m.idproc}" value="${m.idproc}" ${check} ${disabledProc}></td>
+	                        </tr>          
+	                    `) 
+					})
+				})
+			}
+			function getOpciones(idRol,idMod,idProc){
+				$('.table-opciones tbody').html('') 
+				$.getJSON('../RestPermisos/dataOpciones',{idRol:idRol,idMod:idMod,idProc:idProc},function(resp){
+					console.log('respProcesos: ',resp);
+
+
+					$(resp[0]).each(function(i,m){
+						var check="";
+						// alert('check: '+check);
+						$(resp[1]).each(function(j,op){
+							if(m.idopc==op.idopc){
+								check="checked";
+							}
+						})
+						$('.table-opciones tbody').append(`
+	                        <tr>
+	                            <td>${m.idopc}</td>
+	                            <td>${m.nombre}</td>
+	                            <td><input type="checkbox" name="idopcion${m.idopc}" class="check_opc" id="check_opc" value="${m.idopc}" ${check} ${disabledOpc}></td>
+	                        </tr>          
+	                    `) 
+					})
+				})
+			}
+
+			// $('.ckeck_mod').on('click',function(){
+			// 	alert('Click')
+			// })
+			$('body').on('change','.check_mod',function(e){
+				// console.log('target_radio: ',e.target)
+				idMod=$(this).val();
+				// alert('idRol: '+idRol+' idMod: '+idMod)
+				var padre=$(this).parent().parent()
+				console.log('padre: ',padre)
+				if($(this).is(':checked')){
+	    			// dato=$(this).val();
+	    			if ($(padre).hasClass('selected')) {
+	    				disabledProc="";
+		        		getSubMenus(idRol,idMod);
+	    			}
+				}else{
+					$.getJSON('../RestPermisos/removeModulo',{idRol:idRol,idMod:idMod},function(resp){
+		        		console.log('removeModulo',resp)
+		        		if(resp.status){
+		        			disabledProc="disabled"
+			        		getSubMenus(idRol,idMod);
+		        		}	
+		        	})
+				}
+			})
+
+			$('body').on('change','.check_proc',function(e){
+				// console.log('target_radio: ',e.target)
+				idProc=$(this).val();
+				// alert('idRol: '+idRol+' idMod: '+idMod+' idProc: '+idProc)
+				var padre=$(this).parent().parent()
+				if($(this).is(':checked')){
+	    			// dato=$(this).val();
+	    			if ($(padre).hasClass('selected')){
+	    				disabledOpc="";
+		        		getOpciones(idRol,idMod,idProc);
+	    			}
+				}else{
+					$.getJSON('../RestPermisos/removeProceso',{idRol:idRol,idMod:idMod,idProc:idProc},function(resp){
+		        		console.log('removeProceso',resp)
+		        		if(resp.status){
+		        			disabledOpc="disabled";
+		        			getOpciones(idRol,idMod,idProc);
+		        		}	
+		        	})
+				}
+			})
+			$('body').on('change','.check_opc',function(e){
+				// console.log('target_radio: ',e.target)
+				idOpc=$(this).val();
+				// alert('idRol: '+idRol+' idMod: '+idMod+' idProc: '+idProc+' idOpc: '+idOpc)
+				if($(this).is(':checked')){
+	    			// dato=$(this).val();
+		        	// getOpciones(idOpc);
+		        	$.getJSON('../RestPermisos/addOpcion',{idRol:idRol,idMod:idMod,idProc:idProc,idOpc:idOpc},function(resp){
+		        		console.log('addOpcion',resp)	
+		        	})
+				}else{
+		        	$.getJSON('../RestPermisos/removeOpcion',{idRol:idRol,idMod:idMod,idProc:idProc,idOpc:idOpc},function(resp){
+		        		console.log('removeOpcion',resp)	
+		        	})
+				}
+			})
+		})
+
+	</script>
+</body>
+</html>

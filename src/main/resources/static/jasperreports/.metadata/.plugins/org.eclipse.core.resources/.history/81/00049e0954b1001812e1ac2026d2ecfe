@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.0.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="getAprobacion" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38fe42ce-702c-42f7-81ce-844bb2cd3827">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conect"/>
+	<parameter name="escudo_param" class="java.io.InputStream">
+		<property name="using cache" value="true"/>
+	</parameter>
+	<parameter name="idsolt_param" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new Integer(3)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="miArray" class="java.lang.Integer[]">
+		<defaultValueExpression><![CDATA[new Integer[]{1,2,3,4,5}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nit_param" class="java.lang.String"/>
+	<parameter name="tramitador_param" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT s.idsolt,s.fechaCreacion as fechaSolt,s.numSolt,ap.fechaAprob,tp.*,UPPER(concat(per.ap,' ',per.am,' ',per.nombres) )as aprobador FROM solicitud s,tipoAprobador tp,aprobacion ap,usuario us,persona per WHERE ap.login=us.login AND us.idper=per.idper AND tp.idTipoAp=ap.idTipoAp AND ap.idsolt=s.idsolt AND s.idsolt=$P{idsolt_param} AND $X{IN,tp.idTipoAp,miArray}]]>
+	</queryString>
+	<field name="idsolt" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idsolt"/>
+	</field>
+	<field name="fechaSolt" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="fechaSolt"/>
+	</field>
+	<field name="numSolt" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numSolt"/>
+	</field>
+	<field name="fechaAprob" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="fechaAprob"/>
+	</field>
+	<field name="idTipoAp" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idTipoAp"/>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+	</field>
+	<field name="codigo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codigo"/>
+	</field>
+	<field name="jerarquia" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="jerarquia"/>
+	</field>
+	<field name="estado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="estado"/>
+	</field>
+	<field name="aprobador" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="aprobador"/>
+	</field>
+	<group name="Grupo" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{nombre}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="140">
+				<line>
+					<reportElement isPrintRepeatedValues="false" x="0" y="2" width="572" height="1" isPrintInFirstWholeBand="true" uuid="dedd2874-e1f4-45ba-ac31-9dc0f12947bd">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+				</line>
+				<staticText>
+					<reportElement isPrintRepeatedValues="false" x="0" y="3" width="90" height="20" isPrintInFirstWholeBand="true" uuid="b3557e82-e986-4dae-9bad-fc1dc5ee5397">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[APROBACION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="0" y="26" width="180" height="15" isPrintInFirstWholeBand="true" forecolor="#000000" uuid="c41e67bf-6685-4173-b3f0-435f6882ace9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Aprobación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="180" y="26" width="211" height="15" isPrintInFirstWholeBand="true" forecolor="#000000" uuid="c7077763-fddd-4aa4-8cd1-cb89501f52d5">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo Aprobación]]></text>
+				</staticText>
+				<line>
+					<reportElement isPrintRepeatedValues="false" x="0" y="23" width="572" height="1" isPrintInFirstWholeBand="true" uuid="81a1bb2a-9ef1-4149-9b22-ad652118f51a">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+				</line>
+				<staticText>
+					<reportElement key="" positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="392" y="26" width="180" height="15" isPrintInFirstWholeBand="true" forecolor="#000000" uuid="7bcf7cbe-9b27-4e67-b3d0-78408eb7dac3">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Aprobación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="430" y="41" width="142" height="16" uuid="c830f33c-342d-4ac8-b6dc-25cff174981c"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[SI]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="180" y="42" width="211" height="20" uuid="5f43bbf6-ee0a-4360-8a58-41a691a38fd9"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="44" width="100" height="13" uuid="8233954f-87c3-4a7f-953f-0f4aa2937a3b"/>
+					<textFieldExpression><![CDATA[$F{fechaAprob}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement isPrintRepeatedValues="false" x="0" y="106" width="572" height="1" isPrintInFirstWholeBand="true" uuid="ca257be7-d119-455b-9c0d-d13c1bad34df">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+				</line>
+				<staticText>
+					<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="0" y="107" width="180" height="15" isPrintInFirstWholeBand="true" forecolor="#000000" uuid="a5c238e5-3f61-4b76-baa1-d24112ecdb43">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="61" width="55" height="15" uuid="96cd1751-7529-41f6-ae39-dc45d410a968">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Aprobador:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="76" width="180" height="15" uuid="c96f2387-f3f9-43d2-aafd-ecb104d6a3f0"/>
+					<textFieldExpression><![CDATA[$F{aprobador}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="101" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="71" width="572" height="1" uuid="e02d305e-25be-4194-b6ad-79aa07903250">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="73" width="69" height="20" uuid="49f01626-ba21-44a1-8a53-ec6b4477fe6c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="94" width="572" height="1" uuid="3f3d0668-2143-433f-aff0-31a95293feb8">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement key="" x="0" y="6" width="572" height="1" uuid="5affd665-e9e8-4bb9-8794-ec27f6f9c9cd">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="213" y="7" width="150" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="53d96239-076c-4e8a-aabd-f87d2d1f8ef5"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GOB. DPTAL DE TARIJA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="42" width="128" height="17" uuid="11619cc6-c343-4d68-8616-b13722bc684b">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APROBACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="20" width="24" height="16" uuid="bf688588-3785-415c-bb5f-f0fb85952157">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIT:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="20" width="90" height="16" uuid="224aa0a3-bd41-41f5-a766-eace41ff9ef9">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{nit_param}]]></textFieldExpression>
+			</textField>
+			<image isUsingCache="true">
+				<reportElement x="5" y="10" width="60" height="61" uuid="ff44fd3b-7dac-42c2-92bf-99ae1be6fe1e"/>
+				<imageExpression><![CDATA[$P{escudo_param}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="1" width="180" height="15" forecolor="#000000" uuid="e1fac63f-d674-4e22-b96b-41d7fbdc7e88">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="391" y="1" width="180" height="15" forecolor="#000000" uuid="2f3fd442-c283-40ca-8462-4bf0454c5a53">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Solicitud]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="17" width="180" height="13" uuid="c959cc6f-b80c-48b2-815d-40160062c0b1"/>
+				<textFieldExpression><![CDATA[$F{numSolt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="16" width="180" height="14" uuid="bd2fca54-1508-4d4f-88af-2ce7305e1d97"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fechaSolt}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="73" splitType="Stretch">
+			<textField>
+				<reportElement x="520" y="36" width="20" height="20" uuid="50f50c6b-7957-4661-8cbc-4ef53889f7e4"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="540" y="36" width="10" height="20" uuid="4ad696e7-c4b1-4b56-bbd1-fbf99f5e2e09"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="550" y="36" width="20" height="20" uuid="2e67f193-e91b-48c7-8b97-031d902af5b3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="17" width="572" height="1" uuid="d3892527-3640-4726-85ed-ac9d766d7aed">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="2" width="60" height="15" forecolor="#000000" uuid="dceed9e2-83af-4579-951d-4f16ce3147d5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tramitador:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="59" y="2" width="159" height="14" uuid="cdfdf3ab-65f1-4628-8e7d-4499b6bc8ae0"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tramitador_param}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="278" y="0" width="122" height="16" uuid="3a248822-b4e5-4dd6-b6ce-bd3276359b0d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha y Hora de Reporte:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="401" y="0" width="90" height="16" uuid="9be98853-6ca5-4363-8b96-dc6ff0e352db"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="491" y="0" width="78" height="16" uuid="55477888-4799-46ce-a33c-6cd9808256bd"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="228" y="21" width="118" height="18" uuid="0e38f8a5-3695-41d6-8801-5193c0192236"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TARIJA - BOLIVIA]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

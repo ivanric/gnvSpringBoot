@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title></title>
+    <link rel="stylesheet" href="../css/buscador.css">
+    <style> 
+        .selected{
+            background-color: #B0BED9;
+        }
+    </style>
+</head> 
+<body>
+<form id="formulario-add" action="../RestServicios/adicionarOS" method="post" 
+    data-fv-excluded="disabled">
+
+    <div class="modal fade" id="modal-add" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="display: none;padding-left: 0">
+       <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h2>Nueva Orden de Servicio<small>Llene los campos por favor</small></h2>
+                        </div>
+                        <div class="col-md-7">
+                            <b>Número Orden de Servicio: </b><span id="js-numOrdServ"></span> 
+                            <b style="margin-left: 10em;">Fecha: </b><span id="js-fecha"></span> 
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!-- .row>.col-md-6*2>.form-group>(label.col-md-6.control-label.espacio-form>b{campo})+.col-md-6>.fg-line>select.form-control>option{opcion $}*2 -->
+                     <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="fg-line div_busca" id="" style="text-align: center !important;">
+                                <b>Buscar por: Nro. de Solicitud / Cédula</b><br>
+                                <input type="text" style="width: 100%;margin: auto;" name="numSolicitud" id="js-busca" class="form-control_filtro unput-sm" placeholder="Ingrese número de Solicitud o Cédula de Identidad" autocomplete="off">
+                                <input type="hidden" name="numOrdServ">
+                                <input type="hidden" name="idsolt">
+                                <input type="hidden" name="idserv">
+                                <div id="display"  class="lista_ben z-depth-3" style="width: 100%;border-radius: 2px;margin: auto;">
+                                   <table width="100%"  class="table table-hover" id="js_table_filtro">
+                                       <thead>
+                                           <tr>
+                                               <th width=""># Solt</th>
+                                               <th width="">Placa</th>
+                                               <th width="">Fecha</th>
+                                               <th>Beneficiario</th>
+                                               <th>Cedula</th>
+                                           </tr>
+                                       </thead>
+                                       <tbody>
+                                            
+                                       </tbody>
+                                   </table>
+                                </div>  
+                            </div> 
+                        </div>
+                        <div class="col-md-2"></div>
+                     </div>  
+
+                    <fieldset>
+                        <legend><strong>DATOS BÁSICOS</strong>
+                        </legend>
+                        <div class="row" id="js_DatosBasicos">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Número Solicitud:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="numSolt"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Fecha Solicictud:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="fecha"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Beneficiario:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="beneficiario"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Cédula:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="ci"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Taller:</b></label>
+                                    <div class="col-md-8">
+                                        <select name="idtall" id="js-SeltTaller" data-placeholder="n" class="form-control fg-input sel-opcv" data-fv-notempty='true' data-fv-message="Seleccione Taller por favor">
+                                            <option value="" selected="selected" disabled="disabled">Seleccione Taller</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Chip Rom:</b></label>
+                                    <div class="col-md-8">
+                                        <select name="idRom" id="js-SeltRom" data-placeholder="n" class="form-control fg-input sel-opcv" data-fv-notempty='true' data-fv-message="Seleccione ChiRom porfavor">
+                                            <option value="" selected="selected" disabled="disabled">Seleccione ChipRom</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend><strong>VEHÍCULO</strong></legend>
+                        <div class="row" id="js_Vehiculo">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Placa:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="placa"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Color:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" value="" class="form-control mcss_input" disabled="disabled" name="color"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Marca:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="marca"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Modelo:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="modelo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Tipo Vehiculo:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="tipoVeh"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Tipo Servicio:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="tipServ"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Sistema Motor:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="SistemaMotor"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Num. Motor:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="num_motor"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Num. Chasis:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="num_chasis"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Targta. Prioridad:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="tjeta_prioridad"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Combustible:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div id="js-comb"> 
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Cilindrada:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="cilindrada"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                        </div>              
+                    </fieldset>
+                    <fieldset>
+                        <legend><strong>SERVICIO</strong></legend>
+                        <table width="100%"  class="table table-vmiddle  nowrap display table-hover" id="js_table">
+                            <thead>
+                                <tr>
+                                    <th>IDSERV</th>
+                                    <th>VEHÍCULO</th>
+                                    <th>TIPO DE<BR>TECNOLOGÍA</th>
+                                    <th>CAPACIDAD<BR>(M3).</th>
+                                    <th>SISTEMA<BR>MOTOR</th>
+                                    <th>NRO.<BR>PISTONES</th>
+                                    <th>PRECIO<BR>$us.</th>
+                                    <th>PRECIO<BR>Bs.</th>
+                                    <th>FACTOR<BR>COBRO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-5 control-label"><b>Tipo de Tecnología</b></label>
+                                    <div class="col-md-7">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" name="" id="js-tp_tecnologia"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Sistema Motor:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" id="js-sist-motor"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Nro. Pistones:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" id="js-numPistones"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Capacidad (M3):</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" id="js-capacidad"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Factor Cobro:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" id="js-factorCobro"></div>
+                                    </div>
+                                </div>
+                            </div>
+                           <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-md-4 control-label"><b>Costo Total KIT:</b></label>
+                                    <div class="col-md-8">
+                                        <div class="fg-line"><input type="text" class="form-control mcss_input" disabled="disabled" id="js-costoTotal"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btn-guardar-aprob"
+                        class="btn btn-primary waves-effect">Guardar</button>
+                    <button type="button" class="btn btn-danger waves-effect"
+                        data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>  
+
+<script type="" src="../bower_components/jquery.nicescroll/dist/jquery.nicescroll.js"></script>
+
+<script type="" src="../bower_components/autosize/dist/autosize.js"></script>    
+<script type="" src="../js/tema/js/functions.js"></script>
+<script type="text/javascript"> 
+    $(function(){
+        var listaComb;
+        $.getJSON('../RestServicios/datosOrdenServicio',function(datos){
+            console.log('DatosServicios: ',datos)
+            // console.log('d1',datos[0]);
+            // console.log('d2',datos[0][0]);
+            // console.log('d3',datos[0][0].numOrdServ);
+            listaComb=datos[3]
+            $('#js-numOrdServ').html(datos[0][0].numOrdServ);
+            $('input[name="numOrdServ"]').val(datos[0][0].numOrdServ);
+            $('#js-fecha').html(datos[0][0].fecha);
+            $(datos[1]).each(function(index,item){
+                // console.log('tip: ',item)
+                $('#js-SeltTaller').append('<option value="'+item.idtall+'">'+item.nombretall+'</option>')
+            })
+            $('#js-SeltTaller').chosen()
+
+            $(datos[4]).each(function(index,item){
+                // console.log('tip: ',item)
+                $('#js-SeltRom').append('<option value="'+item.idRom+'">'+item.nombreChip+'</option>')
+            })
+            $('#js-SeltRom').chosen()
+
+            var table =$('#js_table').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                responsive:true,
+                "dom":'rt<button>',
+                // "dom":'rt<button>ip',
+                // "ordering":false,
+                "pageLength":5,
+                "scrollCollapse":true,
+                responsive:true,
+                "paging":false,
+                data:datos[2],
+                columns:[
+                     {data:'idserv'},
+                     {data:'idserv'},
+                     {data:'idserv'},
+                     {data:'idserv'},
+                     {data:'idserv'},
+                     {data:'idserv'},
+                     {data:'idserv'},
+                     {data:'idserv'},
+                     {data:'idserv'},
+                ]
+                 ,
+                "createdRow":function(row,data,index){
+                    $('td',row).eq(1).html(data.combustible.nombre);
+                    $('td',row).eq(2).html(data.reductor.tipoTecnologia);
+                    $('td',row).eq(3).html(data.cilindro.capacidad);
+                    $('td',row).eq(4).html(data.tipoMotorVehiculo.nombre)
+                    $('td',row).eq(5).html(data.numPistones)
+                    $('td',row).eq(6).html(data.precioDolares)
+                    $('td',row).eq(7).html(data.precioBolivianos)
+                    $('td',row).eq(8).html(data.factorCobro)
+                }
+            })
+            var dato="";
+            var objetoServicio,objetoFiltro;
+            $('#js_table tbody').on( 'click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+                    dato=$(this).find("td:eq(0)").text();
+                    console.log(dato);
+                $(datos[2]).each(function(i,t){
+                    if(t.idserv==dato){
+                        objetoServicio=t;
+                    }    
+                })
+                console.log('objetoServicio: ',objetoServicio)
+
+                $('input[name="idserv"]').val(objetoServicio.idserv);
+
+                $('#js-tp_tecnologia').val(objetoServicio.reductor.tipoTecnologia);
+                $('#js-sist-motor').val(objetoServicio.tipoMotorVehiculo.nombre);
+                $('#js-numPistones').val(objetoServicio.numPistones);
+                $('#js-capacidad').val(objetoServicio.cilindro.capacidad)
+                $('#js-factorCobro').val(objetoServicio.factorCobro);
+                $('#js-costoTotal').val((parseFloat(objetoServicio.precioBolivianos)+parseFloat(objetoServicio.factorCobro)).toFixed(2));
+            });
+        });
+        $('#modal-add').on('click keyup', function(e){
+            console.log('sin id?? ', (e.target.id) == '');
+            var id_busca = $('#busca').attr('id');
+            // var id_l_ben = $('.l_ben').attr('id');
+           
+            var id_click = e.target.id;
+            if(id_click !== ''){
+                // if (id_click !== id_busca && id_click !== id_l_ben) {
+                if (id_click == id_busca){
+                    var visible = $('#display').is(":visible");
+                    if (visible) {
+                        console.log('hide1')
+                        $('#display').hide()
+                    } else {
+                        console.log('entro, pero no esta visible')
+                    }
+                }else {
+                    console.log('sigue mostrando')
+                }
+            }else{
+                var visible = $('#display').is(":visible");
+                if (visible) {
+                    console.log('hide2')
+                    $('#display').hide()
+                } else {
+                    console.log('no esta visible')
+                }
+            }
+
+        })
+        $('#display').hide()
+        $('#js-busca').on('click keyup',function(e){
+            $('#js_table_filtro tbody').html('')
+            // alert('ok')
+            var texto = $(this).val();
+            console.log('tex: ',texto)
+    
+            var DTable='';
+            $.getJSON('../RestSolicitudes/FiltroSolicitudOS',{texto:texto},function(resp){
+                console.log('ListaFiltro:',resp)
+ 
+                // function iniciarDatable(resp){
+                //     DTable=$('#js_table_filtro').DataTable({
+                //         "oLanguage": {
+                //             "sUrl": "/js/dataTables/Spanish.lang"
+                //         },
+                //         responsive:true,
+                //         "dom":'rt<button>',
+                //         // "dom":'rt<button>ip',
+                //         // "ordering":false,
+                //         "pageLength":5,
+                //         "scrollCollapse":true,
+                //         responsive:true,
+                //         "paging":false,
+                //         data:resp,
+                //         columns:[
+                //              {data:'idsolt'},
+                //              {data:'idsolt'},
+                //              {data:'idsolt'},
+                //              {data:'idsolt'},
+                //         ]
+                //         ,
+                //         "createdRow":function(row,data,index){
+                //             $('td',row).eq(1).html(data.fecha);
+                //             $('td',row).eq(2).html(data.persona.nombre+' '+data.persona.ap+' '+data.persona.am);
+                //             $('td',row).eq(3).html(data.persona.ci)
+                //         }
+
+                //     })
+                // }
+
+                $(resp).each(function(i,data){
+                    $('#js_table_filtro tbody').append(`
+                        <tr>
+                            <td>${data.numSolt}</td>
+                            <td>${data.vehiculo.placa}</td>
+                            <td>${data.fecha}</td>
+                            <td>${data.persona.nombres} ${data.persona.ap} ${data.persona.am}</td>
+                            <td>${data.persona.ci}</td>
+                        </tr>          
+                    `) 
+                })
+                $('#js_table_filtro tbody').on( 'click', 'tr', function () {
+                    $('#js-comb').html('')
+                    if ( $(this).hasClass('selected') ) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        $('#js_table_filtro tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                        dato=$(this).find("td:eq(0)").text();
+                        console.log(dato);
+                    $(resp).each(function(i,t){
+                        if(t.idsolt==dato){
+                            objetoFiltro=t;
+                        }    
+                    })
+                    var objetoDatosBasicos;
+                    console.log('objetoFiltro: ',objetoFiltro)
+                    $('input[name="idsolt"]').val(objetoFiltro.idsolt)
+                    $('#js_DatosBasicos').loadJSON(objetoFiltro)
+                    $('input[name="beneficiario"]').val(objetoFiltro.persona.nombres+' '+objetoFiltro.persona.ap+' '+objetoFiltro.persona.am)
+                    $('input[name="ci"]').val(objetoFiltro.persona.ci)
+
+                    //VEHICULO
+                    $('#js_Vehiculo').loadJSON(objetoFiltro.vehiculo)
+                    $('input[name="marca"]').val(objetoFiltro.vehiculo.marcaVehiculo.nombre)
+                    $('input[name="modelo"]').val(objetoFiltro.vehiculo.modeloVehiculo.nombre)
+                    $('input[name="tipoVeh"]').val(objetoFiltro.vehiculo.tipoVehiculo.nombre)
+                    $('input[name="tipServ"]').val(objetoFiltro.vehiculo.tipoServicio.nombre)
+                    $('input[name="SistemaMotor"]').val(objetoFiltro.vehiculo.tipoMotor.nombre)
+
+                    $(listaComb).each(function(i,tg){
+                        var checked1="",checked2="";
+                        $(objetoFiltro.vehiculo.combustibleVehiculo).each(function(j,item){
+                            if (tg.idcomb==item.idcomb) {
+                                checked1="checked";
+                            }
+                        })
+                        if(checked1==""){
+                            checked2="checked"
+                        }
+                        $('#js-comb').append(`
+                            <div class="col-md-6" style="margin-top: 4px;">
+                                <div class="fg-line">${tg.nombre}</div>
+                            </div>
+                            <div class="col-md-6">
+                                <span style="">SI</span> 
+                                <input type="checkbox" disabled="disabled" class="" ${checked1}>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span style="">NO</span> 
+                                <input type="checkbox" disabled="disabled" class="" ${checked2}>
+                            </div>
+                        `)
+                    })
+                });
+            })
+            $('#display').show()
+        })  
+    })
+</script> 
+</body>
+</html> 

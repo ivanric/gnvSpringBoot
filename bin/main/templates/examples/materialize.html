@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>inicio</title>
+
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+<!--   <link rel="stylesheet" href="stylesheet/bienvenida.css"> -->
+<!--   <link rel="stylesheet" href="stylesheet/jquery-validation-options.css"> -->
+
+	<link rel="stylesheet"  href="resources/css/materialize/css/materialize.css">
+</head>
+  </head>
+
+  <body>
+  	<h3 style="text-align: center">${Hello}</h3>
+    <nav class="teal darken-3">
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo">LOGO</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">Javascript</a></li>
+            <li><a href="mobile.html">Mobile</a></li>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">Javascript</a></li>
+            <li><a href="mobile.html">Mobile</a></li>
+          </ul>
+        </div>
+    </nav>
+    <div class="container">
+      <div class="row body-gnv">
+        <div class="col s12 m4 l4"></div>
+        <div class="form-log col s12 m4 l4">
+          <form id="form-logueo" class="s12 m12 l12" method="post" action="/logueo">
+            <div class="row" style="">
+              <div class="input-field col s12 m12 l12" style="text-align:center;padding-top:10px;">
+                <i class="material-icons" style="font-size: 77px;">account_circle</i>
+              </div>
+              <div class="input-field col s12 m12 l12" style="">
+                <i class="material-icons prefix">perm_identity</i>
+                <!-- <label for="user">usuario requiere 2 caracteres como minimo</label> -->
+                <input id="user" name="user" type="text" data-rule-required="true" data-msg-required='Ingrese usuario'>
+                <label for="user">usuario</label>
+              </div>
+              <div class="input-field col s12 m12 l12">
+                <i class="material-icons prefix">lock</i>
+                <input id="password" name="password" type="password" class="validate" data-rule-required="true" data-msg-required='Ingrese contraseña'>
+                <label for="password">contraseña</label>
+              </div>
+              <div class="col s12 m12 l12"  style="text-align: center;">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Ingresar
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col s12 m4 l4">
+        </div>
+      </div>
+      <div class="row">
+        <footer class="page-footer teal darken-3">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12 m12 l12">
+                <h5 class="white-text">Universidad Autonoma Juan Misael Saracho</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              </div>
+              <div class="col l4 offset-l2 s12 m12 l12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+              © 2017 Grupo GNV
+              <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  </body>
+
+    <script type="text/javascript" src="webjars/jquery/3.2.0/jquery.js"></script>
+<!-- 	<script type="text/javascript" src="resources/js/jquery/jquery-3.2.1.js"></script> -->
+	<script type="text/javascript" src="resources/js/materialize/materialize.js"></script>
+	<!--   <script type="text/javascript" src="jquery-validation/dist/jquery.validate.js"></script> -->
+	<script type="text/javascript">
+	     $(".button-collapse").sideNav();
+	    //  $(document).ready(function(){
+	       $('#form-logueo').validate({
+	         errorElement : 'div',
+	         errorPlacement: function(error, element) {
+	           var placement = $(element).data('error');
+	           if (placement) {
+	             $(placement).append(error)
+	           } else {
+	             error.insertAfter(element);
+	           }
+	         }
+	       })
+	    //  })
+
+	  </script>
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="getEmpresa" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e1b5560-b968-4e3e-aaa2-31ecb418a939">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Connet1"/>
+	<parameter name="ID_param" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new Integer(1)]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT *
+FROM dbo.institucion
+WHERE dbo.institucion.idinst=$P{ID_param}]]>
+	</queryString>
+	<field name="idinst" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idinst"/>
+	</field>
+	<field name="nombreCompañia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombreCompañia"/>
+	</field>
+	<field name="nombreInstitucion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombreInstitucion"/>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="direccion"/>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
+	</field>
+	<field name="iddep" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="iddep"/>
+	</field>
+	<field name="nitInst" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nitInst"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="40" height="19" uuid="41dc5f00-9c96-4ac9-a356-24a33f7416a4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[NIT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="0" width="100" height="19" uuid="efd49fec-6ede-45eb-9104-fd5d3362a831"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nitInst}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

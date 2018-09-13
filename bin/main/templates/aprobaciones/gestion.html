@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>gestion</title>
+
+</head>
+<body>
+
+	<!-- <h2 style="text-align: center;">GESTION BENEFICIARIOS</h2> -->
+	<div class="card z-depth-2">
+		<div class="card-header">
+			<h2 class="panel-title">
+				GESTIÓN APROBACIONES<small>Administre aprobaciones de solcitudes
+					registradas en el Sistema</small>
+			</h2>
+		</div>
+		<div class="panel-body">		
+			 <div class="row">   
+                <div class="col-md-3 col-xs-3"></div>
+                <div class="col-md-4 col-xs-4">
+                    <input id="input-solt" class="form-control" placeholder="Ingrese número de Solicitud o cédula del beneficiario" type="" name="">    
+                </div>
+                <div class="col-md-2 col-xs-2 text-center">
+                	<button id="btn-busc" class="btn btn-success waves-effect">Buscar</button>
+                </div>
+                <div class="col-md-3 col-xs-3"></div>       
+             </div>
+             <div class="row">
+                 <div class="col-md-12" id="cont-solt">
+                    <div class="col-md-12 table-responsive">
+                        <table id="table-aprobaciones" class="table table-vmiddle nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" width="40px"># Solt</th>
+                                    <th class="text-center">fecha</th>
+                                    <th class="text-center">placa</th>
+                                    <th class="text-center">beneficiario</th>
+                                    <th class="text-center">ci</th>
+                                    <th class="text-center">Anulado</th>
+                                    <th class="text-center">Aprobado</th>
+                                    <th class="text-center">Opciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                     
+                </div>
+             </div>
+		</div>
+	</div>
+	<script type="text/javascript">
+        var GTamAprob=0;
+        var GminTam=1,GmaxTam;
+        var result=Get_Opciones(null);
+        var GDataOpciones=result;
+     	var GClickBotton=false;
+        var GAprobFinal=0;
+        var idsolt;
+        console.log('GESTION_LIST: ',result)
+     
+        function ExisteOpcion(opc){
+            // alert('entro comparar')
+            console.log(result)
+            var resultado=false;
+            for (var i = 0; i < result.AccionesUser.length; i++) {
+//                 console.log('for_: ',result.AccionesUser[i]);
+                if(result.AccionesUser[i].codigo==opc){
+                    resultado=true;         
+                }
+            }
+            // console.log('result_dentro:',resultado)              
+            return resultado;
+        }
+
+        // if(ExisteOpcion('adicionar')){
+        //     $('#btn-add').attr({
+        //         onclick:"(Gestionar.Adicionar.modal())",
+        //         // accesskey:""
+        //         })
+        //     $('#btn-add').removeAttr("disabled ").focus().val("Ahora si lo puedes utilizar")
+        // }
+		
+        var campo_busqueda=document.getElementById('input-solt').value
+        listar();
+        $('#input-solt').on('keyup',function(){
+        	campo_busqueda=$(this).val();
+        	listar();	
+        })
+			 
+        $('#btn-busc').on('click',function(resp){
+            campo_busqueda=$('#input-solt').val();
+            listar();
+            // document.getElementById('cont-solt').innerHTML=campo_busqueda
+        })  
+        // console.log('campo_busqueda: ',campo_busqueda)
+        var DTAprobaciones='';
+        function listar(){
+            $.ajax({
+                url:'../RestAprobaciones/listar',
+                type:'post',
+                dataType:'json',
+                data:{
+                    filtro:campo_busqueda
+                },
+                success:function(resp){
+                    console.log('lista_solt: ',resp)
+                    if ($.fn.DataTable.isDataTable('#table-aprobaciones')) {
+                    	DTAprobaciones.destroy();
+                        iniciarDatable(resp);       
+                    } else {
+                        iniciarDatable(resp);
+                    }   
+                },
+                error:function(err){
+                    alert('sin respuesta del servidor')
+                }
+            })
+        }
+        function iniciarDatable(lista){
+            DTAprobaciones=$('#table-aprobaciones').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                // responsive:true,
+                "dom":'rt<button>ip',
+                // "ordering":false,
+                "pageLength":5,
+                "scrollCollapse":true,
+                responsive:true,
+                "paging":false,
+                data:lista,
+                columns:[
+	                 {data:'numSolt'},
+	                 {data:'numSolt'},
+	                 {data:'numSolt'},
+	                 {data:'numSolt'},
+	                 {data:'numSolt'},
+	                 {data:'estado'},
+	                 {data:'estado'},
+	                 {data:'numSolt'},
+	             ],
+	             "createdRow":function(row,data,index){
+	                    $('td',row).eq(0).html(data.numSolt)
+	                    $('td',row).eq(1).html(data.fecha)
+	                    $('td',row).eq(2).html(data.vehiculo.placa)
+	                    $('td',row).eq(3).html(data.persona.ap+' '+data.persona.am+' '+data.persona.nombres)
+	                    $('td',row).eq(4).html(data.persona.ci)
+	                    if(data.estado==1){
+                            $('td',row).eq(5).html('<button type="button" class="btn btn-success waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-down"></i></button>').addClass('text-center').addClass('text-center');
+	                    }else{
+                            $('td',row).eq(5).html('<button type="button" class="btn btn-danger waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-up"></i></button>').addClass('text-center').addClass('text-center');
+                        }
+						if (data.aprobadoSiNo==0) {
+							$('td',row).eq(6).html('<input type="checkbox" class=""  disabled="disabled">').addClass('text-center');
+						} else {
+							$('td',row).eq(6).html('<input type="checkbox" class="" checked disabled="disabled">').addClass('text-center');
+						}
+						
+                        if(data.estado==1){
+                            if (data.aprobadoSiNo==0){
+                                $('td',row).eq(7).html('<button id="btn-aprob" class="btn bgm-indigo waves-effect btn-sm btn-espacio" accesskey="'+data.idsolt+'" data-href="'+data.idsolt+'" onclick="(Gestionar.formAprob(this))"><span class="zmdi zmdi-wrench zmdi-hc-fw"></span>Realizar Aprobaciónes</button>');
+                            }else{
+                                $('td',row).eq(7).html('<button id="btn-aprob" class="btn bgm-pink waves-effect btn-sm btn-espacio" accesskey="'+data.idsolt+'" data-href="'+data.idsolt+'" onclick="(Gestionar.formAprob(this))"><span class="zmdi zmdi-wrench zmdi-hc-fw"></span>Aprobado</button>');
+                            }   
+                        }else{
+    						if (data.aprobadoSiNo==0){
+    							$('td',row).eq(7).html('<button id="btn-aprob" class="btn bgm-indigo waves-effect btn-sm btn-espacio" accesskey="'+data.idsolt+'" data-href="'+data.idsolt+'" disabled><span class="zmdi zmdi-wrench zmdi-hc-fw"></span>Realizar Aprobaciónes</button>');
+    						}else{
+    							$('td',row).eq(7).html('<button id="btn-aprob" class="btn bgm-pink waves-effect btn-sm btn-espacio" accesskey="'+data.idsolt+'" data-href="'+data.idsolt+'" disabled><span class="zmdi zmdi-wrench zmdi-hc-fw"></span>Aprobado</button>');
+    						}	
+
+                        }
+
+                        
+	                  
+
+	                }
+	                ,
+	                "fnDrawCallback":function(oSetttings){
+	                    destruir(DTAprobaciones);
+	                }
+            })
+        }
+        function destruir(dt){
+            console.log('destroy')
+            dt.destroy();
+            DTAprobaciones=$('#table-aprobaciones').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                "dom":'rt<button>ip',
+                "pageLength":5,
+                responsive:true,
+                "scrollCollapse":true,
+                "paging":false,
+            })
+        }
+        
+        var Gestionar={
+        	formAprob:function(a){
+        		idsolt=$(a).attr('accesskey');
+        		// alert('1: '+idsolt)
+        		$.ajax({
+        			url:'../Aprobaciones/modal-add',
+        			type:'post',
+        			cache:false,
+                    async:false,
+        			success:function(resp){
+                        // alert('2: '+idsolt)			 
+                         $('#cont-modales').html(resp);
+        			     $('#formulario-add-aprob').find('#modal-add').modal('show')
+        			     document.getElementById('btn-guardar-aprob').disabled=true;
+						 $('#formulario-add-aprob').find("#btn-guardar-aprob").attr('disabled','disabled');
+						 $('#formulario-add-aprob').find("input[type=submit]").attr('disabled','disabled');
+        			},
+        			error:function(err){
+        				alert('sin respuesta del servidor ', err)
+        			}
+        		})
+        		this.EnviarFormulario();
+        	},
+        	EnviarFormulario:function(){
+        		$('#formulario-add-aprob').formValidation({
+                    fields: {
+                        'aprobacion[]': {
+                            validators: {
+                                // notEmpty: {
+                                //     message: 'Require Aprobaciones'
+                                // },
+                                choice: {
+                                    min: 1,
+                                    max: 4,
+                                    message: 'Debe Seleccionar como minimo una Aprobacion'
+                                },
+                                callback:{
+                                    // message:'callback',
+                                    callback:function(value,validators,$fields){
+                                        var id_check=$fields[0].id;
+                                        var accesskey=$fields[0].accessKey;
+                                        var Field_Id=id_check.slice(0,-1)
+                                        var ServerCheck=$('#'+Field_Id+accesskey).attr('servcheck');
+                                        var ServerCheck_ant;
+                                        var chec_ante='';
+                                        var id_ant;
+                                        var Loc_estado=true;
+                                        var invalidate=true;
+                                        var mensaje='';
+                                        var data_id=$('#'+id_check).data('id');
+
+                                        console.log('fields_:',$fields)
+                                        // console.log('id_:',id_check)
+                                        console.log('accesskey_:',accesskey)
+                                        // console.log('Field_Id_:',Field_Id)
+                                        var check_actual=$('#'+Field_Id+$fields[0].accessKey);
+                                        
+
+
+                                        // if(GClickBotton==true){
+                                        //     alert('se clickeo')
+                                        // }else{
+                                        //     alert('no se clickeo')
+                                        // } 
+                                        if(GClickBotton==false){
+                                            if(check_actual.is(':checked')){
+                                                //alert('esta checked')
+                                                PausaAprob(parseInt(accesskey)+1,data_id)
+                                            }else{
+                                                //alert('no esta checked')
+                                                invalidate=true
+                                                var boolch;    
+                                                var ck_an;
+                                                var cont=0;
+                                                for (var i = 1; i <=accesskey; i++) {
+                                                    boolch=$('#'+Field_Id+i+'').is(':checked');
+                                                    if(boolch!=true){
+                                                        cont=cont+1;
+                                                    }
+                                                    if(cont==1){
+                                                        ck_an=$('#'+Field_Id+i+'').attr('accesskey')
+                                                        id_ant=parseInt(ck_an)-1;
+
+                                                    }
+                                                }
+                                                console.log('id_ant: ',id_ant)
+                                                ServerCheck_ant=$('#'+Field_Id+id_ant+'').attr('servcheck')
+
+                                                if(ServerCheck_ant=="true"){
+                                                    PausaAprob(-1,0)
+                                                }else{
+                                                    //alert('ServerCheck_ant',false)
+                                                    // PausaAprob(parseInt(accesskey))
+                                                    PausaAprob(parseInt(ck_an),0)
+                                                }
+                                            }
+                                        }
+
+
+
+                                        if(accesskey>1){
+                                            for (var i = 1; i < accesskey; i++) {
+                                                var ckeck_for=$('#'+Field_Id+i).is(':checked');
+                                                console.log('ckeck_for_:'+i)
+                                                if(!ckeck_for){
+                                                    Loc_estado=false;
+                                                }
+                                            }
+                                        }
+                                        console.log('GTamAprob: ',GTamAprob)
+                                        var iter=parseInt(accesskey)+1;
+                                        console.log('iter:',iter)
+                                        console.log('ServerCheck: ',ServerCheck)
+                                        if(ServerCheck=="false"){
+                                            //alert('1')
+                                            for (var i =iter; i <= GTamAprob; i++) {
+                                                //alert('entro borrando: ',accesskey)
+                                                var check_before='#'+Field_Id+i;
+                                                console.log('check_before: '+check_before)
+                                                $(check_before).prop('checked',false)
+                                            }
+                                        }    
+                                        if(!Loc_estado){
+                                            //alert('2')
+                                            if(check_actual.is(':checked')){
+                                                invalidate=false;
+                                                mensaje="Debe Seguir las Aprobaciones segun su orden"
+                                            }else{
+                                                invalidate=true;
+                                            }
+                                        }else{
+                                            //alert('3')
+                                            if(accesskey==1){
+                                                var checkOne=$('#'+Field_Id+accesskey);
+                                                // var posi=parseInt(accesskey)+1;
+                                                // $('#'+Field_Id+ac).prop('checked',false)
+                                                if(checkOne.is(':checked')==false){
+                                                    // return false
+                                                    invalidate=false;
+
+                                                }
+                                            }
+                                            // return true;
+                                            // return invalidate;
+                                        }
+                                        GClickBotton=false
+                                        // return true;
+                                        return{
+                                            valid:invalidate,
+                                            message:mensaje
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+				.on('success.field.fv', function(e, data) {
+		            if (data.fv.getInvalidFields().length > 0){    // There is invalid field
+		                data.fv.disableSubmitButtons(true);
+		            }
+		        })
+				.on('success.form.fv', function(e){
+                    e.preventDefault();
+                    var $form=$(e.target);       
+                    Registrar($form);
+                })
+                function Registrar(formulario){
+                    // alert(GAprobFinal)
+                    var $form=formulario;
+                    var formData = new FormData();
+                	var params   = $form.serializeArray();
+                	var aprobacion    = $form.find('[name="aprobacion[]"]')[0];
+                    console.log('serializado: ',$form.serialize())
+                    console.log('params: ',params)
+                    console.log('aprobacion: ',aprobacion)
+                    
+                    $.each(aprobacion, function(i, aprob) {
+		                formData.append('aprob-' + i, aprob);
+		            });
+                    $.each(params, function(i, val) {
+		                formData.append(val.name, val.value);
+		            });
+                    console.log('formData: ',formData)
+
+                    if(GAprobFinal!=0){
+                        $.growl.error({
+                            title:'Advertencia', 
+                            message: "Usted realizará la aprobacion Final de esta Solicitud!",
+                            duration:5000,
+                            size:'large',
+                            location:'tc' 
+
+                        });
+                    } 
+                    swal({   
+                        title: "Seguro de registrar Aprobaciones?",   
+                        text: "Usted registrara Aprobaciones",   
+                        type: "warning",   
+                        showCancelButton: true,   
+                        confirmButtonColor: "#DD6B55",   
+                        confirmButtonText: "Si, Continuar!",   
+                        cancelButtonText: "No, Cancelar!",   
+                        closeOnConfirm: false,   
+                        closeOnCancel: false 
+                        }, function(isConfirm){   
+                            if (isConfirm) {
+							//$('input[name="idtipoPausa"]').removeAttr('disabled')    
+							
+
+                                $('#formulario-add-aprob').ajaxSubmit({
+                                    dataType:'json',
+                                    data:{
+                                        dataFinal:GAprobFinal,
+                                        idsolt:idsolt
+                                    },
+                                    success:function(res){
+                                        console.log('registrado',res)
+                                        if(res.status){
+                                            $.ajax({
+                                                url:"../Aprobaciones/Gestion",
+                                                success:function(gestion){
+                                                    $('#contenedor-gestion').html(gestion); 
+                                                    swal({
+                                                        title:"Registrado",
+                                                        text:"Se ha registrado Aprobaciones exitosamente",
+                                                        type:"success",
+                                                        timer: 2000,   
+                                                        showConfirmButton: false 
+                                                    });
+                                                    $('#formulario-add-aprob').find('#modal-add').modal('hide')
+
+                                                    $("#frameReportes").attr("src",'../RestAprobaciones/Imprimir?idsolt='+idsolt+'&'+$form.serialize());
+
+                                                    $("#reportes").modal('show');
+                                                    // $.ajax({
+                                                    // 	url:"",
+                                                    // 	typ:"post",
+                                                    // 	data:{
+
+                                                    // 	}
+                                                    // })
+                                                }
+                                            })      
+                                        }else{
+                                             swal({
+                                                title:"Error",
+                                                text:"Se ha encontrado un Error en el Sistema",
+                                                type:"error",
+                                                timer:2000,
+                                                showCancelButton:false,
+                                                showConfirmButton:false
+
+                                            })
+                                           $('#formulario-add-aprob').find('#modal-add').modal('hide')
+                                        }
+                                    }
+                                })
+
+                            } else {     
+                                // swal("Cancelled", "Your imaginary file is safe :)", "error");   
+                                swal({
+                                    title:"Cancelado",
+                                    text:"Se ha cancelado operacion",
+                                    type:"error",
+                                    timer:2000,
+                                    showCancelButton:false,
+                                    showConfirmButton:false
+
+                                })
+                               $('#formulario-add-aprob').find('#modal-add').modal('hide')
+                            } 
+                        });
+                }
+
+        	}
+        }
+
+         
+    </script>
+</body>
+</html>

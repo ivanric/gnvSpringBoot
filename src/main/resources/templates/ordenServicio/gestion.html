@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- <h2 style="text-align: center;">GESTION BENEFICIARIOS</h2> -->
+	<div class="card z-depth-2">
+		<div class="card-header">
+			<h2 class="panel-title">
+				GESTION ORDENES DE SERVICIOS <small>Administre Ordenes de Servicios
+					registrados en el Sistema</small>
+			</h2>
+		</div>
+		<div class="panel-body" style="margin-top: -30px"> 
+			<div class="row">
+				<div class="col-md-12" style="text-align: right;margin-bottom: 15px">			
+                    <!-- <button id="btn-ver" class="btn btn-danger waves-effect" accesskey="1" onclick="ver(this)">VER</button> -->
+                    <button id="btn-add" class="btn btn-default waves-effect" disabled="disabled">NUEVA ORDEN DE SERVICIO</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-3 col-xs-12" style="margin-bottom: 10px;">
+							<input type="text" id="filt-ben" name=""
+								class="form-control_filtro unput-sm"
+								placeholder=" Buscar Apellidos nombres o cedula..">
+						</div>
+						<div class="col-md-6 col-xs-12 navbar-right" style="text-align: right; margin-top: 10px">
+							<label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="activos" value="1"> <i
+								class="input-helper"></i>instalados
+							</label> <label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="bajas" value="0"> <i
+								class="input-helper"></i>no instalados
+							</label> <label class="radio radio-inline m-r-20"> <input
+								type="radio" name="iestado" id="todos" value="-1"
+								checked="checked"><i class="input-helper"></i>todos
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<table id="table-data" class="table table-vmiddle nowrap table-vmiddle"
+						width="100%">
+						<thead>
+							<tr>
+								<th class="text-center">Núm ord. Serv</th>
+								<th class="text-center">Núm. de solt</th>
+								<th class="text-center">Taller</th>
+								<th class="text-center">Servicio</th>
+                                <th class="text-center">Beneficiario</th>
+								<th class="text-center">Placa</th>
+                                <th class="text-center">Anulado</th>
+								<th class="text-center">Instalado</th>
+								<th class="text-center">Opciones</th>
+
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+        var result=Get_Opciones(null);
+        // console.log('GESTION_LIST: ',result)
+        // console.log('tam: ',result.AccionesUser.length)
+        if(ExisteOpcion('adicionar')){
+            $('#btn-add').attr({
+                onclick:"(Gestionar.add())",
+                // accesskey:""
+                })
+            $('#btn-add').removeAttr("disabled ").focus().val("Ahora si lo puedes utilizar")
+        }
+
+        function ExisteOpcion(opc){
+            // alert('entro comparar')
+            var resultado=false;
+            for (var i = 0; i < result.AccionesUser.length; i++) {
+                console.log('for_: ',result.AccionesUser[i]);
+                if(result.AccionesUser[i].codigo==opc){
+                    resultado=true;         
+                }
+            }
+            // console.log('result_dentro:',resultado)              
+            return resultado;
+        }
+
+        var filtro=$('#filt-ben').val();
+        var estado=$('input[name="iestado"]:checked').val();
+        listar();
+
+        $('#filt-ben').on('keyup',function(){
+            filtro=$(this).val();
+            listar();
+        })
+
+        $('input[name="iestado"]').on('change',function(){
+            estado=$(this).val();
+            listar();
+        })
+        var DTable='';
+        function listar(){
+            $.ajax({
+                url:'../RestServicios/listarOrdenServicio',
+                type:'post',
+                dataType:'json',
+                data:{
+                    filtro:filtro,
+                    estado:estado,
+                },
+                success:function(resp){
+                    console.log('icont_')
+                    if ($.fn.DataTable.isDataTable('#table-data')) {
+                        DTable.destroy();
+                        iniciarDatable(resp);       
+                    } else {
+                        iniciarDatable(resp);
+                    }   
+                },
+                error:function(err){
+                    alert('sin respuesta del servidor')
+                }
+            })
+        }
+      
+        function iniciarDatable(lista){
+            console.log('respuestaAjax: ',lista);
+            DTable=$('#table-data').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                responsive:true,
+                "dom":'rt<button>ip',
+                // "ordering":false,
+                "pageLength":5,
+                data:lista,
+                columns:[
+                    {data:'idordserv'},
+                    {data:'idordserv'},
+                    {data:'idordserv'},
+                    {data:'idordserv'},
+                    {data:'idordserv'},
+                    {data:'idordserv'},
+                    {data:'idordserv'},
+                    {data:'idordserv'},
+                    {data:'idordserv'},
+                ]
+                ,
+                "createdRow":function(row,data,index){
+                    $('td',row).eq(0).html(data.idordserv).addClass('text-center');
+                    $('td',row).eq(1).html(data.solicitud.numSolt).addClass('text-center');
+                    $('td',row).eq(2).html(data.taller.nombretall)
+                    $('td',row).eq(3).html(data.servicio.reductor.tipoTecnologia+' - '+data.servicio.cilindro.capacidad+' M3').addClass('text-center')
+                    $('td',row).eq(4).html(data.solicitud.persona.ap+' '+data.solicitud.persona.am+' '+data.solicitud.persona.nombres).addClass('text-center');
+                    $('td',row).eq(5).html(data.solicitud.vehiculo.placa).addClass('text-center')
+                	
+                    if (data.solicitud.estado==1) {
+                      $('td',row).eq(6).html('<button type="button" class="btn btn-success waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-down "></i></button>').addClass('text-center')
+
+                    } else {
+                        $('td',row).eq(6).html('<button type="button" class="btn btn-danger waves-effect" href="#" style="text-align:center"><i class="fa fa-thumbs-o-up"></i></button>').addClass('text-center')
+                    }
+                    if (data.instaladoSiNo==0) {
+						$('td',row).eq(7).html('<input type="checkbox" class=""  disabled="disabled">').addClass('text-center');
+					} else {
+						$('td',row).eq(7).html('<input type="checkbox" class="" checked disabled="disabled">').addClass('text-center');
+					}
+                	if(ExisteOpcion('ver')  ){
+                        // if()
+                        $('td',row).eq(8).html('<button id="btn-ver" class="btn bgm-cyan waves-effect btn-sm btn-espacio" accesskey="'+data.idordserv+'" data-href="'+data.idordserv+'" onclick="(Gestionar.ver(this))"><span class="zmdi zmdi-print"></span> Ver</button>');
+                    }else{
+                        $('td',row).eq(8).html('<button id="btn-ver" class="btn bgm-cyan waves-effect btn-sm  btn-espacio" disabled="disabled"><span class="zmdi zmdi-print"></span>Ver</button>');  
+                    }
+             
+
+                }
+                ,
+                "fnDrawCallback":function(oSetttings){
+                    destruir(DTable);
+                }
+            });
+        }
+
+        function destruir(dt){
+            console.log('destroy')
+            dt.destroy();
+            DTable=$('#table-data').DataTable({
+                "oLanguage": {
+                    "sUrl": "/js/dataTables/Spanish.lang"
+                },
+                "dom":'rt<button>ip',
+                "pageLength":5,
+                responsive:true
+            })
+        }
+            // $(function () {
+        var idOrdServ;
+        var Gestionar={
+            add:function(){
+                // alert('modal')
+                // console.log('adicionar')
+                $.post('/RestBeneficiarios/documentosBeneficiario',function(respDoc){
+                     // alert('tamanio: '+respDoc.length)
+                     cont_doc=respDoc.length 
+                })  
+                $.ajax({
+                    url:'../OrdenServicio/modal-add',
+                    type:'post',
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+                        $('#modal-add').modal('show')
+                        $('#formulario-add').formValidation({
+                        })
+                        .on('success.form.fv', function(e){
+                           e.preventDefault();
+                           
+                           Registrar();
+                        })
+
+                        function Registrar(){
+                            // $('#modal-add').modal('hide')
+                            swal({   
+                                title: "Seguro de registrar Orden de Servicio?",   
+                                text: "Usted registrara nueva Orden de Servicio",   
+                                type: "warning",   
+                                showCancelButton: true,   
+                                confirmButtonColor: "#DD6B55",   
+                                confirmButtonText: "Si, Continuar!",   
+                                cancelButtonText: "No, Cancelar!",   
+                                closeOnConfirm: false,   
+                                closeOnCancel: false 
+                                }, function(isConfirm){   
+                                    if (isConfirm) {     
+                                        $('#formulario-add').ajaxSubmit({
+                                            success:function(res){
+                                                console.log('registrado',res)
+                                                if(res.estado){
+                                                    $.ajax({
+                                                        url:"../OrdenServicio/Gestion",
+                                                        success:function(gestion){
+                                                            $('#contenedor-gestion').html(gestion); 
+                                                            $('#modal-add').modal('hide')
+
+                                                            swal({
+                                                                title:"Registrado",
+                                                                text:"Se ha registrado Orden de Servicio exitosamente",
+                                                                type:"success",
+                                                                timer: 2000,   
+                                                                showConfirmButton: false 
+                                                            });
+                                                            var idOrdServ=res.ordServ;
+                                                            $("#frameReportes").attr("src",'../RestServicios/ImprimirOS?idOrdServ='+idOrdServ);
+                                                            $("#reportes").modal('show'); 
+                                                            
+                                                        }
+                                                    })      
+                                                }
+                                            }
+                                        })
+
+                                    } else {     
+                                        // swal("Cancelled", "Your imaginary file is safe :)", "error");   
+                                        swal({
+                                            title:"Cancelado",
+                                            text:"Se ha cancelado operacion",
+                                            type:"error",
+                                            timer:2000,
+                                            showCancelButton:false,
+                                            showConfirmButton:false
+
+                                        })
+                                        $('#modal-add').modal('hide')
+                                    } 
+                                });
+
+                        }
+                    },  
+                    error:function(err){
+                        alert('sin respuesta del servidor')
+                        location.href="../principal/index"
+                    }
+                })
+            },
+            ver:function(a){
+            	idOrdServ=$(a).attr('accesskey');
+            	console.log('idOrdServ: ',idOrdServ)
+                $.ajax({
+                    url:'../OrdenServicio/modal-ver',
+                    type:"post",
+                    success:function(resp){
+                        $('#cont-modales').html(resp);
+                        $('#modal-ver').modal('show');
+                        $('#formulario-ver').formValidation({
+                        }).on('success.form.fv', function(e){
+                           e.preventDefault();
+                           imprimir();
+                        })
+                        function imprimir(){
+                            $("#frameReportes").attr("src",'../RestServicios/ImprimirOS?idOrdServ='+idOrdServ);
+                            $("#reportes").modal('show'); 
+                        }
+                    },
+                    error:function(){
+                        alert('error del Servidor')
+                    }
+                })
+            },
+
+        }
+        function resetearFormulario(form){
+            $(form).data('formValidation').resetForm(true)
+        }
+        
+        $('#generarR').click(function(){ 
+  			$("#frameReportes").attr("src",'../Beneficiarios/listaReporte');
+
+			$("#reportes").modal('show');
+  		});
+        
+        
+    // })
+        
+    </script>
+</body>
+</html>	
